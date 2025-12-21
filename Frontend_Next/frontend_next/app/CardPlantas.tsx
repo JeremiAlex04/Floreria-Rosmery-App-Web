@@ -8,8 +8,6 @@ export interface PlantCardProps extends Plant {
     showButton?: boolean;
 }
 
-//Contenedor de la tarjeta de la planta
-//Contenido Inicial
 const PlantCard = ({
     nombre,
     precio,
@@ -19,43 +17,46 @@ const PlantCard = ({
     showButton = true,
 }: PlantCardProps) => {
     return (
-        <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
+        <div className="flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
 
-            {/* Imagen */}
-            <Image
-                src={imagen}
-                alt={nombre}
-                width={400}
-                height={500}
-                className="w-full h-[300px] object-cover"
-            />
+            {/* Contenedor de Imagen con altura fija */}
+            <div className="relative h-64 w-full overflow-hidden">
+                <Image
+                    src={imagen}
+                    alt={nombre}
+                    width={400}
+                    height={500}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                />
+            </div>
 
-            {/* Contenido */}
-            <div className="p-4 text-center">
+            {/* Contenido con flex-grow para alinear el botón al final */}
+            <div className="p-5 flex flex-col flex-grow text-center">
 
-                <h3 className="font-bold text-lg mb-1">
+                <h3 className="font-bold text-lg text-gray-800 mb-1 line-clamp-2 min-h-[3.5rem] flex items-center justify-center">
                     {nombre}
                 </h3>
 
                 {categoria && (
-                    <p className="text-sm text-gray-500 mb-2">
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
                         {categoria}
                     </p>
                 )}
 
-                <p className="text-xl font-bold text-red-600 mb-4">
-                    S/ {precio.toFixed(2)}
-                </p>
+                <div className="mt-auto">
+                    <p className="text-2xl font-black text-[#D4145A] mb-4">
+                        S/ {precio.toFixed(2)}
+                    </p>
 
-                {showButton && (
-                    <button
-                        onClick={onAddToCart}
-                        className="w-full bg-[#FF6F91] hover:bg-pink-600 text-white font-bold py-2 rounded-lg transition"
-                    >
-                        Añadir al carrito
-                    </button>
-                )}
-
+                    {showButton && (
+                        <button
+                            onClick={onAddToCart}
+                            className="w-full bg-[#FF6F91] hover:bg-[#D4145A] text-white font-bold py-3 rounded-xl transition-colors shadow-md hover:shadow-lg active:scale-95"
+                        >
+                            Añadir al carrito
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     );

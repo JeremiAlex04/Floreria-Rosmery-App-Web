@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   },
 };
 
+{/*Estructura de la pagina Inicial del sitio web*/ }
 export default function RootLayout({
   children,
 }: Readonly<{

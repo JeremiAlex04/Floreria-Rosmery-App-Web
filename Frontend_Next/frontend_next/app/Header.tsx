@@ -83,50 +83,22 @@ export default function Header() {
                             {/*Modal QS*/}
                             <ModalQS isOpen={modalQSOpen} onClose={() => setModalQSOpen(false)} />
                         </li>
-                        <li>
-                            <Link href="/carrito" className="hover:text-pink-100 transition-colors">
-                                Carrito
-                            </Link>
-                        </li>
                     </ul>
 
                     {/* Buscador con Sugerencias */}
                     <div className="relative mt-4 lg:mt-0 lg:ml-8">
                         <form className="flex" action="/buscar">
-                            <input
-                                type="search"
-                                name="q"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                placeholder="Buscar flores..."
-                                className="px-4 py-2 bg-white rounded-l-md font-medium text-gray-700 focus:ring-2 focus:ring-white outline-none w-full lg:w-56 transition-all"
-                                autoComplete="off"
-                            />
-                            <button
-                                type="submit"
-                                className="bg-[#D4145A] hover:bg-[#B0124A] text-white font-bold px-5 py-2 rounded-r-md transition-colors"
-                            >
-                                Buscar
-                            </button>
+                            <input type="search" name="q" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Buscar flores..." className="px-4 py-2 bg-white rounded-l-md font-medium text-gray-700 focus:ring-2 focus:ring-white outline-none w-full lg:w-56 transition-all" autoComplete="off" />
+                            <button type="submit" className="bg-[#D4145A] hover:bg-[#B0124A] text-white font-bold px-5 py-2 rounded-r-md transition-colors">Buscar</button>
                         </form>
 
                         {/* Dropdown de Sugerencias */}
                         {suggestions.length > 0 && (
                             <div className="absolute top-full left-0 right-0 bg-white shadow-xl rounded-b-lg mt-1 overflow-hidden z-50 border border-gray-100 animate-in fade-in slide-in-from-top-2 duration-200">
                                 {suggestions.map((plant) => (
-                                    <Link
-                                        key={plant.id}
-                                        href={`/buscar?q=${plant.nombre}`}
-                                        className="flex items-center gap-3 p-3 hover:bg-pink-50 transition-colors border-b last:border-0"
-                                        onClick={() => setQuery("")}
-                                    >
+                                    <Link key={plant.id} href={`/buscar?q=${plant.nombre}`} className="flex items-center gap-3 p-3 hover:bg-pink-50 transition-colors border-b last:border-0" onClick={() => setQuery("")}>
                                         <div className="w-10 h-10 relative flex-shrink-0">
-                                            <Image
-                                                src={plant.imagen}
-                                                alt={plant.nombre}
-                                                fill
-                                                className="object-cover rounded-md"
-                                            />
+                                            <Image src={plant.imagen} alt={plant.nombre} fill className="object-cover rounded-md" />
                                         </div>
                                         <div className="flex flex-col overflow-hidden">
                                             <span className="text-sm font-bold text-gray-800 truncate">{plant.nombre}</span>

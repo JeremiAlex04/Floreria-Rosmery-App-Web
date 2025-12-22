@@ -1,6 +1,5 @@
-import CatalogPlantas from "./CatalogPlantas";
 import ProductosPrincipales from "./ProductosPrincipales";
-
+import Carousel from "./Carrusel";
 
 export default function HomePage() {
   return (

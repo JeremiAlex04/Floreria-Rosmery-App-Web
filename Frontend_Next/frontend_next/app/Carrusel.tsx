@@ -1,20 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const slides = [
     {
-        img: '/img-carrusel/foto1.jpg',
+        img: '/img/img-carrusel/foto1.jpg',
         title: 'Armonía floral en tonos suaves y vibrantes',
         text: 'Un delicado arreglo de rosas, hortensias y claveles en colores pastel y amarillos intensos, que transmiten frescura, alegría y elegancia natural.',
     },
     {
-        img: '/img-carrusel/foto2.jpg',
+        img: '/img/img-carrusel/foto2.jpg',
         title: 'Lirio Blanco',
         text: 'Flores blancas de lirio, elegantes y puras, ideales para eventos formales.',
     },
     {
-        img: '/img-carrusel/foto3.jpg',
+        img: '/img/img-carrusel/foto3.jpg',
         title: 'Retama',
         text: 'Flores amarillas de retama, vivaces y alegres, perfectas para transmitir energía.',
     },
@@ -29,11 +29,18 @@ export default function Carousel() {
     const next = () =>
         setCurrent((current + 1) % slides.length);
 
+    useEffect(() => {
+        const timer = setInterval(() => {
+            next();
+        }, 5000); // Cambia cada 5 segundos
+
+        return () => clearInterval(timer);
+    }, [current]);
+
     return (
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full overflow-hidden" style={{ height: '500px' }}>
             {slides.map((slide, index) => (
                 <div key={index} className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100 z-10' : 'opacity-0'}`}>
-                    <img src={slide.img} alt={slide.title} className="w-full h-[500px] object-cover" />
                     <img src={slide.img} alt={slide.title} className="w-full h-[500px] object-cover" />
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 bg-black/30">
                         <h5 className="text-2xl font-bold text-white drop-shadow-lg">

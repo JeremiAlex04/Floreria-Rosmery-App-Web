@@ -13,13 +13,14 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-//Colocar imagen a la pesataña de la pagina
+
 export const metadata: Metadata = {
   title: "Floreria Rosmery",
   description: "Floreria Rosmery",
+  //Colocar imagen a la pesataña de la pagina
   icons: {
-    icon: "/img-logo/logov2-ico-v1.ico"
-  }
+    icon: "/img-logo/logov2-ico-v1.ico",
+  },
 };
 
 {/*Estructura de la pagina Inicial del sitio web*/ }

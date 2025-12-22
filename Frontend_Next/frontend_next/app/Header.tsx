@@ -49,7 +49,7 @@ export default function Header() {
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+            className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
                 ? "bg-white/80 backdrop-blur-md py-2 shadow-lg"
                 : "bg-[#FF6F91] py-4"
                 }`}
@@ -76,19 +76,20 @@ export default function Header() {
                     <ul className={`flex space-x-8 text-sm font-bold uppercase tracking-wider ${scrolled ? "text-gray-700" : "text-white"
                         }`}>
                         <li>
-                            <Link href="/" className="hover:text-[#D4145A] transition-colors relative group">
+                            <Link href="/" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
                                 Inicio
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
                             </Link>
                         </li>
                         <li>
-                            <Link href="/catalogo" className="hover:text-[#D4145A] transition-colors relative group">
+                            <Link href="#catalogo" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
                                 Catálogo
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
                             </Link>
                         </li>
                         <li>
-                            <Link href="#contacto" className="hover:text-[#D4145A] transition-colors relative group">
+                            {/*Colocar la letra en minusculas, iniciales en mayusculas*/}
+                            <Link href="#contacto" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
                                 Contacto
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
                             </Link>

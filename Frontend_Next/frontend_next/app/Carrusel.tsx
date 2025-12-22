@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const slides = [
     {
@@ -38,15 +39,27 @@ export default function Carousel() {
     }, [current]);
 
     return (
-        <div className="relative w-full overflow-hidden" style={{ height: '500px' }}>
+        <div className="relative w-full h-[500px] overflow-hidden bg-gray-100">
             {slides.map((slide, index) => (
-                <div key={index} className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100 z-10' : 'opacity-0'}`}>
-                    <img src={slide.img} alt={slide.title} className="w-full h-[500px] object-cover" />
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 bg-black/30">
-                        <h5 className="text-2xl font-bold text-white drop-shadow-lg">
+                <div
+                    key={index}
+                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                        }`}
+                >
+                    <Image
+                        src={slide.img}
+                        alt={slide.title}
+                        fill
+                        priority={index === 0} // Precargar la primera imagen siempre
+                        className="object-cover"
+                        sizes="100vw"
+                    />
+                    {/* Overlay para texto */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 bg-black/30 z-20">
+                        <h5 className="text-2xl md:text-4xl font-bold text-white drop-shadow-lg transform transition-all duration-700 delay-300 translate-y-0 opacity-100">
                             {slide.title}
                         </h5>
-                        <p className="mt-3 max-w-3xl font-semibold text-white drop-shadow-lg">
+                        <p className="mt-4 max-w-3xl font-semibold text-white text-lg drop-shadow-lg transform transition-all duration-700 delay-500 translate-y-0 opacity-100">
                             {slide.text}
                         </p>
                     </div>
@@ -54,15 +67,16 @@ export default function Carousel() {
             ))}
 
             {/* Indicadores */}
-            <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+            <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 gap-3">
                 {slides.map((_, index) => (
                     <button
                         key={index}
                         onClick={() => setCurrent(index)}
                         className={`
-              h-3 w-3 rounded-full transition
-              ${index === current ? 'bg-white' : 'bg-white/50'}
-            `}
+                            h-3 w-3 rounded-full transition-all duration-300
+                            ${index === current ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/80'}
+                        `}
+                        aria-label={`Ir a slide ${index + 1}`}
                     />
                 ))}
             </div>
@@ -70,16 +84,18 @@ export default function Carousel() {
             {/* Controles */}
             <button
                 onClick={prev}
-                className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white hover:bg-black/60"
+                className="absolute left-6 top-1/2 z-30 -translate-y-1/2 rounded-full bg-black/20 p-4 text-white backdrop-blur-sm transition-all hover:bg-black/50 hover:scale-110 active:scale-95"
+                aria-label="Anterior"
             >
-                ‹
+                <span className="text-2xl">‹</span>
             </button>
 
             <button
                 onClick={next}
-                className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white hover:bg-black/60"
+                className="absolute right-6 top-1/2 z-30 -translate-y-1/2 rounded-full bg-black/20 p-4 text-white backdrop-blur-sm transition-all hover:bg-black/50 hover:scale-110 active:scale-95"
+                aria-label="Siguiente"
             >
-                ›
+                <span className="text-2xl">›</span>
             </button>
         </div>
     );

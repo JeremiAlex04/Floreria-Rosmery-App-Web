@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { plants, Plant } from "./API_Plantas";
+import ModalQS from "./ModalQS";
 
 export default function Header() {
     const [query, setQuery] = useState("");
@@ -29,6 +30,9 @@ export default function Header() {
             setSuggestions([]);
         }
     }, [query]);
+
+    // Modal QS
+    const [modalQSOpen, setModalQSOpen] = useState(false);
 
     return (
         <nav className="bg-[#FF6F91] px-4 py-3 shadow-md sticky top-0 z-50" role="navigation" aria-label="Navegación principal">
@@ -73,9 +77,11 @@ export default function Header() {
                             </Link>
                         </li>
                         <li>
-                            <Link href="#quienes-somos" className="hover:text-pink-100 transition-colors">
+                            <Link href="#quienes-somos" onClick={(e) => { e.preventDefault(); setModalQSOpen(true); }} className="hover:text-pink-100 transition-colors">
                                 Quiénes somos
                             </Link>
+                            {/*Modal QS*/}
+                            <ModalQS isOpen={modalQSOpen} onClose={() => setModalQSOpen(false)} />
                         </li>
                         <li>
                             <Link href="/carrito" className="hover:text-pink-100 transition-colors">
@@ -134,6 +140,6 @@ export default function Header() {
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav >
     );
 }

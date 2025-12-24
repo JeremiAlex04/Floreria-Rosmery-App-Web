@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: "Floreria Rosmery",
   //Colocar imagen a la pesataña de la pagina
   icons: {
-    icon: "/img-logo/logov2-ico-v1.ico",
+    icon: "/img/img-logo/logov2-ico-v1.ico",
   },
 };
 

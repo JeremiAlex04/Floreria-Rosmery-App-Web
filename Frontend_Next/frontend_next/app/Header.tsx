@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { plants, Plant } from "./API_Plantas";
 import ModalQS from "./ModalQS";
 import { FiSearch, FiMenu, FiX, FiShoppingCart, FiUser } from "react-icons/fi";
@@ -14,6 +14,7 @@ export default function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const pathname = usePathname();
+    const router = useRouter();
 
     // Lógica para el scroll
     useEffect(() => {
@@ -140,13 +141,14 @@ export default function Header() {
                                 </div>
                             )}
                         </div>
-
+                        {/*Boton de inicio de sesion - Tiene que ir a la pagina de inicio de sesion*/}
                         <button className={`p-2 rounded-full transition-colors ${scrolled ? "bg-gray-100 text-gray-600 hover:bg-gray-200" : "bg-white/10 text-white hover:bg-white/20"
-                            }`}>
+                            }`} onClick={() => router.push("/iniciosesion")}>
                             <FiUser size={20} />
                         </button>
+                        {/*Boton de carrito*/}
                         <button className={`p-2 rounded-full relative transition-colors ${scrolled ? "bg-[#D4145A] text-white hover:bg-[#B0124A]" : "bg-white text-[#FF6F91] hover:bg-gray-100"
-                            }`}>
+                            }`} onClick={() => router.push("/Carrito")}>
                             <FiShoppingCart size={20} />
                             <span className="absolute -top-1 -right-1 bg-yellow-400 text-xs text-pink-900 font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
                         </button>
@@ -173,14 +175,14 @@ export default function Header() {
                 }`} style={{ top: scrolled ? '64px' : '88px' }}>
                 <div className="flex flex-col p-8 space-y-6">
                     <Link href="/" className="text-2xl font-bold text-gray-800 border-b pb-4">Inicio</Link>
-                    <Link href="/catalogo" className="text-2xl font-bold text-gray-800 border-b pb-4">Catálogo</Link>
+                    <Link href="#catalogo" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-bold text-gray-800 border-b pb-4">Catálogo</Link>
                     <Link href="#contacto" className="text-2xl font-bold text-gray-800 border-b pb-4">Contacto</Link>
                     <button onClick={() => setModalQSOpen(true)} className="text-2xl font-bold text-gray-800 border-b pb-4 text-left">Nosotros</button>
                     <div className="pt-8 flex space-x-4">
-                        <button className="flex-1 bg-gray-100 py-4 rounded-2xl font-bold text-gray-600 flex items-center justify-center gap-2">
+                        <button onClick={() => { router.push("/iniciosesion"); setMobileMenuOpen(false); }} className="flex-1 bg-gray-100 py-4 rounded-2xl font-bold text-gray-600 flex items-center justify-center gap-2">
                             <FiUser /> Mi Cuenta
                         </button>
-                        <button className="flex-1 bg-[#D4145A] py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2">
+                        <button onClick={() => { router.push("/Carrito"); setMobileMenuOpen(false); }} className="flex-1 bg-[#D4145A] py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2">
                             <FiShoppingCart /> Carrito
                         </button>
                     </div>

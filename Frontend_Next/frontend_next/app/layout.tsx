@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Header from "./Header";
-import Footer from "./Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,6 +11,8 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+import LayoutWrapper from "./LayoutWrapper";
 
 export const metadata: Metadata = {
   title: "Floreria Rosmery",
@@ -34,14 +34,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/*Estructura de la pagina completa*/}
-        {/*Header*/}
-        <Header />
-        {/*Contenido*/}
-        {children}
-        {/*Footer*/}
-
-        <Footer />
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

@@ -7,13 +7,7 @@ import { FiShoppingBag, FiTrash2, FiMinus, FiPlus, FiArrowLeft } from "react-ico
 import { useCart } from "../../context/CartContext";
 
 export default function CarritoPage() {
-    const { cart, removeFromCart, addToCart, totalPrice, totalItems } = useCart();
-
-    const handleRemoveOne = (id: number) => {
-        // Podríamos implementar una función para reducir cantidad, 
-        // pero por ahora addToCart aumentará y removeFromCart quitará todo el rubro.
-        removeFromCart(id);
-    };
+    const { cart, removeFromCart, addToCart, decreaseQuantity, totalPrice, totalItems } = useCart();
 
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -55,8 +49,22 @@ export default function CarritoPage() {
                                         <p className="text-sm text-gray-400">{item.categoria}</p>
                                         <div className="flex items-center justify-between mt-2">
                                             <p className="font-black text-[#D4145A]">S/ {item.precio.toFixed(2)}</p>
-                                            <div className="flex items-center gap-3 bg-gray-50 px-3 py-1 rounded-lg">
-                                                <span className="text-sm font-bold text-gray-600">Cant: {item.quantity}</span>
+
+                                            {/* Controles de Cantidad */}
+                                            <div className="flex items-center gap-2 bg-gray-50 p-1 rounded-xl border border-gray-100">
+                                                <button
+                                                    onClick={() => decreaseQuantity(item.id)}
+                                                    className="p-1.5 hover:bg-white hover:text-[#D4145A] rounded-lg transition-all text-gray-400"
+                                                >
+                                                    <FiMinus size={16} />
+                                                </button>
+                                                <span className="w-8 text-center font-bold text-gray-700">{item.quantity}</span>
+                                                <button
+                                                    onClick={() => addToCart(item)}
+                                                    className="p-1.5 hover:bg-white hover:text-[#D4145A] rounded-lg transition-all text-gray-400"
+                                                >
+                                                    <FiPlus size={16} />
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

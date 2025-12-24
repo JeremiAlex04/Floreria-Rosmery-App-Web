@@ -10,6 +10,7 @@ interface CartItem extends Plant {
 interface CartContextType {
     cart: CartItem[];
     addToCart: (product: Plant) => void;
+    decreaseQuantity: (productId: number) => void; // Nueva función
     removeFromCart: (productId: number) => void;
     clearCart: () => void;
     totalItems: number;
@@ -48,6 +49,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         });
     };
 
+    const decreaseQuantity = (productId: number) => {
+        setCart((prevCart) => {
+            const existingItem = prevCart.find((item) => item.id === productId);
+            if (existingItem && existingItem.quantity > 1) {
+                return prevCart.map((item) =>
+                    item.id === productId
+                        ? { ...item, quantity: item.quantity - 1 }
+                        : item
+                );
+            }
+            return prevCart.filter((item) => item.id !== productId);
+        });
+    };
+
     const removeFromCart = (productId: number) => {
         setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
     };
@@ -60,7 +75,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const totalPrice = cart.reduce((sum, item) => sum + item.precio * item.quantity, 0);
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, totalItems, totalPrice }}>
+        <CartContext.Provider value={{ cart, addToCart, decreaseQuantity, removeFromCart, clearCart, totalItems, totalPrice }}>
             {children}
         </CartContext.Provider>
     );

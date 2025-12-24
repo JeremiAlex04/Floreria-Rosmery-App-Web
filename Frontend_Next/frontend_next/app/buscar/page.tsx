@@ -1,8 +1,12 @@
+"use client";
+
 import { plants } from "@/app/API_Plantas";
 import PlantCard from "@/app/CardPlantas";
+import { useCart } from "@/context/CartContext";
 
 export default function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
     const query = searchParams.q || "";
+    const { addToCart } = useCart();
 
     // Filtrar plantas por nombre o categoría
     const filteredPlants = plants.filter((plant) =>
@@ -19,7 +23,11 @@ export default function SearchPage({ searchParams }: { searchParams: { q?: strin
             {filteredPlants.length > 0 ? (
                 <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {filteredPlants.map((plant) => (
-                        <PlantCard key={plant.id} {...plant} />
+                        <PlantCard
+                            key={plant.id}
+                            {...plant}
+                            onAddToCart={() => addToCart(plant)}
+                        />
                     ))}
                 </section>
             ) : (

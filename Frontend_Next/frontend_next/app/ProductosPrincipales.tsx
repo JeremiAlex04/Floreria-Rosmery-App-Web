@@ -2,8 +2,10 @@
 
 import PlantCard from "./CardPlantas";
 import { plants } from "./API_Plantas";
+import { useCart } from "../context/CartContext";
 
 export default function ProductosPrincipales() {
+    const { addToCart } = useCart();
     return (
         <>
             <div className="w-full p-8 rounded-2xl shadow-sm text-black bg-[#ffb6c1] bg-[url('/img/img-catalogo/BnCatalogo.png')] bg-cover bg-center mb-8 min-h-[160px] flex items-center justify-end">
@@ -16,7 +18,7 @@ export default function ProductosPrincipales() {
             </div>
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 {plants.map((plant) => (
-                    <PlantCard key={plant.id} {...plant} onAddToCart={() => console.log(`Añadido al carrito: ${plant.nombre}`)} />
+                    <PlantCard key={plant.id} {...plant} onAddToCart={() => addToCart(plant)} />
                 ))}
             </section>
         </>

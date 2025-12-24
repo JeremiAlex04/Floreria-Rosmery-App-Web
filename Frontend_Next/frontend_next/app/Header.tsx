@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { plants, Plant } from "./API_Plantas";
 import ModalQS from "./ModalQS";
 import { FiSearch, FiMenu, FiX, FiShoppingCart, FiUser } from "react-icons/fi";
+import { useCart } from "../context/CartContext";
 
 export default function Header() {
     const [query, setQuery] = useState("");
@@ -15,6 +16,7 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
+    const { totalItems } = useCart();
 
     // Lógica para el scroll
     useEffect(() => {
@@ -150,7 +152,11 @@ export default function Header() {
                         <button className={`p-2 rounded-full relative transition-colors ${scrolled ? "bg-[#D4145A] text-white hover:bg-[#B0124A]" : "bg-white text-[#FF6F91] hover:bg-gray-100"
                             }`} onClick={() => router.push("/Carrito")}>
                             <FiShoppingCart size={20} />
-                            <span className="absolute -top-1 -right-1 bg-yellow-400 text-xs text-pink-900 font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                            {totalItems > 0 && (
+                                <span className="absolute -top-1 -right-1 bg-yellow-400 text-xs text-pink-900 font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white animate-bounce-short">
+                                    {totalItems}
+                                </span>
+                            )}
                         </button>
                     </div>
                 </div>

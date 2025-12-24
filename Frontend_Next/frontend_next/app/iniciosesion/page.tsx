@@ -15,10 +15,8 @@ export default function InicioSesionPage() {
             className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative bg-no-repeat bg-cover bg-center"
             style={{ backgroundImage: "url('/img/global/FondoInicioSesion.jpg')" }}
         >
-            {/* Overlay para mejorar legibilidad */}
             <div className="absolute inset-0 bg-black/30"></div>
 
-            {/* Botón para volver */}
             <div className="absolute top-8 left-8 z-10">
                 <Link
                     href="/"

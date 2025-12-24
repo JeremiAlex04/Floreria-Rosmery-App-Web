@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 import LayoutWrapper from "./LayoutWrapper";
+import { CartProvider } from "../context/CartContext";
 
 export const metadata: Metadata = {
   title: "Floreria Rosmery",
@@ -34,7 +35,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <CartProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </CartProvider>
       </body>
     </html>
   );

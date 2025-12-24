@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FiArrowLeft } from "react-icons/fi";
 
 export default function InicioSesionPage() {
@@ -11,12 +12,21 @@ export default function InicioSesionPage() {
     };
 
     return (
-        <div
-            className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative bg-no-repeat bg-cover bg-center"
-            style={{ backgroundImage: "url('/img/global/FondoInicioSesion.jpg')" }}
-        >
-            <div className="absolute inset-0 bg-black/30"></div>
+        <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+            {/* Imagen de fondo optimizada con Next.js */}
+            <Image
+                src="/img/global/FondoInicioSesion.jpg"
+                alt="Fondo de inicio de sesión"
+                fill
+                priority
+                className="object-cover z-0"
+                quality={85}
+            />
 
+            {/* Overlay para mejorar legibilidad */}
+            <div className="absolute inset-0 bg-black/40 z-0"></div>
+
+            {/* Botón para volver */}
             <div className="absolute top-8 left-8 z-10">
                 <Link
                     href="/"

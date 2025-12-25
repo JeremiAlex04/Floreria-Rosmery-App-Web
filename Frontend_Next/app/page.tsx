@@ -1,6 +1,7 @@
 import ProductosPrincipales from "./ProductosPrincipales";
 import Carousel from "./Carrusel";
 import Beneficios from "./Beneficios";
+import TestimonioReseña from "./TestimonioReseña";
 
 export default function HomePage() {
   return (
@@ -9,6 +10,7 @@ export default function HomePage() {
       <Beneficios />
       <main className="max-w-7xl mx-auto px-4 py-8">
         <ProductosPrincipales />
+        <TestimonioReseña />
       </main>
     </>
   );

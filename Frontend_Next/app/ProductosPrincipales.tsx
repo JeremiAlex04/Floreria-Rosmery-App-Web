@@ -21,6 +21,8 @@ export default function ProductosPrincipales() {
                     <PlantCard key={plant.id} {...plant} onAddToCart={() => addToCart(plant)} />
                 ))}
             </section>
+
+           
         </>
     );
 }

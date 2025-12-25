@@ -86,7 +86,7 @@ export default function Header() {
                         </li>
                         <li>
                             <Link href="/catalogo" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
-                                Catálogo
+                                Categorias
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
                             </Link>
                         </li>
@@ -181,7 +181,7 @@ export default function Header() {
                 }`} style={{ top: scrolled ? '64px' : '88px' }}>
                 <div className="flex flex-col p-8 space-y-6">
                     <Link href="/" className="text-2xl font-bold text-gray-800 border-b pb-4">Inicio</Link>
-                    <Link href="#catalogo" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-bold text-gray-800 border-b pb-4">Catálogo</Link>
+                    <Link href="/catalogo" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-bold text-gray-800 border-b pb-4">Catálogo</Link>
                     <Link href="#contacto" className="text-2xl font-bold text-gray-800 border-b pb-4">Contacto</Link>
                     <button onClick={() => setModalQSOpen(true)} className="text-2xl font-bold text-gray-800 border-b pb-4 text-left">Nosotros</button>
                     <div className="pt-8 flex space-x-4">

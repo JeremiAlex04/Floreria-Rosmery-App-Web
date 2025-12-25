@@ -8,7 +8,7 @@ export default function ProductosPrincipales() {
     const { addToCart } = useCart();
     return (
         <>
-            <div className="w-full p-8 rounded-2xl shadow-sm text-black bg-[#ffb6c1] bg-[url('/img/img-catalogo/BnCatalogo.png')] bg-cover bg-center mb-8 min-h-[160px] flex items-center justify-end">
+            <div className="w-full p-8 rounded-2xl shadow-sm text-black bg-[url('/img/img-catalogo/BnCatalogo.png')] bg-cover bg-center mb-8 min-h-[160px] flex items-center justify-end">
                 <div className="pr-12 md:pr-24 lg:pr-32 max-w-xl text-right">
                     <p className="font-black text-3xl md:text-4xl uppercase tracking-tighter text-black drop-shadow-sm">
                         Productos Populares
@@ -22,7 +22,7 @@ export default function ProductosPrincipales() {
                 ))}
             </section>
 
-           {/**/}
+            {/**/}
         </>
     );
 }

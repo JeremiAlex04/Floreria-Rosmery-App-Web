@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 
 import LayoutWrapper from "./LayoutWrapper";
 import { CartProvider } from "../context/CartContext";
+import WhatsAppButton from "./WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "Floreria Rosmery",
@@ -37,6 +38,7 @@ export default function RootLayout({
       >
         <CartProvider>
           <LayoutWrapper>{children}</LayoutWrapper>
+          <WhatsAppButton />
         </CartProvider>
       </body>
     </html>

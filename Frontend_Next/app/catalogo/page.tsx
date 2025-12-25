@@ -51,9 +51,12 @@ function CatalogContent() {
         } else {
             if (categoryParam) {
                 result = result.filter((p) => p.categoria.toLowerCase() === categoryParam.toLowerCase());
-            }
-            if (ocasionParam) {
-                result = result.filter((p) => p.ocasion.includes(ocasionParam.toLowerCase()));
+            } else if (ocasionParam) {
+                // Si no hay categoría pero sí ocasión, filtramos por ocasión
+                result = result.filter((p) =>
+                    p.ocasion.some(o => o.toLowerCase() === ocasionParam.toLowerCase()) ||
+                    p.categoria.toLowerCase() === ocasionParam.toLowerCase()
+                );
             }
         }
 

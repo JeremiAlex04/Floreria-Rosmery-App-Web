@@ -85,7 +85,7 @@ export default function Header() {
                             </Link>
                         </li>
                         <li>
-                            <Link href="#catalogo" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
+                            <Link href="/catalogo" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
                                 Catálogo
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
                             </Link>

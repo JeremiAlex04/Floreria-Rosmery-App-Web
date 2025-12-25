@@ -5,9 +5,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { plants, Plant } from "../API_Plantas";
 import PlantCard from "../CardPlantas";
 import CardCategoria from "../CardCategoria";
-import { FiSearch, FiArrowLeft } from "react-icons/fi";
+import { FiSearch, FiArrowLeft, FiFilter } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
-
 
 function CatalogContent() {
     const searchParams = useSearchParams();
@@ -18,6 +17,8 @@ function CatalogContent() {
     const ocasionParam = searchParams.get("ocasion") || "";
 
     const [query, setQuery] = useState("");
+    const [sortBy, setSortBy] = useState("default");
+    const [maxPrice, setMaxPrice] = useState(300);
     const [filteredPlants, setFilteredPlants] = useState<Plant[]>(plants);
 
     // Definición de categorías según el orden y nombres de las imágenes en public/img/img-catalogo
@@ -41,18 +42,19 @@ function CatalogContent() {
     ];
 
     useEffect(() => {
-        let result = plants;
+        let result = [...plants];
 
+        // Filtrado por texto
         if (query) {
             result = result.filter((p) =>
                 p.nombre.toLowerCase().includes(query.toLowerCase()) ||
                 p.categoria.toLowerCase().includes(query.toLowerCase())
             );
         } else {
+            // Filtrado por categoría o ocasión de la URL
             if (categoryParam) {
                 result = result.filter((p) => p.categoria.toLowerCase() === categoryParam.toLowerCase());
             } else if (ocasionParam) {
-                // Si no hay categoría pero sí ocasión, filtramos por ocasión
                 result = result.filter((p) =>
                     p.ocasion.some(o => o.toLowerCase() === ocasionParam.toLowerCase()) ||
                     p.categoria.toLowerCase() === ocasionParam.toLowerCase()
@@ -60,10 +62,22 @@ function CatalogContent() {
             }
         }
 
-        setFilteredPlants(result);
-    }, [query, categoryParam, ocasionParam]);
+        // Filtrado por precio
+        result = result.filter((p) => p.precio <= maxPrice);
 
-    const isFiltered = categoryParam || ocasionParam || query;
+        // Ordenamiento
+        if (sortBy === "price_asc") {
+            result.sort((a, b) => a.precio - b.precio);
+        } else if (sortBy === "price_desc") {
+            result.sort((a, b) => b.precio - a.precio);
+        } else if (sortBy === "name_asc") {
+            result.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        }
+
+        setFilteredPlants(result);
+    }, [query, categoryParam, ocasionParam, sortBy, maxPrice]);
+
+    const isFiltered = categoryParam || ocasionParam || query || sortBy !== "default" || maxPrice < 300;
 
     return (
         <div className="min-h-screen bg-gray-50 pt-32 pb-20">
@@ -71,7 +85,6 @@ function CatalogContent() {
 
                 {/* Header Dinámico como Banner */}
                 <div className="mb-12 text-center bg-[url('/img/img-catalogo/BnCatalogo.png')] bg-cover bg-center p-12 md:p-20 rounded-3xl shadow-sm relative overflow-hidden flex flex-col items-center justify-center min-h-[200px]">
-                    {/* Overlay suave para legibilidad */}
                     <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px]"></div>
 
                     <div className="relative z-10">
@@ -84,31 +97,72 @@ function CatalogContent() {
                                 Selecciona una categoría para explorar nuestros arreglos exclusivos.
                             </p>
                         )}
+                        {isFiltered && (
+                            <p className="text-gray-600 font-bold bg-white/60 px-4 py-1 rounded-full inline-block text-sm uppercase tracking-widest">
+                                {filteredPlants.length} Arreglos encontrados
+                            </p>
+                        )}
                     </div>
                 </div>
 
-                {/* Barra de Búsqueda y Navegación */}
-                <div className="flex flex-col md:flex-row gap-4 mb-10 items-center">
-                    {isFiltered && (
-                        <button
-                            onClick={() => {
-                                setQuery("");
-                                router.push("/catalogo");
-                            }}
-                            className="flex items-center gap-2 px-6 py-4 bg-white rounded-2xl shadow-sm text-gray-600 font-bold hover:text-[#D4145A] transition-all border border-gray-100"
-                        >
-                            <FiArrowLeft /> Volver a Categorías
-                        </button>
-                    )}
+                {/* Barra de Búsqueda y Filtros */}
+                <div className="flex flex-col gap-6 mb-12">
+                    <div className="flex flex-col md:flex-row gap-4 items-center">
+                        {isFiltered && (
+                            <button
+                                onClick={() => {
+                                    setQuery("");
+                                    setSortBy("default");
+                                    setMaxPrice(300);
+                                    router.push("/catalogo");
+                                }}
+                                className="flex items-center gap-2 px-6 py-4 bg-white rounded-2xl shadow-sm text-gray-600 font-bold hover:text-[#D4145A] transition-all border border-gray-100 whitespace-nowrap"
+                            >
+                                <FiArrowLeft /> Limpiar Filtros
+                            </button>
+                        )}
 
-                    <div className="relative flex-1 w-full">
-                        <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 size-5" />
+                        <div className="relative flex-1 w-full">
+                            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 size-5" />
+                            <input
+                                type="text"
+                                placeholder="Buscar flores o categorías..."
+                                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm focus:ring-2 focus:ring-[#FF6F91] outline-none text-gray-700 transition-all font-medium"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="relative w-full md:w-64">
+                            <select
+                                className="w-full py-4 px-6 rounded-2xl bg-white border border-gray-100 shadow-sm text-gray-600 font-bold outline-none focus:ring-2 focus:ring-[#FF6F91] appearance-none cursor-pointer"
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                            >
+                                <option value="default">Ordenar por</option>
+                                <option value="price_asc">Precio: Menor a Mayor</option>
+                                <option value="price_desc">Precio: Mayor a Menor</option>
+                                <option value="name_asc">Nombre: A-Z</option>
+                            </select>
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                                <FiFilter />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-50">
+                        <div className="flex justify-between items-center mb-4">
+                            <span className="text-gray-600 font-black uppercase text-xs tracking-tighter">Precio Máximo</span>
+                            <span className="text-[#D4145A] font-black text-lg">S/ {maxPrice}</span>
+                        </div>
                         <input
-                            type="text"
-                            placeholder="Buscar flores o categorías..."
-                            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm focus:ring-2 focus:ring-[#FF6F91] outline-none text-gray-700 transition-all font-medium"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
+                            type="range"
+                            min="0"
+                            max="300"
+                            step="10"
+                            value={maxPrice}
+                            onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+                            className="w-full h-2 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-[#FF6F91]"
                         />
                     </div>
                 </div>
@@ -146,7 +200,7 @@ function CatalogContent() {
                     </div>
                 )}
             </div>
-        </div >
+        </div>
     );
 }
 

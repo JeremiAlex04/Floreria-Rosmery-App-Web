@@ -16,7 +16,7 @@ export const plants: Plant[] = [
         precio: 180,
         categoria: "Aniversario",
         ocasion: ["amor", "aniversario"],
-        imagen: "/img/img-catalogo/C-Aniversario.jpg",
+        imagen: "/img/productos_nuevos/1.jpg",
         popular: true,
     },
     {
@@ -25,7 +25,7 @@ export const plants: Plant[] = [
         precio: 150,
         categoria: "Aniversario",
         ocasion: ["amor", "aniversario"],
-        imagen: "/img/img-tarjeta/f1.jpg",
+        imagen: "/img/productos_nuevos/2.jpg",
         popular: false,
     },
     {
@@ -34,7 +34,7 @@ export const plants: Plant[] = [
         precio: 120,
         categoria: "Aniversario",
         ocasion: ["amor", "aniversario"],
-        imagen: "/img/img-catalogo/C-Rosas.jpg",
+        imagen: "/img/productos_nuevos/3.jpg",
         popular: false,
     },
 
@@ -45,7 +45,7 @@ export const plants: Plant[] = [
         precio: 140,
         categoria: "Arreglos en Caja",
         ocasion: ["cumpleaños", "amor"],
-        imagen: "/img/img-catalogo/C-Arregloscaja.jpg",
+        imagen: "/img/productos_nuevos/4.jpg",
         popular: true,
     },
     {
@@ -54,7 +54,7 @@ export const plants: Plant[] = [
         precio: 160,
         categoria: "Arreglos en Caja",
         ocasion: ["aniversario", "cumpleaños"],
-        imagen: "/img/img-tarjeta/f6.jpg",
+        imagen: "/img/productos_nuevos/5.jpg",
         popular: true,
     },
     {
@@ -63,7 +63,7 @@ export const plants: Plant[] = [
         precio: 130,
         categoria: "Arreglos en Caja",
         ocasion: ["amor"],
-        imagen: "/img/img-catalogo/C-Rosas.jpg",
+        imagen: "/img/productos_nuevos/6.jpg",
         popular: false,
     },
 
@@ -74,7 +74,7 @@ export const plants: Plant[] = [
         precio: 250,
         categoria: "Bodas",
         ocasion: ["boda"],
-        imagen: "/img/img-catalogo/C-Bodas.jpg",
+        imagen: "/img/productos_nuevos/7.jpg",
         popular: true,
     },
     {
@@ -83,7 +83,7 @@ export const plants: Plant[] = [
         precio: 190,
         categoria: "Bodas",
         ocasion: ["boda"],
-        imagen: "/img/img-catalogo/C-Centrosdemesa.jpg",
+        imagen: "/img/productos_nuevos/8.jpg",
         popular: false,
     },
     {
@@ -92,7 +92,7 @@ export const plants: Plant[] = [
         precio: 300,
         categoria: "Bodas",
         ocasion: ["boda"],
-        imagen: "/img/img-catalogo/C-Ramospremium.jpg",
+        imagen: "/img/productos_nuevos/9.jpg",
         popular: true,
     },
 
@@ -103,7 +103,7 @@ export const plants: Plant[] = [
         precio: 120,
         categoria: "Centros de Mesa",
         ocasion: ["cena", "evento"],
-        imagen: "/img/img-catalogo/C-Centrosdemesa.jpg",
+        imagen: "/img/productos_nuevos/10.jpg",
         popular: false,
     },
     {
@@ -112,7 +112,7 @@ export const plants: Plant[] = [
         precio: 95,
         categoria: "Centros de Mesa",
         ocasion: ["cumpleaños"],
-        imagen: "/img/img-tarjeta/f4.jpg",
+        imagen: "/img/productos_nuevos/11.jpg",
         popular: false,
     },
     {
@@ -121,7 +121,7 @@ export const plants: Plant[] = [
         precio: 110,
         categoria: "Centros de Mesa",
         ocasion: ["festividad"],
-        imagen: "/img/img-tarjeta/f10.jpg",
+        imagen: "/img/productos_nuevos/12.jpg",
         popular: false,
     },
 
@@ -132,7 +132,7 @@ export const plants: Plant[] = [
         precio: 220,
         categoria: "Condolencias",
         ocasion: ["condolencias"],
-        imagen: "/img/img-catalogo/C-Condolencias.jpg",
+        imagen: "/img/productos_nuevos/13.jpg",
         popular: false,
     },
     {
@@ -141,7 +141,7 @@ export const plants: Plant[] = [
         precio: 150,
         categoria: "Condolencias",
         ocasion: ["condolencias"],
-        imagen: "/img/img-tarjeta/f2.jpg",
+        imagen: "/img/productos_nuevos/14.jpg",
         popular: false,
     },
     {
@@ -150,7 +150,7 @@ export const plants: Plant[] = [
         precio: 280,
         categoria: "Condolencias",
         ocasion: ["condolencias"],
-        imagen: "/img/img-catalogo/C-Rosas.jpg",
+        imagen: "/img/productos_nuevos/15.jpg",
         popular: false,
     },
 
@@ -161,7 +161,7 @@ export const plants: Plant[] = [
         precio: 95,
         categoria: "Cumpleaños",
         ocasion: ["cumpleaños"],
-        imagen: "/img/img-catalogo/C-Cumpleaños.jpg",
+        imagen: "/img/productos_nuevos/16.jpg",
         popular: true,
     },
     {
@@ -170,7 +170,7 @@ export const plants: Plant[] = [
         precio: 85,
         categoria: "Cumpleaños",
         ocasion: ["cumpleaños"],
-        imagen: "/img/img-catalogo/C-Girasoles.jpg",
+        imagen: "/img/productos_nuevos/17.jpg",
         popular: true,
     },
     {
@@ -179,7 +179,7 @@ export const plants: Plant[] = [
         precio: 110,
         categoria: "Cumpleaños",
         ocasion: ["cumpleaños"],
-        imagen: "/img/img-tarjeta/f8.jpg",
+        imagen: "/img/productos_nuevos/18.jpg",
         popular: false,
     },
 
@@ -190,7 +190,7 @@ export const plants: Plant[] = [
         precio: 120,
         categoria: "Día del Padre",
         ocasion: ["dia del padre"],
-        imagen: "/img/img-catalogo/C-DiadelPadre.jpg",
+        imagen: "/img/productos_nuevos/19.jpg",
         popular: false,
     },
     {
@@ -199,7 +199,7 @@ export const plants: Plant[] = [
         precio: 90,
         categoria: "Día del Padre",
         ocasion: ["dia del padre"],
-        imagen: "/img/img-catalogo/C-Ramosdemano.jpg",
+        imagen: "/img/productos_nuevos/20.jpg",
         popular: false,
     },
     {
@@ -208,7 +208,7 @@ export const plants: Plant[] = [
         precio: 150,
         categoria: "Día del Padre",
         ocasion: ["dia del padre"],
-        imagen: "/img/img-catalogo/C-Arregloscaja.jpg",
+        imagen: "/img/productos_nuevos/21.jpg",
         popular: false,
     },
 
@@ -219,7 +219,7 @@ export const plants: Plant[] = [
         precio: 180,
         categoria: "Día de la Madre",
         ocasion: ["dia de la madre"],
-        imagen: "/img/img-catalogo/C-DiadelaMadre.jpg",
+        imagen: "/img/productos_nuevos/22.jpg",
         popular: true,
     },
     {
@@ -228,7 +228,7 @@ export const plants: Plant[] = [
         precio: 140,
         categoria: "Día de la Madre",
         ocasion: ["dia de la madre"],
-        imagen: "/img/img-catalogo/C-Rosas.jpg",
+        imagen: "/img/productos_nuevos/23.jpg",
         popular: true,
     },
     {
@@ -237,7 +237,7 @@ export const plants: Plant[] = [
         precio: 130,
         categoria: "Día de la Madre",
         ocasion: ["dia de la madre"],
-        imagen: "/img/img-catalogo/C-Tulipanes.jpg",
+        imagen: "/img/productos_nuevos/24.jpg",
         popular: true,
     },
 
@@ -248,7 +248,7 @@ export const plants: Plant[] = [
         precio: 80,
         categoria: "Girasoles",
         ocasion: ["amistad", "cumpleaños"],
-        imagen: "/img/img-catalogo/C-Girasoles.jpg",
+        imagen: "/img/productos_nuevos/25.jpg",
         popular: true,
     },
     {
@@ -257,7 +257,7 @@ export const plants: Plant[] = [
         precio: 120,
         categoria: "Girasoles",
         ocasion: ["aniversario"],
-        imagen: "/img/img-catalogo/C-Ramosdemano.jpg",
+        imagen: "/img/productos_nuevos/26.jpg",
         popular: false,
     },
     {
@@ -266,7 +266,7 @@ export const plants: Plant[] = [
         precio: 110,
         categoria: "Girasoles",
         ocasion: ["amor"],
-        imagen: "/img/img-tarjeta/f3.jpg",
+        imagen: "/img/productos_nuevos/27.jpg",
         popular: true,
     },
 
@@ -277,7 +277,7 @@ export const plants: Plant[] = [
         precio: 100,
         categoria: "Graduaciones",
         ocasion: ["graduacion"],
-        imagen: "/img/img-catalogo/C-Graduaciones.jpg",
+        imagen: "/img/productos_nuevos/28.jpg",
         popular: false,
     },
     {
@@ -286,7 +286,7 @@ export const plants: Plant[] = [
         precio: 130,
         categoria: "Graduaciones",
         ocasion: ["graduacion"],
-        imagen: "/img/img-catalogo/C-Ramospremium.jpg",
+        imagen: "/img/productos_nuevos/29.jpg",
         popular: false,
     },
     {
@@ -295,7 +295,7 @@ export const plants: Plant[] = [
         precio: 150,
         categoria: "Graduaciones",
         ocasion: ["graduacion"],
-        imagen: "/img/img-catalogo/C-Arregloscaja.jpg",
+        imagen: "/img/productos_nuevos/30.jpg",
         popular: false,
     },
 
@@ -306,7 +306,7 @@ export const plants: Plant[] = [
         precio: 160,
         categoria: "Orquídeas",
         ocasion: ["elegancia", "oficina"],
-        imagen: "/img/img-catalogo/C-Orquideas.jpg",
+        imagen: "/img/productos_nuevos/31.jpg",
         popular: true,
     },
     {
@@ -315,7 +315,7 @@ export const plants: Plant[] = [
         precio: 200,
         categoria: "Orquídeas",
         ocasion: ["lujo"],
-        imagen: "/img/img-tarjeta/f10.jpg",
+        imagen: "/img/productos_nuevos/32.jpg",
         popular: false,
     },
     {
@@ -324,7 +324,7 @@ export const plants: Plant[] = [
         precio: 90,
         categoria: "Orquídeas",
         ocasion: ["detalle"],
-        imagen: "/img/img-catalogo/C-Orquideas.jpg",
+        imagen: "/img/productos_nuevos/33.jpg",
         popular: false,
     },
 
@@ -335,7 +335,7 @@ export const plants: Plant[] = [
         precio: 70,
         categoria: "Ramos de Mano",
         ocasion: ["casual"],
-        imagen: "/img/img-catalogo/C-Ramosdemano.jpg",
+        imagen: "/img/productos_nuevos/34.jpg",
         popular: false,
     },
     {
@@ -344,7 +344,7 @@ export const plants: Plant[] = [
         precio: 60,
         categoria: "Ramos de Mano",
         ocasion: ["agradecimiento"],
-        imagen: "/img/img-tarjeta/f8.jpg",
+        imagen: "/img/productos_nuevos/35.jpg",
         popular: true,
     },
     {
@@ -353,7 +353,7 @@ export const plants: Plant[] = [
         precio: 75,
         categoria: "Ramos de Mano",
         ocasion: ["nacimiento"],
-        imagen: "/img/img-tarjeta/f1.jpg",
+        imagen: "/img/productos_nuevos/36.jpg",
         popular: false,
     },
 
@@ -364,7 +364,7 @@ export const plants: Plant[] = [
         precio: 350,
         categoria: "Ramos Premium",
         ocasion: ["aniversario", "boda"],
-        imagen: "/img/img-catalogo/C-Ramospremium.jpg",
+        imagen: "/img/productos_nuevos/37.jpg",
         popular: true,
     },
     {
@@ -373,7 +373,7 @@ export const plants: Plant[] = [
         precio: 280,
         categoria: "Ramos Premium",
         ocasion: ["compromiso"],
-        imagen: "/img/img-catalogo/C-Rosas.jpg",
+        imagen: "/img/productos_nuevos/38.jpg",
         popular: true,
     },
     {
@@ -382,7 +382,7 @@ export const plants: Plant[] = [
         precio: 400,
         categoria: "Ramos Premium",
         ocasion: ["evento"],
-        imagen: "/img/img-catalogo/C-Bodas.jpg",
+        imagen: "/img/productos_nuevos/39.jpg",
         popular: true,
     },
 
@@ -393,7 +393,7 @@ export const plants: Plant[] = [
         precio: 140,
         categoria: "Rosas",
         ocasion: ["amor"],
-        imagen: "/img/img-catalogo/C-Rosas.jpg",
+        imagen: "/img/productos_nuevos/40.jpg",
         popular: true,
     },
     {
@@ -402,7 +402,7 @@ export const plants: Plant[] = [
         precio: 130,
         categoria: "Rosas",
         ocasion: ["paz", "boda"],
-        imagen: "/img/img-tarjeta/f2.jpg",
+        imagen: "/img/productos_nuevos/41.jpg",
         popular: false,
     },
     {
@@ -411,7 +411,7 @@ export const plants: Plant[] = [
         precio: 160,
         categoria: "Rosas",
         ocasion: ["amor", "aniversario"],
-        imagen: "/img/img-tarjeta/f6.jpg",
+        imagen: "/img/productos_nuevos/42.jpg",
         popular: true,
     },
 
@@ -422,7 +422,7 @@ export const plants: Plant[] = [
         precio: 200,
         categoria: "San Valentín",
         ocasion: ["san valentín"],
-        imagen: "/img/img-catalogo/C-Sanvalentin.jpg",
+        imagen: "/img/productos_nuevos/43.jpg",
         popular: true,
     },
     {
@@ -431,7 +431,7 @@ export const plants: Plant[] = [
         precio: 250,
         categoria: "San Valentín",
         ocasion: ["san valentín"],
-        imagen: "/img/img-catalogo/C-Rosas.jpg",
+        imagen: "/img/productos_nuevos/44.jpg",
         popular: true,
     },
     {
@@ -440,7 +440,7 @@ export const plants: Plant[] = [
         precio: 120,
         categoria: "San Valentín",
         ocasion: ["san valentín"],
-        imagen: "/img/img-catalogo/C-Arregloscaja.jpg",
+        imagen: "/img/productos_nuevos/45.jpg",
         popular: true,
     },
 
@@ -451,7 +451,7 @@ export const plants: Plant[] = [
         precio: 90,
         categoria: "Tulipanes",
         ocasion: ["amor"],
-        imagen: "/img/img-catalogo/C-Tulipanes.jpg",
+        imagen: "/img/productos_nuevos/46.jpg",
         popular: true,
     },
     {
@@ -460,7 +460,7 @@ export const plants: Plant[] = [
         precio: 95,
         categoria: "Tulipanes",
         ocasion: ["amistad", "cumpleaños"],
-        imagen: "/img/img-tarjeta/f8.jpg",
+        imagen: "/img/productos_nuevos/47.jpg",
         popular: true,
     },
     {
@@ -469,7 +469,7 @@ export const plants: Plant[] = [
         precio: 90,
         categoria: "Tulipanes",
         ocasion: ["amistad"],
-        imagen: "/img/img-tarjeta/f3.jpg",
+        imagen: "/img/productos_nuevos/48.jpg",
         popular: false,
     }
 ];

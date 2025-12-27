@@ -102,7 +102,7 @@ export default function Footer() {
                                 <div className="bg-white/5 p-4 rounded-xl border border-white/10">
                                     <p className="text-[10px] text-gray-500 leading-tight">Aceptamos todos los medios de pago:</p>
                                     <div className="flex gap-2 mt-2 opacity-50">
-                                        <div className="w-8 h-5 bg-white rounded-sm"></div>
+                                        <div className="w-8 h-5 bg-white rounded-sm bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png')] bg-contain"></div>
                                         <div className="w-8 h-5 bg-white rounded-sm"></div>
                                         <div className="w-8 h-5 bg-white rounded-sm"></div>
                                     </div>

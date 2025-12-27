@@ -34,6 +34,18 @@ export default function Header() {
         setMobileMenuOpen(false);
     }, [pathname]);
 
+    // Bloquear scroll cuando el menú móvil está abierto
+    useEffect(() => {
+        if (mobileMenuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [mobileMenuOpen]);
+
     // Filtrar en tiempo real
     useEffect(() => {
         if (query.trim().length > 1) {
@@ -177,13 +189,13 @@ export default function Header() {
             </div>
 
             {/* Mobile Menu Overlay */}
-            <div className={`fixed inset-0 bg-white z-40 transition-transform duration-500 lg:hidden ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
-                }`} style={{ top: scrolled ? '64px' : '88px' }}>
-                <div className="flex flex-col p-8 space-y-6">
+            <div className={`fixed inset-0 bg-white z-40 transition-transform duration-500 lg:hidden overflow-y-auto ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+                }`} style={{ top: scrolled ? '64px' : '88px', height: `calc(100vh - ${scrolled ? '64px' : '88px'})` }}>
+                <div className="flex flex-col p-8 space-y-6 pb-32">
                     <Link href="/" className="text-2xl font-bold text-gray-800 border-b pb-4">Inicio</Link>
                     <Link href="/catalogo" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-bold text-gray-800 border-b pb-4">Catálogo</Link>
-                    <Link href="#contacto" className="text-2xl font-bold text-gray-800 border-b pb-4">Contacto</Link>
-                    <button onClick={() => setModalQSOpen(true)} className="text-2xl font-bold text-gray-800 border-b pb-4 text-left">Nosotros</button>
+                    <Link href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-bold text-gray-800 border-b pb-4">Contacto</Link>
+                    <button onClick={() => { setModalQSOpen(true); setMobileMenuOpen(false); }} className="text-2xl font-bold text-gray-800 border-b pb-4 text-left">Nosotros</button>
                     <div className="pt-8 flex space-x-4">
                         <button onClick={() => { router.push("/iniciosesion"); setMobileMenuOpen(false); }} className="flex-1 bg-gray-100 py-4 rounded-2xl font-bold text-gray-600 flex items-center justify-center gap-2">
                             <FiUser /> Mi Cuenta

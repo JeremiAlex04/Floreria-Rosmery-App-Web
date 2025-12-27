@@ -1,13 +1,27 @@
+import React from "react";
+
 interface ModalQSProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
 export default function ModalQS({ isOpen, onClose }: ModalQSProps) {
+    // Bloquear scroll cuando el modal está abierto
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             {/* Fondo oscuro con blur */}
             <div
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"

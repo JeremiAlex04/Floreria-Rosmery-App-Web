@@ -12,7 +12,7 @@ export default function LayoutWrapper({
     const pathname = usePathname();
 
     // Lista de rutas donde NO queremos Header y Footer
-    const hideLayout = pathname === "/iniciosesion";
+    const hideLayout = pathname === "/iniciosesion" || pathname === "/registro";
 
     return (
         <>

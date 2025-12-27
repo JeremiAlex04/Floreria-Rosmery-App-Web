@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiPhone, FiMail, FiMapPin, FiInstagram, FiFacebook, FiTwitter, FiMessageCircle } from "react-icons/fi";
 import { SiTiktok } from "react-icons/si";
+import { FaCcVisa, FaCcMastercard, FaCcAmex, FaCcPaypal } from "react-icons/fa";
 
 export default function Footer() {
     return (
@@ -101,10 +102,11 @@ export default function Footer() {
                             <li className="pt-4">
                                 <div className="bg-white/5 p-4 rounded-xl border border-white/10">
                                     <p className="text-[10px] text-gray-500 leading-tight">Aceptamos todos los medios de pago:</p>
-                                    <div className="flex gap-2 mt-2 opacity-50">
-                                        <div className="w-8 h-5 bg-white rounded-sm bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png')] bg-contain"></div>
-                                        <div className="w-8 h-5 bg-white rounded-sm"></div>
-                                        <div className="w-8 h-5 bg-white rounded-sm"></div>
+                                    <div className="flex gap-3 mt-3 opacity-70">
+                                        <FaCcVisa className="text-3xl text-white hover:text-[#D4145A] transition-colors" />
+                                        <FaCcMastercard className="text-3xl text-white hover:text-[#D4145A] transition-colors" />
+                                        <FaCcAmex className="text-3xl text-white hover:text-[#D4145A] transition-colors" />
+                                        <FaCcPaypal className="text-3xl text-white hover:text-[#D4145A] transition-colors" />
                                     </div>
                                 </div>
                             </li>

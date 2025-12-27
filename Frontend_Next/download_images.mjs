@@ -79,20 +79,43 @@ async function downloadImage(url, filepath) {
     });
 }
 
+async function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function run() {
-    console.log("Starting downloads...");
+    console.log("Starting downloads with delay...");
     for (const p of products) {
-        // Pollinations AI URL, using prompt to generate/fetch
         const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(p.prompt)}?nologo=true`;
         const filename = `${p.id}.jpg`;
         const filepath = path.join(outputDir, filename);
 
-        try {
-            console.log(`Downloading ${filename}...`);
-            await downloadImage(url, filepath);
-        } catch (error) {
-            console.error(`Error downloading ${filename}: ${error}`);
+        // Skip if exists and has size > 0
+        if (fs.existsSync(filepath)) {
+            const stats = fs.statSync(filepath);
+            if (stats.size > 0) {
+                console.log(`Skipping ${filename} (already exists)`);
+                continue;
+            }
         }
+
+        let retries = 3;
+        while (retries > 0) {
+            try {
+                console.log(`Downloading ${filename}...`);
+                await downloadImage(url, filepath);
+                console.log(`Downloaded ${filename}`);
+                break; // Success
+            } catch (error) {
+                console.error(`Error downloading ${filename}: ${error}`);
+                retries--;
+                if (retries > 0) {
+                    console.log(`Retrying... (${retries} left)`);
+                    await delay(2000);
+                }
+            }
+        }
+        await delay(1000); // Wait 1s between successful downloads
     }
     console.log("Done!");
 }

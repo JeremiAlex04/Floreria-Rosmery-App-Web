@@ -7,7 +7,7 @@ import { SiTiktok } from "react-icons/si";
 
 export default function Footer() {
     return (
-        <footer className="bg-[#1a1a1a] text-gray-300">
+        <footer id="contacto" className="bg-[#1a1a1a] text-gray-300">
             {/* Newsletter / Seccion Superior Opcional */}
             <div>
                 <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">

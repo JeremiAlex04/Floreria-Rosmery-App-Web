@@ -9,7 +9,7 @@ export default function Footer() {
     return (
         <footer className="bg-[#1a1a1a] text-gray-300">
             {/* Newsletter / Seccion Superior Opcional */}
-            <div className="border-b border-white/5" >
+            <div>
                 <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
                     <div>
                         <h4 className="text-white font-bold text-xl">¿Necesitas algo especial?</h4>
@@ -114,7 +114,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="bg-[#111111] py-8 border-t border-white/5">
+            <div className="bg-[#111111] py-8">
                 <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-xs text-gray-500">
                         © {new Date().getFullYear()} FLORERIA ROSMERY. Todos los derechos reservados.

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface ModalQSProps {
     isOpen: boolean;
@@ -6,8 +7,15 @@ interface ModalQSProps {
 }
 
 export default function ModalQS({ isOpen, onClose }: ModalQSProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        return () => setMounted(false);
+    }, []);
+
     // Bloquear scroll cuando el modal está abierto
-    React.useEffect(() => {
+    useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
         } else {
@@ -18,9 +26,9 @@ export default function ModalQS({ isOpen, onClose }: ModalQSProps) {
         };
     }, [isOpen]);
 
-    if (!isOpen) return null;
+    if (!mounted || !isOpen) return null;
 
-    return (
+    return createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             {/* Fondo oscuro con blur */}
             <div
@@ -90,6 +98,7 @@ export default function ModalQS({ isOpen, onClose }: ModalQSProps) {
                     </button>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }

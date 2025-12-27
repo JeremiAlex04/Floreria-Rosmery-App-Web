@@ -40,11 +40,11 @@ export default function CarritoPage() {
                         {/* Lista de Productos */}
                         <div className="lg:col-span-2 space-y-4">
                             {cart.map((item) => (
-                                <div key={item.id} className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex gap-4 items-center">
+                                <div key={item.id} className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col sm:flex-row gap-4 items-center sm:items-stretch">
                                     <div className="w-24 h-24 relative rounded-xl overflow-hidden flex-shrink-0">
                                         <Image src={item.imagen} alt={item.nombre} fill className="object-cover" />
                                     </div>
-                                    <div className="flex-grow min-w-0">
+                                    <div className="flex-grow min-w-0 w-full sm:w-auto text-center sm:text-left">
                                         <h3 className="font-bold text-gray-800 truncate">{item.nombre}</h3>
                                         <p className="text-sm text-gray-400">{item.categoria}</p>
                                         <div className="flex items-center justify-between mt-2">

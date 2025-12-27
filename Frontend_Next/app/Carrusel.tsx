@@ -56,10 +56,10 @@ export default function Carousel() {
                     />
                     {/* Overlay para texto */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 bg-black/30 z-20">
-                        <h5 className="text-2xl md:text-4xl font-bold text-white drop-shadow-lg transform transition-all duration-700 delay-300 translate-y-0 opacity-100">
+                        <h5 className="text-xl md:text-4xl font-bold text-white drop-shadow-lg transform transition-all duration-700 delay-300 translate-y-0 opacity-100">
                             {slide.title}
                         </h5>
-                        <p className="mt-4 max-w-3xl font-semibold text-white text-lg drop-shadow-lg transform transition-all duration-700 delay-500 translate-y-0 opacity-100">
+                        <p className="mt-4 max-w-3xl font-semibold text-white text-sm md:text-lg drop-shadow-lg transform transition-all duration-700 delay-500 translate-y-0 opacity-100 px-4">
                             {slide.text}
                         </p>
                     </div>

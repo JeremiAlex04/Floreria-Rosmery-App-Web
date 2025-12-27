@@ -84,11 +84,11 @@ function CatalogContent() {
             <div className="max-w-7xl mx-auto px-4 ">
 
                 {/* Header Dinámico como Banner */}
-                <div className="mb-12 text-center bg-[url('/img/img-catalogo/BnCatalogo.png')] bg-cover bg-center p-12 md:p-20 rounded-3xl shadow-sm relative overflow-hidden flex flex-col items-center justify-center min-h-[200px]">
+                <div className="mb-12 text-center bg-[url('/img/img-catalogo/BnCatalogo.png')] bg-cover bg-center p-8 md:p-20 rounded-3xl shadow-sm relative overflow-hidden flex flex-col items-center justify-center min-h-[200px]">
                     <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px]"></div>
 
                     <div className="relative z-10">
-                        <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 uppercase tracking-tighter drop-shadow-sm">
+                        <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 uppercase tracking-tighter drop-shadow-sm">
                             {isFiltered ? (categoryParam || ocasionParam || "Resultados") : "Nuestras Categorías"}
                         </h1>
                         <div className="h-1.5 w-24 bg-[#D4145A] mx-auto rounded-full mb-6"></div>

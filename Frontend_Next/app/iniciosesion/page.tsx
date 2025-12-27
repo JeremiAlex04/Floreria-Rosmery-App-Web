@@ -37,7 +37,7 @@ export default function InicioSesionPage() {
                 </Link>
             </div>
 
-            <div className="max-w-md w-full space-y-8 p-10 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl relative z-10">
+            <div className="max-w-md w-full space-y-8 p-6 md:p-10 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl relative z-10">
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                         Inicio de Sesión

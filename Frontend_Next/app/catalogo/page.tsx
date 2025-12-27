@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { plants, Plant } from "../API_Plantas";
 import PlantCard from "../CardPlantas";
 import CardCategoria from "../CardCategoria";
-import { FiSearch, FiArrowLeft, FiFilter } from "react-icons/fi";
+import { FiSearch, FiFilter, FiX } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
 
 function CatalogContent() {
@@ -105,65 +105,120 @@ function CatalogContent() {
                     </div>
                 </div>
 
-                {/* Barra de Búsqueda y Filtros */}
-                <div className="flex flex-col gap-6 mb-12">
-                    <div className="flex flex-col md:flex-row gap-4 items-center">
-                        {isFiltered && (
-                            <button
-                                onClick={() => {
-                                    setQuery("");
-                                    setSortBy("default");
-                                    setMaxPrice(300);
-                                    router.push("/catalogo");
-                                }}
-                                className="flex items-center gap-2 px-6 py-4 bg-white rounded-2xl shadow-sm text-gray-600 font-bold hover:text-[#D4145A] transition-all border border-gray-100 whitespace-nowrap"
-                            >
-                                <FiArrowLeft /> Limpiar Filtros
-                            </button>
-                        )}
-
-                        <div className="relative flex-1 w-full">
-                            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 size-5" />
+                {/* Barra de Búsqueda y Filtros Mejorada */}
+                <div className="flex flex-col gap-8 mb-16">
+                    {/* Buscador Principal */}
+                    <div className="relative max-w-3xl mx-auto w-full group">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[#FF6F91] to-[#D4145A] rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                        <div className="relative flex items-center bg-white rounded-2xl shadow-xl overflow-hidden ring-1 ring-gray-100">
+                            <div className="pl-6 text-[#D4145A]">
+                                <FiSearch className="size-6" />
+                            </div>
                             <input
                                 type="text"
-                                placeholder="Buscar flores o categorías..."
-                                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm focus:ring-2 focus:ring-[#FF6F91] outline-none text-gray-700 transition-all font-medium"
+                                placeholder="¿Qué estás buscando hoy?"
+                                className="w-full py-5 px-4 text-lg outline-none text-gray-700 placeholder-gray-400 font-medium bg-transparent"
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                             />
-                        </div>
-
-                        <div className="relative w-full md:w-64">
-                            <select
-                                className="w-full py-4 px-6 rounded-2xl bg-white border border-gray-100 shadow-sm text-gray-600 font-bold outline-none focus:ring-2 focus:ring-[#FF6F91] appearance-none cursor-pointer"
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value)}
-                            >
-                                <option value="default">Ordenar por</option>
-                                <option value="price_asc">Precio: Menor a Mayor</option>
-                                <option value="price_desc">Precio: Mayor a Menor</option>
-                                <option value="name_asc">Nombre: A-Z</option>
-                            </select>
-                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                                <FiFilter />
-                            </div>
+                            {query && (
+                                <button
+                                    onClick={() => setQuery("")}
+                                    className="p-2 mr-2 text-gray-400 hover:text-[#D4145A] transition-colors"
+                                >
+                                    <FiX className="size-5" />
+                                </button>
+                            )}
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-50">
-                        <div className="flex justify-between items-center mb-4">
-                            <span className="text-gray-600 font-black uppercase text-xs tracking-tighter">Precio Máximo</span>
-                            <span className="text-[#D4145A] font-black text-lg">S/ {maxPrice}</span>
+                    {/* Chips de Categorías Rápidas */}
+                    <div className="flex flex-col items-center gap-3">
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Categorías Populares</p>
+                        <div className="flex flex-wrap justify-center gap-3">
+                            <button
+                                onClick={() => {
+                                    router.push("/catalogo");
+                                    setQuery("");
+                                }}
+                                className={`px-5 py-2 rounded-full text-sm font-bold transition-all border ${!categoryParam && !query
+                                    ? "bg-[#D4145A] text-white border-[#D4145A] shadow-md shadow-pink-200"
+                                    : "bg-white text-gray-600 border-gray-200 hover:border-[#FF6F91] hover:text-[#D4145A]"
+                                    }`}
+                            >
+                                Todas
+                            </button>
+                            {categoriesData.slice(0, 7).map((cat) => (
+                                <button
+                                    key={cat.name}
+                                    onClick={() => {
+                                        router.push(`/catalogo?categoria=${cat.name}`);
+                                        setQuery("");
+                                    }}
+                                    className={`px-5 py-2 rounded-full text-sm font-bold transition-all border ${categoryParam === cat.name
+                                        ? "bg-[#D4145A] text-white border-[#D4145A] shadow-md shadow-pink-200"
+                                        : "bg-white text-gray-600 border-gray-200 hover:border-[#FF6F91] hover:text-[#D4145A]"
+                                        }`}
+                                >
+                                    {cat.name}
+                                </button>
+                            ))}
                         </div>
-                        <input
-                            type="range"
-                            min="0"
-                            max="300"
-                            step="10"
-                            value={maxPrice}
-                            onChange={(e) => setMaxPrice(parseInt(e.target.value))}
-                            className="w-full h-2 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-[#FF6F91]"
-                        />
+                    </div>
+
+                    {/* Controles de Filtros Avanzados */}
+                    <div className="flex flex-col md:flex-row gap-6 items-center justify-between bg-white p-6 rounded-3xl border border-gray-100 shadow-sm mt-4">
+                        <div className="flex items-center gap-4 w-full md:w-auto">
+                            <span className="text-gray-400 text-sm font-bold uppercase tracking-wider whitespace-nowrap hidden sm:block">Ordenar por:</span>
+                            <div className="relative w-full sm:w-64">
+                                <select
+                                    className="w-full py-3 px-5 rounded-xl bg-gray-50 border-none text-gray-700 font-bold outline-none focus:ring-2 focus:ring-[#FF6F91]/20 cursor-pointer appearance-none hover:bg-gray-100 transition-colors"
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value)}
+                                >
+                                    <option value="default">Relevancia</option>
+                                    <option value="price_asc">Precio: Menor a Mayor</option>
+                                    <option value="price_desc">Precio: Mayor a Menor</option>
+                                    <option value="name_asc">Nombre: A-Z</option>
+                                </select>
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                                    <FiFilter />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-6 w-full md:w-auto">
+                            <div className="flex-1 md:w-64">
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Precio Máximo</span>
+                                    <span className="text-[#D4145A] font-black text-sm">S/ {maxPrice}</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="300"
+                                    step="10"
+                                    value={maxPrice}
+                                    onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+                                    className="w-full h-2 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-[#D4145A] hover:accent-[#FF6F91] transition-all"
+                                />
+                            </div>
+
+                            {(isFiltered && (categoryParam || query || sortBy !== 'default' || maxPrice < 300)) && (
+                                <button
+                                    onClick={() => {
+                                        setQuery("");
+                                        setSortBy("default");
+                                        setMaxPrice(300);
+                                        router.push("/catalogo");
+                                    }}
+                                    className="p-3 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all"
+                                    title="Limpiar Filtros"
+                                >
+                                    <FiX className="size-5" />
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -183,7 +238,19 @@ function CatalogContent() {
                     ) : (
                         <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-100">
                             <FiSearch className="text-[#D4145A] size-12 mx-auto mb-4 opacity-20" />
-                            <h3 className="text-xl font-bold text-gray-800">No hay productos en esta selección</h3>
+                            <h3 className="text-xl font-bold text-gray-800 mb-2">No encontramos resultados</h3>
+                            <p className="text-gray-500 mb-6">Intenta con otros términos o ajusta los filtros.</p>
+                            <button
+                                onClick={() => {
+                                    setQuery("");
+                                    setSortBy("default");
+                                    setMaxPrice(300);
+                                    router.push("/catalogo");
+                                }}
+                                className="px-6 py-3 bg-[#D4145A] text-white rounded-xl font-bold hover:bg-[#B0124A] transition-colors"
+                            >
+                                Ver Todo el Catálogo
+                            </button>
                         </div>
                     )
                 ) : (

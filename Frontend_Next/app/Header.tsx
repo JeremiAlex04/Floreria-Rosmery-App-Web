@@ -117,21 +117,21 @@ export default function Header() {
                     <ul className={`hidden lg:flex space-x-8 text-sm font-bold uppercase tracking-wider ${scrolled ? "text-gray-700" : "text-white"
                         }`}>
                         <li>
-                            <Link href="/" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
+                            <Link href="/" className={`hover:text-[#D4145A] transition-colors relative group ${pathname === "/" ? "text-[#D4145A]" : ""}`} style={{ textTransform: "capitalize" }}>
                                 Inicio
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
+                                <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full ${pathname === "/" ? "w-full" : "w-0"}`}></span>
                             </Link>
                         </li>
                         <li>
-                            <Link href="/catalogo" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
+                            <Link href="/catalogo" className={`hover:text-[#D4145A] transition-colors relative group ${pathname.startsWith("/catalogo") ? "text-[#D4145A]" : ""}`} style={{ textTransform: "capitalize" }}>
                                 Categorias
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
+                                <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full ${pathname.startsWith("/catalogo") ? "w-full" : "w-0"}`}></span>
                             </Link>
                         </li>
                         <li>
-                            <Link href="/eventos" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
+                            <Link href="/eventos" className={`hover:text-[#D4145A] transition-colors relative group ${pathname.startsWith("/eventos") ? "text-[#D4145A]" : ""}`} style={{ textTransform: "capitalize" }}>
                                 Eventos
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
+                                <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full ${pathname.startsWith("/eventos") ? "w-full" : "w-0"}`}></span>
                             </Link>
                         </li>
                         <li>

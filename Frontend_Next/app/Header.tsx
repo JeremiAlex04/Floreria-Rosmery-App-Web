@@ -6,8 +6,9 @@ import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { plants, Plant } from "./API_Plantas";
 import ModalQS from "./ModalQS";
-import { FiSearch, FiMenu, FiX, FiShoppingCart, FiUser } from "react-icons/fi";
+import { FiSearch, FiMenu, FiX, FiShoppingCart, FiUser, FiLogOut } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function Header() {
     const [query, setQuery] = useState("");
@@ -17,6 +18,8 @@ export default function Header() {
     const pathname = usePathname();
     const router = useRouter();
     const { totalItems } = useCart();
+    const { user, signOut } = useAuth();
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
 
     // Lógica para el scroll
     useEffect(() => {
@@ -32,6 +35,7 @@ export default function Header() {
         setQuery("");
         setSuggestions([]);
         setMobileMenuOpen(false);
+        setUserMenuOpen(false);
     }, [pathname]);
 
     // Bloquear scroll cuando el menú móvil está abierto
@@ -61,6 +65,11 @@ export default function Header() {
 
     // Modal QS
     const [modalQSOpen, setModalQSOpen] = useState(false);
+
+    const handleSignOut = async () => {
+        await signOut();
+        router.push("/");
+    };
 
     return (
         <>
@@ -126,7 +135,6 @@ export default function Header() {
                                 </Link>
                             </li>
                             <li>
-                                {/*Colocar la letra en minusculas, iniciales en mayusculas*/}
                                 <Link href="#contacto" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
                                     Contacto
                                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
@@ -178,11 +186,43 @@ export default function Header() {
                                     </div>
                                 )}
                             </div>
-                            {/*Boton de inicio de sesion - Tiene que ir a la pagina de inicio de sesion*/}
-                            <button className={`p-2 rounded-full transition-colors ${scrolled ? "bg-gray-100 text-gray-600 hover:bg-gray-200" : "bg-white/10 text-white hover:bg-white/20"
-                                }`} onClick={() => router.push("/iniciosesion")}>
-                                <FiUser size={20} />
-                            </button>
+
+                            {/* Botón de Perfil / Login */}
+                            <div className="relative">
+                                {user ? (
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => setUserMenuOpen(!userMenuOpen)}
+                                            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${scrolled ? "bg-gray-100 text-gray-700 hover:bg-gray-200" : "bg-white/10 text-white hover:bg-white/20"}`}
+                                        >
+                                            <FiUser className="text-lg" />
+                                            <span className="text-xs font-bold truncate max-w-[100px]">
+                                                {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                                            </span>
+                                        </button>
+
+                                        {userMenuOpen && (
+                                            <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                                                <button
+                                                    onClick={handleSignOut}
+                                                    className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                                >
+                                                    <FiLogOut />
+                                                    <span>Cerrar Sesión</span>
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <button
+                                        className={`p-2 rounded-full transition-colors ${scrolled ? "bg-gray-100 text-gray-600 hover:bg-gray-200" : "bg-white/10 text-white hover:bg-white/20"}`}
+                                        onClick={() => router.push("/iniciosesion")}
+                                    >
+                                        <FiUser size={20} />
+                                    </button>
+                                )}
+                            </div>
+
                             {/*Boton de carrito*/}
                             <button className={`p-2 rounded-full relative transition-colors ${scrolled ? "bg-[#D4145A] text-white hover:bg-[#B0124A]" : "bg-white text-[#FF6F91] hover:bg-gray-100"
                                 }`} onClick={() => router.push("/Carrito")}>
@@ -221,9 +261,15 @@ export default function Header() {
                         <Link href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-bold text-gray-800 border-b pb-4">Contacto</Link>
                         <button onClick={() => { setModalQSOpen(true); setMobileMenuOpen(false); }} className="text-2xl font-bold text-gray-800 border-b pb-4 text-left">Nosotros</button>
                         <div className="pt-8 flex space-x-4">
-                            <button onClick={() => { router.push("/iniciosesion"); setMobileMenuOpen(false); }} className="flex-1 bg-gray-100 py-4 rounded-2xl font-bold text-gray-600 flex items-center justify-center gap-2">
-                                <FiUser /> Mi Cuenta
-                            </button>
+                            {user ? (
+                                <button onClick={handleSignOut} className="flex-1 bg-red-50 py-4 rounded-2xl font-bold text-red-600 flex items-center justify-center gap-2">
+                                    <FiLogOut /> Cerrar Sesión
+                                </button>
+                            ) : (
+                                <button onClick={() => { router.push("/iniciosesion"); setMobileMenuOpen(false); }} className="flex-1 bg-gray-100 py-4 rounded-2xl font-bold text-gray-600 flex items-center justify-center gap-2">
+                                    <FiUser /> Mi Cuenta
+                                </button>
+                            )}
                             <button onClick={() => { router.push("/Carrito"); setMobileMenuOpen(false); }} className="flex-1 bg-[#D4145A] py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2">
                                 <FiShoppingCart /> Carrito
                             </button>

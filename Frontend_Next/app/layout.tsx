@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 
 import LayoutWrapper from "./LayoutWrapper";
 import { CartProvider } from "../context/CartContext";
+import { AuthProvider } from "../context/AuthContext";
 import WhatsAppButton from "./WhatsAppButton";
 
 export const metadata: Metadata = {
@@ -36,10 +37,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <CartProvider>
-          <LayoutWrapper>{children}</LayoutWrapper>
-          <WhatsAppButton />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <LayoutWrapper>{children}</LayoutWrapper>
+            <WhatsAppButton />
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

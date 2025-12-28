@@ -1,14 +1,52 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FiArrowLeft, FiUser, FiMail, FiLock } from "react-icons/fi";
+import { useRouter } from "next/navigation";
+import { FiArrowLeft, FiUser, FiMail, FiLock, FiAlertCircle, FiCheckCircle } from "react-icons/fi";
+import { supabase } from "../../lib/supabase";
 
 export default function RegistroPage() {
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const router = useRouter();
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Registro enviado");
+        setLoading(true);
+        setError(null);
+
+        try {
+            const { error: signUpError } = await supabase.auth.signUp({
+                email: formData.email,
+                password: formData.password,
+                options: {
+                    data: {
+                        full_name: formData.name,
+                    },
+                },
+            });
+
+            if (signUpError) throw signUpError;
+
+            setSuccess(true);
+            // Redirigir después de un momento
+            setTimeout(() => {
+                router.push("/iniciosesion");
+            }, 3000);
+
+        } catch (err: any) {
+            setError(err.message || "Ocurrió un error al registrarse");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -37,7 +75,7 @@ export default function RegistroPage() {
                 </Link>
             </div>
 
-            <div className="max-w-md w-full space-y-8 p-6 md:p-10 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl relative z-10 transition-all duration-300">
+            <div className="max-w-md w-full space-y-8 p-6 md:p-10 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl relative z-10">
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 tracking-tight">
                         Crea tu Cuenta
@@ -46,6 +84,21 @@ export default function RegistroPage() {
                         Únete a Florería Rosmery y envía amor
                     </p>
                 </div>
+
+                {error && (
+                    <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg flex items-center gap-3 text-red-700 animate-shake">
+                        <FiAlertCircle className="shrink-0" />
+                        <p className="text-xs font-medium">{error}</p>
+                    </div>
+                )}
+
+                {success && (
+                    <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg flex items-center gap-3 text-green-700">
+                        <FiCheckCircle className="shrink-0" />
+                        <p className="text-xs font-medium">¡Registro exitoso! Por favor revisa tu correo para confirmar (si está activado).</p>
+                    </div>
+                )}
+
                 <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
                     <div className="space-y-4">
                         <div>
@@ -57,6 +110,8 @@ export default function RegistroPage() {
                                 name="name"
                                 type="text"
                                 required
+                                value={formData.name}
+                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-gray-200 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#FF6F91] focus:border-transparent transition-all sm:text-sm"
                                 placeholder="Ej. Juan Pérez"
                             />
@@ -70,6 +125,8 @@ export default function RegistroPage() {
                                 name="email"
                                 type="email"
                                 required
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-gray-200 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#FF6F91] focus:border-transparent transition-all sm:text-sm"
                                 placeholder="correo@ejemplo.com"
                             />
@@ -83,6 +140,8 @@ export default function RegistroPage() {
                                 name="password"
                                 type="password"
                                 required
+                                value={formData.password}
+                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-gray-200 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#FF6F91] focus:border-transparent transition-all sm:text-sm"
                                 placeholder="••••••••"
                             />
@@ -92,18 +151,11 @@ export default function RegistroPage() {
                     <div className="pt-2">
                         <button
                             type="submit"
-                            className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-[#D4145A] hover:bg-[#B0124A] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4145A] transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-[#D4145A]/20"
+                            disabled={loading}
+                            className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-[#D4145A] hover:bg-[#B0124A] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4145A] transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-[#D4145A]/20 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >
-                            Registrarme
+                            {loading ? "Registrando..." : "Registrarme"}
                         </button>
-                    </div>
-
-                    <div className="text-center mt-4">
-                        <p className="text-xs text-gray-500">
-                            Al registrarte, aceptas nuestros{" "}
-                            <Link href="/terminos" className="text-[#D4145A] hover:underline">Términos</Link> y{" "}
-                            <Link href="/politicas" className="text-[#D4145A] hover:underline">Privacidad</Link>.
-                        </p>
                     </div>
 
                     <div className="border-t border-gray-100 pt-6 text-center">

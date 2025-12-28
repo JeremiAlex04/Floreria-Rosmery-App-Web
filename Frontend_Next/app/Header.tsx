@@ -113,128 +113,135 @@ export default function Header() {
                     </Link>
 
                     {/* Menú Desktop */}
-                    <div className="hidden lg:flex items-center space-x-10">
-                        <ul className={`flex space-x-8 text-sm font-bold uppercase tracking-wider ${scrolled ? "text-gray-700" : "text-white"
-                            }`}>
-                            <li>
-                                <Link href="/" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
-                                    Inicio
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/catalogo" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
-                                    Categorias
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/eventos" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
-                                    Eventos
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#contacto" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
-                                    Contacto
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
-                                </Link>
-                            </li>
-                            <li>
-                                <button
-                                    onClick={() => setModalQSOpen(true)}
-                                    className="hover:text-[#D4145A] transition-colors relative group"
-                                >
-                                    Nosotros
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
-                                </button>
-                            </li>
-                        </ul>
-
-                        {/* Acciones (Iconos) */}
-                        <div className="flex items-center space-x-5">
-                            {/* Buscador Integrado */}
-                            <div className="relative">
-                                <div className={`flex items-center px-4 py-1.5 rounded-full border transition-all ${scrolled ? "border-gray-200 bg-gray-50 flex-1" : "border-white/30 bg-white/10"
-                                    }`}>
-                                    <FiSearch className={scrolled ? "text-gray-400" : "text-white/70"} />
-                                    <input
-                                        type="text"
-                                        value={query}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                        placeholder="Buscar..."
-                                        className={`bg-transparent border-none focus:ring-0 outline-none ml-2 w-32 focus:w-48 transition-all text-sm ${scrolled ? "text-gray-700" : "text-white"
-                                            }`}
-                                    />
-                                </div>
-
-                                {/* Suggestions Dropdown */}
-                                {suggestions.length > 0 && (
-                                    <div className="absolute top-full right-0 mt-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-top-2">
-                                        {suggestions.map((plant) => (
-                                            <Link key={plant.id} href={`/buscar?q=${plant.nombre}`} className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors border-b last:border-0">
-                                                <div className="w-12 h-12 relative flex-shrink-0">
-                                                    <Image src={plant.imagen} alt={plant.nombre} fill className="object-cover rounded-xl" />
-                                                </div>
-                                                <div className="flex flex-col min-w-0">
-                                                    <span className="text-sm font-bold text-gray-800 truncate">{plant.nombre}</span>
-                                                    <span className="text-xs text-gray-400 capitalize">{plant.categoria}</span>
-                                                </div>
-                                                <span className="ml-auto text-sm font-bold text-[#D4145A]">S/ {plant.precio}</span>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Botón de Perfil / Login */}
-                            <div className="relative">
-                                {user ? (
-                                    <div className="flex items-center gap-2">
-                                        <button
-                                            onClick={() => setUserMenuOpen(!userMenuOpen)}
-                                            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${scrolled ? "bg-gray-100 text-gray-700 hover:bg-gray-200" : "bg-white/10 text-white hover:bg-white/20"}`}
-                                        >
-                                            <FiUser className="text-lg" />
-                                            <span className="text-xs font-bold truncate max-w-[100px]">
-                                                {user.user_metadata?.full_name || user.email?.split('@')[0]}
-                                            </span>
-                                        </button>
-
-                                        {userMenuOpen && (
-                                            <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
-                                                <button
-                                                    onClick={handleSignOut}
-                                                    className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
-                                                >
-                                                    <FiLogOut />
-                                                    <span>Cerrar Sesión</span>
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-                                ) : (
-                                    <button
-                                        className={`p-2 rounded-full transition-colors ${scrolled ? "bg-gray-100 text-gray-600 hover:bg-gray-200" : "bg-white/10 text-white hover:bg-white/20"}`}
-                                        onClick={() => router.push("/iniciosesion")}
-                                    >
-                                        <FiUser size={20} />
-                                    </button>
-                                )}
-                            </div>
-
-                            {/*Boton de carrito*/}
-                            <button className={`p-2 rounded-full relative transition-colors ${scrolled ? "bg-[#D4145A] text-white hover:bg-[#B0124A]" : "bg-white text-[#FF6F91] hover:bg-gray-100"
-                                }`} onClick={() => router.push("/Carrito")}>
-                                <FiShoppingCart size={20} />
-                                {totalItems > 0 && (
-                                    <span className="absolute -top-1 -right-1 bg-yellow-400 text-xs text-pink-900 font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white animate-bounce-short">
-                                        {totalItems}
-                                    </span>
-                                )}
+                    {/* Menú Desktop */}
+                    <ul className={`hidden lg:flex space-x-8 text-sm font-bold uppercase tracking-wider ${scrolled ? "text-gray-700" : "text-white"
+                        }`}>
+                        <li>
+                            <Link href="/" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
+                                Inicio
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/catalogo" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
+                                Categorias
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/eventos" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
+                                Eventos
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="#contacto" className="hover:text-[#D4145A] transition-colors relative group" style={{ textTransform: "capitalize" }}>
+                                Contacto
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
+                            </Link>
+                        </li>
+                        <li>
+                            <button
+                                onClick={() => setModalQSOpen(true)}
+                                className="hover:text-[#D4145A] transition-colors relative group"
+                            >
+                                Nosotros
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#D4145A] transition-all group-hover:w-full"></span>
                             </button>
+                        </li>
+                    </ul>
+
+                    {/* Acciones (Iconos) */}
+                    <div className="hidden lg:flex items-center space-x-5">
+                        {/* Buscador Integrado */}
+                        <div className="relative">
+                            <div className={`flex items-center px-4 py-1.5 rounded-full border transition-all ${scrolled ? "border-gray-200 bg-gray-50 flex-1" : "border-white/30 bg-white/10"
+                                }`}>
+                                <FiSearch className={scrolled ? "text-gray-400" : "text-white/70"} />
+                                <input
+                                    type="text"
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    placeholder="Buscar..."
+                                    className={`bg-transparent border-none focus:ring-0 outline-none ml-2 w-32 focus:w-48 transition-all text-sm ${scrolled ? "text-gray-700" : "text-white"
+                                        }`}
+                                />
+                            </div>
+
+                            {/* Suggestions Dropdown */}
+                            {suggestions.length > 0 && (
+                                <div className="absolute top-full right-0 mt-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-top-2">
+                                    {suggestions.map((plant) => (
+                                        <Link key={plant.id} href={`/buscar?q=${plant.nombre}`} className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors border-b last:border-0">
+                                            <div className="w-12 h-12 relative flex-shrink-0">
+                                                <Image src={plant.imagen} alt={plant.nombre} fill className="object-cover rounded-xl" />
+                                            </div>
+                                            <div className="flex flex-col min-w-0">
+                                                <span className="text-sm font-bold text-gray-800 truncate">{plant.nombre}</span>
+                                                <span className="text-xs text-gray-400 capitalize">{plant.categoria}</span>
+                                            </div>
+                                            <span className="ml-auto text-sm font-bold text-[#D4145A]">S/ {plant.precio}</span>
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
                         </div>
+
+                        {/* Botón de Perfil / Login */}
+                        {user ? (
+                            <div className="flex items-center gap-2 relative">
+                                <button
+                                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${scrolled ? "bg-gray-100 text-gray-700 hover:bg-gray-200" : "bg-white/10 text-white hover:bg-white/20"}`}
+                                >
+                                    <FiUser className="text-lg" />
+                                    <span className="text-xs font-bold truncate max-w-[100px]">
+                                        {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                                    </span>
+                                </button>
+
+                                {userMenuOpen && (
+                                    <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                                        <button
+                                            onClick={() => {
+                                                router.push("/perfil");
+                                                setUserMenuOpen(false);
+                                            }}
+                                            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-pink-50 hover:text-pink-600 transition-colors border-b border-gray-50"
+                                        >
+                                            <FiUser />
+                                            <span>Mi Cuenta</span>
+                                        </button>
+                                        <button
+                                            onClick={handleSignOut}
+                                            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                        >
+                                            <FiLogOut />
+                                            <span>Cerrar Sesión</span>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <button
+                                className={`p-2 rounded-full transition-colors ${scrolled ? "bg-gray-100 text-gray-600 hover:bg-gray-200" : "bg-white/10 text-white hover:bg-white/20"}`}
+                                onClick={() => router.push("/iniciosesion")}
+                            >
+                                <FiUser size={20} />
+                            </button>
+                        )}
+                        {/*Boton de carrito*/}
+                        <button className={`p-2 rounded-full relative transition-colors ${scrolled ? "bg-[#D4145A] text-white hover:bg-[#B0124A]" : "bg-white text-[#FF6F91] hover:bg-gray-100"
+                            }`} onClick={() => router.push("/Carrito")}>
+                            <FiShoppingCart size={20} />
+                            {totalItems > 0 && (
+                                <span className="absolute -top-1 -right-1 bg-yellow-400 text-xs text-pink-900 font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white animate-bounce-short">
+                                    {totalItems}
+                                </span>
+                            )}
+                        </button>
                     </div>
+
 
                     {/* Mobile Controls */}
                     <div className="lg:hidden flex items-center space-x-4">
@@ -260,25 +267,30 @@ export default function Header() {
                         <Link href="/eventos" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-bold text-gray-800 border-b pb-4">Eventos</Link>
                         <Link href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-bold text-gray-800 border-b pb-4">Contacto</Link>
                         <button onClick={() => { setModalQSOpen(true); setMobileMenuOpen(false); }} className="text-2xl font-bold text-gray-800 border-b pb-4 text-left">Nosotros</button>
-                        <div className="pt-8 flex space-x-4">
+                        <div className="pt-8 flex flex-col space-y-3">
                             {user ? (
-                                <button onClick={handleSignOut} className="flex-1 bg-red-50 py-4 rounded-2xl font-bold text-red-600 flex items-center justify-center gap-2">
-                                    <FiLogOut /> Cerrar Sesión
-                                </button>
+                                <>
+                                    <button onClick={() => { router.push("/perfil"); setMobileMenuOpen(false); }} className="w-full bg-gray-50 py-4 rounded-2xl font-bold text-gray-700 flex items-center justify-center gap-2 border border-gray-100">
+                                        <FiUser /> Mi Cuenta
+                                    </button>
+                                    <button onClick={handleSignOut} className="w-full bg-red-50 py-4 rounded-2xl font-bold text-red-600 flex items-center justify-center gap-2 border border-red-100">
+                                        <FiLogOut /> Cerrar Sesión
+                                    </button>
+                                </>
                             ) : (
-                                <button onClick={() => { router.push("/iniciosesion"); setMobileMenuOpen(false); }} className="flex-1 bg-gray-100 py-4 rounded-2xl font-bold text-gray-600 flex items-center justify-center gap-2">
-                                    <FiUser /> Mi Cuenta
+                                <button onClick={() => { router.push("/iniciosesion"); setMobileMenuOpen(false); }} className="w-full bg-gray-100 py-4 rounded-2xl font-bold text-gray-600 flex items-center justify-center gap-2">
+                                    <FiUser /> Iniciar Sesión / Regístrate
                                 </button>
                             )}
-                            <button onClick={() => { router.push("/Carrito"); setMobileMenuOpen(false); }} className="flex-1 bg-[#D4145A] py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2">
-                                <FiShoppingCart /> Carrito
+                            <button onClick={() => { router.push("/Carrito"); setMobileMenuOpen(false); }} className="w-full bg-[#D4145A] py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2 shadow-lg shadow-pink-200">
+                                <FiShoppingCart /> Ver Carrito
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <ModalQS isOpen={modalQSOpen} onClose={() => setModalQSOpen(false)} />
-            </nav>
+            </nav >
         </>
     );
 }

@@ -57,7 +57,7 @@ export default function RegistroPage() {
                 alt="Fondo de registro"
                 fill
                 priority
-                className="object-cover z-0"
+                className="object-cover z-0 animate-in fade-in zoom-in-105 duration-1000"
                 quality={85}
             />
 

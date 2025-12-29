@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FiArrowLeft, FiAlertCircle, FiLoader } from "react-icons/fi";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 import { supabase } from "../../lib/supabase";
 
 export default function InicioSesionPage() {
@@ -37,6 +39,25 @@ export default function InicioSesionPage() {
         }
     };
 
+    const handleSocialLogin = async (provider: 'google' | 'facebook') => {
+        console.log("Intentando login con:", provider); // Debug
+        try {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: provider,
+                options: {
+                    redirectTo: `${window.location.origin}`,
+                },
+            });
+            if (error) {
+                console.error("Error de Supabase:", error);
+                throw error;
+            }
+        } catch (err: any) {
+            console.error("Error atrapado:", err);
+            setError(err.message);
+        }
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
             {/* Imagen de fondo optimizada con Next.js */}
@@ -45,7 +66,7 @@ export default function InicioSesionPage() {
                 alt="Fondo de inicio de sesión"
                 fill
                 priority
-                className="object-cover z-0"
+                className="object-cover z-0 animate-in fade-in zoom-in-105 duration-1000"
                 quality={85}
             />
 
@@ -129,6 +150,32 @@ export default function InicioSesionPage() {
                                     <FiLoader className="animate-spin" /> Verificando...
                                 </span>
                             ) : "Iniciar Sesión"}
+                        </button>
+                    </div>
+
+                    <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-200"></div>
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="px-2 bg-white text-gray-500">O continúa con</span>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <button
+                            type="button"
+                            onClick={() => handleSocialLogin('google')}
+                            className="flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors bg-white font-medium text-gray-700 text-sm"
+                        >
+                            <FcGoogle size={20} /> Google
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => handleSocialLogin('facebook')}
+                            className="flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors bg-white font-medium text-gray-700 text-sm"
+                        >
+                            <FaFacebook size={20} className="text-[#1877F2]" /> Facebook
                         </button>
                     </div>
 

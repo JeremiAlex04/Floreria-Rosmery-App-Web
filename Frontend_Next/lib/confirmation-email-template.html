@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; }
+        .card { max-width: 500px; margin: 40px auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eee; }
+        .header { background: #D4145A; padding: 30px; text-align: center; }
+        .content { padding: 40px; text-align: center; color: #333; }
+        .title { color: #D4145A; font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+        .button { display: inline-block; padding: 15px 30px; background-color: #D4145A; color: #ffffff !important; text-decoration: none; border-radius: 50px; font-weight: bold; margin-top: 20px; box-shadow: 0 4px 10px rgba(212, 20, 90, 0.3); }
+        .footer { padding: 20px; text-align: center; font-size: 12px; color: #999; background: #fdfdfd; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h1 style="color: white; margin: 0; font-style: italic;">Florería Rosmery</h1>
+        </div>
+        <div class="content">
+            <div class="title">¡Bienvenido a nuestra familia! 🌸</div>
+            <p>Gracias por registrarte. Estamos emocionados de ayudarte a compartir momentos hermosos a través de nuestras flores.</p>
+            <p>Para comenzar, por favor confirma tu cuenta haciendo clic en el botón de abajo:</p>
+            <a href="{{ .ConfirmationURL }}" class="button">Confirmar mi Cuenta</a>
+        </div>
+        <div class="footer">
+            Atentamente,<br>
+            <strong>El equipo de Florería Rosmery</strong><br>
+            <small>Si no creaste esta cuenta, puedes ignorar este correo.</small>
+        </div>
+    </div>
+</body>
+</html>

@@ -2,8 +2,6 @@
 
 Aplicación web de comercio electrónico moderna para la **Florería Rosmery**, construida con **Next.js 16**, **TypeScript** y **Tailwind CSS**. Permite a los usuarios explorar un catálogo de arreglos florales, filtrar por categorías y ocasiones, gestionar un carrito de compras y realizar pedidos.
 
-![Florería Rosmery Banner](/public/img/img-catalogo/BnCatalogo.png)
-
 ## 🚀 Características Principales
 
 - **Catálogo Interactivo**: Exploración de productos con filtrado por categoría (Aniversario, Bodas, Cumpleaños, etc.) y ocasión.

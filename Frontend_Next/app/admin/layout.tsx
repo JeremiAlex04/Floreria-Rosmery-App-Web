@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
+import { supabase } from "@/lib/supabase";
 import {
     FiBox,
     FiShoppingCart,
@@ -27,15 +28,36 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const router = useRouter();
     const pathname = usePathname();
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
-    // Simple Admin Check (you can improve this by checking a 'role' in Supabase user metadata)
     useEffect(() => {
-        if (!loading && !user) {
-            router.push("/iniciosesion");
-        }
+        const checkAdmin = async () => {
+            if (!loading && !user) {
+                router.push("/iniciosesion");
+                return;
+            }
+
+            if (user) {
+                const { data, error } = await supabase
+                    .from("profiles")
+                    .select("role")
+                    .eq("id", user.id)
+                    .single();
+
+                if (error || data?.role !== "admin") {
+                    console.error("Acceso denegado: No eres admin");
+                    router.push("/");
+                    setIsAdmin(false);
+                } else {
+                    setIsAdmin(true);
+                }
+            }
+        };
+
+        checkAdmin();
     }, [user, loading, router]);
 
-    if (loading) {
+    if (loading || isAdmin === null) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#D4145A]"></div>
@@ -43,7 +65,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         );
     }
 
-    if (!user) return null;
+    if (!user || !isAdmin) return null;
 
     return (
         <div className="min-h-screen bg-gray-50 flex">

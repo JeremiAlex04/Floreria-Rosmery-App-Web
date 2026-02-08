@@ -20,10 +20,10 @@ export async function seedProducts() {
         descripcion: `Hermoso arreglo floral de la categoría ${p.categoria}. Ideal para ${p.ocasion.join(", ")}.`
     }));
 
-    // 3. Insertar por lotes
+    // 3. Insertar/Actualizar por lotes (Upsert evita duplicados por nombre)
     const { data, error } = await supabase
         .from("products")
-        .insert(productsToInsert)
+        .upsert(productsToInsert, { onConflict: 'nombre' })
         .select();
 
     if (error) {
@@ -34,10 +34,10 @@ export async function seedProducts() {
     if (!data || data.length === 0) {
         return {
             success: false,
-            error: { message: "La inserción fue exitosa pero no se devolvieron datos. Verifica las políticas RLS." }
+            error: { message: "No se pudieron procesar los productos. Verifica las políticas RLS." }
         };
     }
 
-    console.log("Migración completada con éxito!", data.length, "registros creados.");
+    console.log("Migración completada con éxito!", data.length, "registros procesados.");
     return { success: true, count: data.length };
 }

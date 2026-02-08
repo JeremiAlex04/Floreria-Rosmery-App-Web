@@ -40,7 +40,6 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             <LayoutWrapper>{children}</LayoutWrapper>
-            <WhatsAppButton />
           </CartProvider>
         </AuthProvider>
       </body>

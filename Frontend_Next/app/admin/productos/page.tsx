@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { FiPlus, FiEdit2, FiTrash2, FiSearch, FiFilter, FiBox } from "react-icons/fi";
 import Link from "next/link";
-import { supabase } from "../../../lib/supabase";
+import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 
 interface Product {

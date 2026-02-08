@@ -1,13 +1,50 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FiShoppingBag, FiTrash2, FiMinus, FiPlus, FiArrowLeft } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 
 export default function CarritoPage() {
     const { cart, removeFromCart, addToCart, decreaseQuantity, totalPrice, totalItems } = useCart();
+    const [isCheckingOut, setIsCheckingOut] = useState(false);
+
+    const handleCheckout = async () => {
+        if (cart.length === 0) return;
+
+        setIsCheckingOut(true);
+        try {
+            const response = await fetch("/api/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    items: cart,
+                    success_url: `${window.location.origin}/checkout/success`,
+                    cancel_url: `${window.location.origin}/carrito`,
+                }),
+            });
+
+            const session = await response.json();
+
+            if (session.error) {
+                alert("Error de pago: " + session.error);
+                return;
+            }
+
+            if (session.url) {
+                window.location.href = session.url;
+            }
+        } catch (error) {
+            console.error("Checkout error:", error);
+            alert("Hubo un problema al procesar el pago.");
+        } finally {
+            setIsCheckingOut(false);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -98,8 +135,12 @@ export default function CarritoPage() {
                                         <span>S/ {totalPrice.toFixed(2)}</span>
                                     </div>
                                 </div>
-                                <button className="w-full bg-[#D4145A] text-white py-4 rounded-xl font-bold hover:bg-[#B0124A] transition-all shadow-lg hover:shadow-[#D4145A]/30 active:scale-95 mb-4">
-                                    Continuar compra
+                                <button
+                                    onClick={handleCheckout}
+                                    disabled={isCheckingOut}
+                                    className="w-full bg-[#D4145A] text-white py-4 rounded-xl font-bold hover:bg-[#B0124A] transition-all shadow-lg hover:shadow-[#D4145A]/30 active:scale-95 mb-4 disabled:opacity-50"
+                                >
+                                    {isCheckingOut ? "Procesando..." : "Proceder al Pago"}
                                 </button>
                                 <Link href="/" className="block text-center text-sm font-bold text-[#FF6F91] hover:text-[#D4145A] transition-colors">
                                     Seguir comprando

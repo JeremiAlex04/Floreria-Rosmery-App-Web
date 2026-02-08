@@ -1,14 +1,36 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import PlantCard from "./CardPlantas";
-import { plants } from "./API_Plantas";
+import { plants as staticPlants } from "./API_Plantas";
 import { useCart } from "../context/CartContext";
-
+import { supabase } from "../lib/supabase";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 
 export default function ProductosPrincipales() {
     const { addToCart } = useCart();
+    const [products, setProducts] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchPopular = async () => {
+            const { data, error } = await supabase
+                .from("products")
+                .select("*")
+                .eq("popular", true)
+                .limit(4);
+
+            if (!error && data && data.length > 0) {
+                setProducts(data);
+            } else {
+                // Fallback a datos estáticos si la DB está vacía o hay error
+                setProducts(staticPlants.filter(p => p.popular).slice(0, 4));
+            }
+        };
+
+        fetchPopular();
+    }, []);
+
     return (
         <section>
             <div className="text-center mb-12">
@@ -23,7 +45,7 @@ export default function ProductosPrincipales() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {plants.filter(p => p.popular).map((plant) => (
+                {products.map((plant) => (
                     <PlantCard key={plant.id} {...plant} onAddToCart={() => addToCart(plant)} />
                 ))}
             </div>

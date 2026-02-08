@@ -20,14 +20,24 @@ export async function seedProducts() {
         descripcion: `Hermoso arreglo floral de la categoría ${p.categoria}. Ideal para ${p.ocasion.join(", ")}.`
     }));
 
-    // 3. Insertar por lotes (Supabase soporta esto)
-    const { data, error } = await supabase.from("products").insert(productsToInsert);
+    // 3. Insertar por lotes
+    const { data, error } = await supabase
+        .from("products")
+        .insert(productsToInsert)
+        .select();
 
     if (error) {
-        console.error("Error insertando datos:", error);
+        console.error("Error detallado Supabase:", error);
         return { success: false, error };
     }
 
-    console.log("Migración completada con éxito!");
-    return { success: true, count: productsToInsert.length };
+    if (!data || data.length === 0) {
+        return {
+            success: false,
+            error: { message: "La inserción fue exitosa pero no se devolvieron datos. Verifica las políticas RLS." }
+        };
+    }
+
+    console.log("Migración completada con éxito!", data.length, "registros creados.");
+    return { success: true, count: data.length };
 }

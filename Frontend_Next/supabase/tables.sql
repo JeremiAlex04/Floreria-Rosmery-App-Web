@@ -40,9 +40,9 @@ CREATE TYPE product_category AS ENUM (
 );
 
 -- Estado del pedido
-CREATE TYPE order_status AS ENUM (
-  'Recibido', 'Preparando', 'En Camino', 'Entregado', 'Cancelado'
-);
+DO $$ BEGIN
+    CREATE TYPE order_status AS ENUM ('Pendiente', 'Recibido', 'Preparando', 'En Camino', 'Entregado', 'Cancelado');
+EXCEPTION WHEN duplicate_object THEN null; END $$;
 
 -- 3. Tabla de Productos con Integridad
 CREATE TABLE public.products (
@@ -58,15 +58,16 @@ CREATE TABLE public.products (
   descripcion TEXT
 );
 
--- 4. Tabla de Pedidos e Items
-CREATE TABLE public.orders (
+CREATE TABLE IF NOT EXISTS public.orders (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-  status order_status DEFAULT 'Recibido',
+  status order_status DEFAULT 'Pendiente',
   total NUMERIC NOT NULL CHECK (total >= 0),
   shipping_address JSONB,
-  contact_info JSONB
+  contact_info JSONB,
+  payment_method TEXT, -- 'Yape', 'Plin', 'Transferencia', etc.
+  voucher_url TEXT -- URL de la imagen del comprobante
 );
 
 CREATE TABLE public.order_items (

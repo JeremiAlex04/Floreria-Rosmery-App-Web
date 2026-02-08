@@ -12,6 +12,8 @@ interface Order {
     user_id: string;
     contact_info: any;
     shipping_address: any;
+    payment_method?: string;
+    voucher_url?: string;
 }
 
 export default function AdminOrdersPage() {
@@ -125,6 +127,8 @@ export default function AdminOrdersPage() {
                                 <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-widest">Pedido ID</th>
                                 <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-widest">Fecha</th>
                                 <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-widest">Total</th>
+                                <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-widest">Método</th>
+                                <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-widest text-center">Voucher</th>
                                 <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-widest">Estado</th>
                                 <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-widest text-right">Acciones</th>
                             </tr>
@@ -153,6 +157,25 @@ export default function AdminOrdersPage() {
                                         </td>
                                         <td className="px-6 py-4 font-black text-gray-800">
                                             S/ {order.total.toFixed(2)}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded-lg">
+                                                {order.payment_method || 'N/A'}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4 text-center">
+                                            {order.voucher_url ? (
+                                                <a
+                                                    href={order.voucher_url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-1 text-[#D4145A] hover:underline font-bold text-xs"
+                                                >
+                                                    Ver Voucher
+                                                </a>
+                                            ) : (
+                                                <span className="text-gray-300 text-xs">-</span>
+                                            )}
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-black uppercase ${getStatusStyle(order.status)}`}>

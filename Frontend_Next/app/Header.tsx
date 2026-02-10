@@ -6,7 +6,9 @@ import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { plants, Plant } from "./API_Plantas";
 import ModalQS from "./ModalQS";
-import { FiSearch, FiMenu, FiX, FiShoppingCart, FiUser, FiLogOut, FiChevronDown } from "react-icons/fi";
+import TopBar from "./components/TopBar";
+import OrderTrackingModal from "./components/OrderTrackingModal";
+import { FiSearch, FiMenu, FiX, FiShoppingCart, FiUser, FiLogOut, FiChevronDown, FiHeart, FiGift, FiSun, FiAward, FiTruck } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
@@ -21,6 +23,8 @@ export default function Header() {
     const { totalItems } = useCart();
     const { user, signOut } = useAuth();
     const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const [megaMenuOpen, setMegaMenuOpen] = useState(false); // New Mega Menu state
+    const [trackingModalOpen, setTrackingModalOpen] = useState(false); // New Tracking Modal state
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -34,6 +38,7 @@ export default function Header() {
         setMobileMenuOpen(false);
         setUserMenuOpen(false);
         setSearchOpen(false);
+        setMegaMenuOpen(false);
     }, [pathname]);
 
     useEffect(() => {
@@ -66,18 +71,18 @@ export default function Header() {
 
     const navLinks = [
         { name: "Inicio", href: "/", active: pathname === "/" },
-        { name: "Categor\u00edas", href: "/catalogo", active: pathname.startsWith("/catalogo") },
         { name: "Eventos", href: "/eventos", active: pathname.startsWith("/eventos") },
         { name: "Contacto", href: "#contacto", active: false },
     ];
 
     return (
         <>
+            <TopBar /> {/* New Top Bar */}
             <nav
-                className={`sticky top-0 left-0 right-0 z-50 bg-white transition-all duration-500 ${scrolled ? "shadow-md py-2" : "py-4"
+                className={`sticky top-[40px] left-0 right-0 z-40 bg-white transition-all duration-500 ${scrolled ? "shadow-md py-2" : "py-4"
                     }`}
                 role="navigation"
-                aria-label="Navegaci\u00f3n principal"
+                aria-label="Navegación principal"
             >
                 <div className="max-w-7xl mx-auto px-4">
                     {/* Main Row */}
@@ -87,38 +92,71 @@ export default function Header() {
                         <Link href="/" className="relative z-10 flex items-center transition-transform hover:scale-[1.02] active:scale-95">
                             <Image
                                 src="/img/img-logo/logov2.png"
-                                alt="Logo Florer\u00eda Rosmery"
-                                width={scrolled ? 180 : 220}
-                                height={50}
+                                alt="Logo Florería Rosmery"
+                                width={scrolled ? 160 : 200}
+                                height={45}
                                 priority
                                 className="h-auto w-auto transition-all duration-500"
                             />
                         </Link>
 
-                        {/* Nav Links - Center */}
-                        <ul className="hidden lg:flex items-center gap-8">
-                            {navLinks.map(link => (
-                                <li key={link.name}>
-                                    <Link
-                                        href={link.href}
-                                        className={`text-[13px] font-semibold tracking-wide transition-colors relative pb-1 ${link.active
-                                            ? "text-[#D4145A]"
-                                            : "text-gray-500 hover:text-gray-900"
-                                            }`}
-                                    >
-                                        {link.name}
-                                        {link.active && (
-                                            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D4145A] rounded-full" />
-                                        )}
-                                    </Link>
-                                </li>
-                            ))}
+                        {/* Nav Links - Center (With Mega Menu) */}
+                        <ul className="hidden lg:flex items-center gap-8 relative">
+                            <li>
+                                <Link
+                                    href="/"
+                                    className={`text-[13px] font-bold tracking-wide transition-colors relative pb-1 ${pathname === "/" ? "text-[#D4145A]" : "text-gray-600 hover:text-gray-900"}`}
+                                >
+                                    INICIO
+                                </Link>
+                            </li>
+
+                            {/* Mega Menu Trigger */}
+                            <li
+                                onMouseEnter={() => setMegaMenuOpen(true)}
+                                onMouseLeave={() => setMegaMenuOpen(false)}
+                                className="relative py-4"
+                            >
+                                <button className={`flex items-center gap-1 text-[13px] font-bold tracking-wide uppercase transition-colors ${megaMenuOpen ? "text-[#D4145A]" : "text-gray-600 hover:text-gray-900"}`}>
+                                    Categorías <FiChevronDown className={`transition-transform duration-300 ${megaMenuOpen ? "rotate-180" : ""}`} />
+                                </button>
+
+                                {/* Mega Menu Content */}
+                                <div className={`absolute top-full left-1/2 -translate-x-1/2 w-[600px] bg-white rounded-2xl shadow-xl border border-gray-100 p-6 transition-all duration-300 transform origin-top ${megaMenuOpen ? "opacity-100 scale-100 translate-y-0 visible" : "opacity-0 scale-95 -translate-y-2 invisible"}`}>
+                                    <div className="grid grid-cols-2 gap-8">
+                                        <div>
+                                            <h4 className="text-[#D4145A] font-black uppercase text-xs tracking-wider mb-4 border-b border-pink-100 pb-2">Por Ocasión</h4>
+                                            <ul className="space-y-2">
+                                                <li><Link href="/catalogo?categoria=Cumpleaños" className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#D4145A] hover:bg-pink-50 rounded-lg p-2 transition-colors"><FiGift /> Cumpleaños</Link></li>
+                                                <li><Link href="/catalogo?categoria=Aniversario" className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#D4145A] hover:bg-pink-50 rounded-lg p-2 transition-colors"><FiHeart /> Aniversario</Link></li>
+                                                <li><Link href="/catalogo?categoria=Condolencias" className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#D4145A] hover:bg-pink-50 rounded-lg p-2 transition-colors"><FiSun /> Condolencias</Link></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-[#D4145A] font-black uppercase text-xs tracking-wider mb-4 border-b border-pink-100 pb-2">Destacados</h4>
+                                            <ul className="space-y-2">
+                                                <li><Link href="/catalogo?popular=true" className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#D4145A] hover:bg-pink-50 rounded-lg p-2 transition-colors"><FiAward /> Lo Más Vendido</Link></li>
+                                                <li><Link href="/catalogo" className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#D4145A] hover:bg-pink-50 rounded-lg p-2 transition-colors">Ver Todo el Catálogo</Link></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <Link
+                                    href="/eventos"
+                                    className={`text-[13px] font-bold tracking-wide transition-colors relative pb-1 ${pathname.startsWith("/eventos") ? "text-[#D4145A]" : "text-gray-600 hover:text-gray-900"}`}
+                                >
+                                    EVENTOS
+                                </Link>
+                            </li>
                             <li>
                                 <button
                                     onClick={() => setModalQSOpen(true)}
-                                    className="text-[13px] font-semibold tracking-wide text-gray-500 hover:text-gray-900 transition-colors"
+                                    className="text-[13px] font-bold tracking-wide text-gray-600 hover:text-gray-900 transition-colors uppercase"
                                 >
-                                    Nosotros
+                                    NOSOTROS
                                 </button>
                             </li>
                         </ul>
@@ -128,54 +166,61 @@ export default function Header() {
                             {/* Search Toggle */}
                             <button
                                 onClick={() => setSearchOpen(!searchOpen)}
-                                className="p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition-all"
+                                className="p-2.5 rounded-full text-gray-500 hover:text-[#D4145A] hover:bg-pink-50 transition-all border border-transparent hover:border-pink-100"
                             >
                                 <FiSearch size={18} />
                             </button>
 
-                            {/* User */}
+                            {/* User Menu */}
                             {user ? (
                                 <div className="relative">
                                     <button
                                         onClick={() => setUserMenuOpen(!userMenuOpen)}
-                                        className="flex items-center gap-2 px-3 py-2 rounded-full text-gray-500 hover:bg-gray-50 transition-all"
+                                        className="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full text-gray-500 hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100"
                                     >
-                                        <div className="w-7 h-7 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full flex items-center justify-center">
-                                            <span className="text-white text-xs font-bold">
+                                        <div className="w-8 h-8 bg-gradient-to-br from-[#D4145A] to-[#FF6F91] rounded-full flex items-center justify-center text-white shadow-sm">
+                                            <span className="text-xs font-black">
                                                 {(user.user_metadata?.full_name || user.email || "U")[0].toUpperCase()}
                                             </span>
                                         </div>
-                                        <FiChevronDown size={14} className={`transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
+                                        <FiChevronDown size={14} className={`transition-transform duration-300 ${userMenuOpen ? 'rotate-180' : ''}`} />
                                     </button>
 
                                     {userMenuOpen && (
-                                        <div className="absolute top-full right-0 mt-3 w-52 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden py-1">
-                                            <div className="px-4 py-3 border-b border-gray-50">
-                                                <p className="text-xs font-bold text-gray-800 truncate">
+                                        <div className="absolute top-full right-0 mt-3 w-60 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden py-2 animate-fadeIn z-50">
+                                            <div className="px-4 py-3 border-b border-gray-50 bg-gray-50/50">
+                                                <p className="text-sm font-bold text-gray-800 truncate">
                                                     {user.user_metadata?.full_name || "Mi Cuenta"}
                                                 </p>
-                                                <p className="text-[10px] text-gray-400 truncate">{user.email}</p>
+                                                <p className="text-xs text-gray-500 truncate">{user.email}</p>
                                             </div>
                                             <button
                                                 onClick={() => { router.push("/perfil"); setUserMenuOpen(false); }}
-                                                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-gray-50 transition-colors"
+                                                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-pink-50 hover:text-[#D4145A] transition-colors"
                                             >
-                                                <FiUser size={15} />
-                                                <span className="text-xs font-semibold">Mi Cuenta</span>
+                                                <FiUser size={16} />
+                                                <span className="font-semibold">Mi Perfil</span>
+                                            </button>
+                                            <button
+                                                onClick={() => { setTrackingModalOpen(true); setUserMenuOpen(false); }}
+                                                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-pink-50 hover:text-[#D4145A] transition-colors"
+                                            >
+                                                <FiTruck size={16} />
+                                                <span className="font-semibold">Rastrear Pedido</span>
                                             </button>
                                             <button
                                                 onClick={handleSignOut}
-                                                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-500 transition-colors"
+                                                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-500 hover:bg-red-50 hover:text-red-500 transition-colors border-t border-gray-50 mt-1"
                                             >
-                                                <FiLogOut size={15} />
-                                                <span className="text-xs font-semibold">Cerrar Sesi\u00f3n</span>
+                                                <FiLogOut size={16} />
+                                                <span className="font-semibold">Cerrar Sesión</span>
                                             </button>
                                         </div>
                                     )}
                                 </div>
                             ) : (
                                 <button
-                                    className="p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition-all"
+                                    className="p-2.5 rounded-full text-gray-500 hover:text-[#D4145A] hover:bg-pink-50 transition-all border border-transparent hover:border-pink-100"
                                     onClick={() => router.push("/iniciosesion")}
                                 >
                                     <FiUser size={18} />
@@ -184,12 +229,12 @@ export default function Header() {
 
                             {/* Cart */}
                             <button
-                                className="relative p-2 rounded-full text-gray-400 hover:text-[#D4145A] hover:bg-pink-50 transition-all"
+                                className="relative p-2.5 rounded-full text-gray-500 hover:text-[#D4145A] hover:bg-pink-50 transition-all border border-transparent hover:border-pink-100"
                                 onClick={() => router.push("/Carrito")}
                             >
                                 <FiShoppingCart size={18} />
                                 {totalItems > 0 && (
-                                    <span className="absolute -top-0.5 -right-0.5 bg-[#D4145A] text-[10px] text-white font-bold w-4.5 h-4.5 min-w-[18px] min-h-[18px] rounded-full flex items-center justify-center">
+                                    <span className="absolute -top-1 -right-1 bg-[#D4145A] text-[10px] text-white font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-sm animate-bounce">
                                         {totalItems}
                                     </span>
                                 )}
@@ -197,7 +242,7 @@ export default function Header() {
                         </div>
 
                         {/* Mobile Controls */}
-                        <div className="lg:hidden flex items-center gap-3">
+                        <div className="lg:hidden flex items-center gap-2">
                             <button
                                 onClick={() => setSearchOpen(!searchOpen)}
                                 className="p-2 text-gray-500"
@@ -219,7 +264,7 @@ export default function Header() {
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                                 className="p-2 text-gray-700"
                             >
-                                {mobileMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+                                {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
                             </button>
                         </div>
                     </div>
@@ -227,18 +272,18 @@ export default function Header() {
                     {/* Expandable Search Bar */}
                     <div className={`overflow-hidden transition-all duration-300 ${searchOpen ? 'max-h-20 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
                         <div className="relative">
-                            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={16} />
+                            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                             <input
                                 type="text"
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
-                                placeholder="Buscar flores, ramos, categor\u00edas..."
-                                className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-700 placeholder:text-gray-300 outline-none focus:border-[#D4145A]/30 focus:ring-2 focus:ring-[#D4145A]/10 transition-all"
+                                placeholder="Busca 'Rosas rojas' o 'Aniversario'..."
+                                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl text-sm text-gray-700 placeholder:text-gray-400 outline-none focus:bg-white focus:border-[#D4145A] focus:ring-2 focus:ring-[#D4145A]/10 transition-all shadow-inner"
                                 autoFocus={searchOpen}
                             />
                             {/* Search Suggestions */}
                             {suggestions.length > 0 && (
-                                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50">
+                                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50 animate-fadeIn">
                                     {suggestions.map((plant) => (
                                         <Link
                                             key={plant.id}
@@ -246,14 +291,14 @@ export default function Header() {
                                             onClick={() => setSearchOpen(false)}
                                             className="flex items-center gap-4 p-3 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0"
                                         >
-                                            <div className="w-10 h-10 relative flex-shrink-0">
+                                            <div className="w-12 h-12 relative flex-shrink-0">
                                                 <Image src={plant.imagen} alt={plant.nombre} fill className="object-cover rounded-lg" />
                                             </div>
                                             <div className="flex flex-col min-w-0">
-                                                <span className="text-sm font-semibold text-gray-800 truncate">{plant.nombre}</span>
-                                                <span className="text-xs text-gray-400">{plant.categoria}</span>
+                                                <span className="text-sm font-bold text-gray-800 truncate">{plant.nombre}</span>
+                                                <span className="text-xs text-gray-500 font-medium">{plant.categoria}</span>
                                             </div>
-                                            <span className="ml-auto text-sm font-bold text-[#D4145A]">S/ {plant.precio}</span>
+                                            <span className="ml-auto text-sm font-black text-[#D4145A]">S/ {plant.precio}</span>
                                         </Link>
                                     ))}
                                 </div>
@@ -266,75 +311,42 @@ export default function Header() {
                 <div
                     className={`fixed inset-x-0 bottom-0 bg-white z-40 transition-transform duration-500 ease-out lg:hidden overflow-y-auto ${mobileMenuOpen ? "translate-y-0" : "translate-y-full"
                         }`}
-                    style={{ top: scrolled ? '56px' : '72px' }}
+                    style={{ top: scrolled ? '96px' : '100px' }} // Adjusted for TopBar height
                 >
-                    <div className="flex flex-col p-6 space-y-1">
-                        {navLinks.map(link => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                onClick={() => setMobileMenuOpen(false)}
-                                className={`py-4 px-2 text-lg font-semibold border-b border-gray-50 transition-colors ${link.active ? "text-[#D4145A]" : "text-gray-700"
-                                    }`}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
-                        <button
-                            onClick={() => { setModalQSOpen(true); setMobileMenuOpen(false); }}
-                            className="py-4 px-2 text-lg font-semibold text-gray-700 border-b border-gray-50 text-left"
-                        >
-                            Nosotros
-                        </button>
+                    <div className="flex flex-col p-6 space-y-2">
+                        <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-3 px-2 text-lg font-bold text-gray-800 border-b border-gray-50">INICIO</Link>
+                        <Link href="/catalogo" onClick={() => setMobileMenuOpen(false)} className="py-3 px-2 text-lg font-bold text-gray-800 border-b border-gray-50">CATÁLOGO</Link>
+                        <Link href="/eventos" onClick={() => setMobileMenuOpen(false)} className="py-3 px-2 text-lg font-bold text-gray-800 border-b border-gray-50">EVENTOS</Link>
+                        <button onClick={() => { setModalQSOpen(true); setMobileMenuOpen(false); }} className="py-3 px-2 text-lg font-bold text-gray-800 border-b border-gray-50 text-left">NOSOTROS</button>
 
                         <div className="pt-6 space-y-3">
                             {user ? (
-                                <>
-                                    <div className="flex items-center gap-3 px-2 pb-4">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full flex items-center justify-center">
-                                            <span className="text-white font-bold">
-                                                {(user.user_metadata?.full_name || user.email || "U")[0].toUpperCase()}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm font-bold text-gray-800">
-                                                {user.user_metadata?.full_name || "Mi Cuenta"}
-                                            </p>
-                                            <p className="text-xs text-gray-400">{user.email}</p>
-                                        </div>
-                                    </div>
-                                    <button
-                                        onClick={() => { router.push("/perfil"); setMobileMenuOpen(false); }}
-                                        className="w-full bg-gray-50 py-3.5 rounded-xl font-semibold text-gray-600 flex items-center justify-center gap-2 text-sm"
-                                    >
-                                        <FiUser size={16} /> Mi Cuenta
-                                    </button>
-                                    <button
-                                        onClick={handleSignOut}
-                                        className="w-full bg-red-50 py-3.5 rounded-xl font-semibold text-red-500 flex items-center justify-center gap-2 text-sm"
-                                    >
-                                        <FiLogOut size={16} /> Cerrar Sesión
-                                    </button>
-                                </>
+                                <button
+                                    onClick={() => { router.push("/perfil"); setMobileMenuOpen(false); }}
+                                    className="w-full bg-pink-50 py-4 rounded-2xl font-bold text-[#D4145A] flex items-center justify-center gap-2"
+                                >
+                                    <FiUser size={18} /> Mi Cuenta
+                                </button>
                             ) : (
                                 <button
                                     onClick={() => { router.push("/iniciosesion"); setMobileMenuOpen(false); }}
-                                    className="w-full bg-gray-50 py-3.5 rounded-xl font-semibold text-gray-600 flex items-center justify-center gap-2 text-sm"
+                                    className="w-full bg-gray-100 py-4 rounded-2xl font-bold text-gray-700 flex items-center justify-center gap-2"
                                 >
-                                    <FiUser size={16} /> Iniciar Sesión / Regístrate
+                                    <FiUser size={18} /> Ingresar / Registro
                                 </button>
                             )}
                             <button
-                                onClick={() => { router.push("/Carrito"); setMobileMenuOpen(false); }}
-                                className="w-full bg-[#D4145A] py-3.5 rounded-xl font-bold text-white flex items-center justify-center gap-2 text-sm shadow-lg shadow-pink-200"
+                                onClick={() => { setTrackingModalOpen(true); setMobileMenuOpen(false); }}
+                                className="w-full bg-gray-50 py-4 rounded-2xl font-bold text-gray-600 flex items-center justify-center gap-2"
                             >
-                                <FiShoppingCart size={16} /> Ver Carrito ({totalItems})
+                                <FiTruck size={18} /> Rastrear Pedido
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <ModalQS isOpen={modalQSOpen} onClose={() => setModalQSOpen(false)} />
+                <OrderTrackingModal isOpen={trackingModalOpen} onClose={() => setTrackingModalOpen(false)} />
             </nav >
         </>
     );

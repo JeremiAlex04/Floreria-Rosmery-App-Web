@@ -46,10 +46,10 @@ function CatalogContent() {
     useEffect(() => {
         const fetchAll = async () => {
             const { data, error } = await supabase.from("products").select("*");
-            if (!error && data && data.length > 0) {
+            if (!error && data) {
                 setAllPlants(data as any);
             } else {
-                setAllPlants(plants);
+                setAllPlants([]);
             }
             setLoading(false);
         };

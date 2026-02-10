@@ -2,30 +2,37 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
-import { supabase } from "../lib/supabase";
 
-interface Category {
-    id: number;
-    title: string;
-    slug: string;
-    image_url: string;
-}
+const ocasiones = [
+    {
+        id: 1,
+        titulo: "Amor y Romance",
+        slug: "amor",
+        imagen: "/img/img-catalogo/C-Rosas.jpg",
+    },
+    {
+        id: 2,
+        titulo: "Cumpleaños",
+        slug: "cumpleanos",
+        imagen: "/img/img-catalogo/C-Cumpleaños.jpg",
+    },
+    {
+        id: 3,
+        titulo: "Aniversario",
+        slug: "aniversario",
+        imagen: "/img/img-catalogo/C-Aniversario.jpg",
+    },
+    {
+        id: 4,
+        titulo: "Condolencias",
+        slug: "condolencias",
+        imagen: "/img/img-catalogo/C-Condolencias.jpg",
+    },
+];
 
 export default function CategoriasOcasiones() {
     const { ref, isVisible } = useScrollReveal();
-    const [ocasiones, setOcasiones] = useState<Category[]>([]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-            const { data } = await supabase.from("categories").select("*").eq("active", true).order("order");
-            if (data) setOcasiones(data);
-        };
-        fetchCategories();
-    }, []);
-
-    if (ocasiones.length === 0) return null;
 
     return (
         <section
@@ -51,15 +58,15 @@ export default function CategoriasOcasiones() {
                     >
                         <div className="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden shadow-lg transition-all duration-500 group-hover:scale-105 group-hover:shadow-xl group-hover:shadow-pink-200/50 relative border-4 border-white">
                             <Image
-                                src={ocasion.image_url}
-                                alt={ocasion.title}
+                                src={ocasion.imagen}
+                                alt={ocasion.titulo}
                                 fill
                                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
                         <h3 className="mt-5 font-bold text-gray-800 text-base md:text-lg transition-colors group-hover:text-[#D4145A]">
-                            {ocasion.title}
+                            {ocasion.titulo}
                         </h3>
                     </Link>
                 ))}

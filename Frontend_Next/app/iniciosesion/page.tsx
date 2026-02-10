@@ -24,14 +24,29 @@ export default function InicioSesionPage() {
         setError(null);
 
         try {
-            const { error: signInError } = await supabase.auth.signInWithPassword({
-                email: credentials.user, // Asumimos que ingresan el correo
+            const { data, error: signInError } = await supabase.auth.signInWithPassword({
+                email: credentials.user,
                 password: credentials.password,
             });
 
             if (signInError) throw signInError;
 
-            router.push("/"); // Redirigir al inicio al tener éxito
+            // Verificar rol para redirigir
+            if (data.user) {
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('role')
+                    .eq('id', data.user.id)
+                    .single();
+
+                if (profile?.role === 'admin') {
+                    router.push("/admin");
+                } else {
+                    router.push("/");
+                }
+            } else {
+                router.push("/");
+            }
         } catch (err: any) {
             setError(err.message || "Credenciales inválidas");
         } finally {

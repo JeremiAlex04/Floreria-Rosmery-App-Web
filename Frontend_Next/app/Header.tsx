@@ -313,7 +313,7 @@ export default function Header() {
                                         onClick={handleSignOut}
                                         className="w-full bg-red-50 py-3.5 rounded-xl font-semibold text-red-500 flex items-center justify-center gap-2 text-sm"
                                     >
-                                        <FiLogOut size={16} /> Cerrar Sesi\u00f3n
+                                        <FiLogOut size={16} /> Cerrar Sesión
                                     </button>
                                 </>
                             ) : (
@@ -321,7 +321,7 @@ export default function Header() {
                                     onClick={() => { router.push("/iniciosesion"); setMobileMenuOpen(false); }}
                                     className="w-full bg-gray-50 py-3.5 rounded-xl font-semibold text-gray-600 flex items-center justify-center gap-2 text-sm"
                                 >
-                                    <FiUser size={16} /> Iniciar Sesi\u00f3n / Reg\u00edstrate
+                                    <FiUser size={16} /> Iniciar Sesión / Regístrate
                                 </button>
                             )}
                             <button

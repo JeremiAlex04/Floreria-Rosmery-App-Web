@@ -24,35 +24,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const fallbackSlides = [
-    {
-        id: 1,
-        subtitle: "Arreglos Exclusivos",
-        title: "Flores que hablan por ti",
-        description: "Descubre nuestra colección de ramos y arreglos florales diseñados con amor para cada ocasión especial.",
-        cta_text: "Ver Catálogo",
-        cta_link: "/catalogo",
-        image_url: "/img/img-carrusel/foto1.jpg"
-    },
-    {
-        id: 2,
-        subtitle: "Elegancia Natural",
-        title: "Lirios & Rosas Premium",
-        description: "Flores frescas seleccionadas a mano, entregadas el mismo día en Lima y alrededores.",
-        cta_text: "Comprar Ahora",
-        cta_link: "/catalogo",
-        image_url: "/img/img-carrusel/foto2.jpg"
-    },
-    {
-        id: 3,
-        subtitle: "Colección de Temporada",
-        title: "Girasoles & Color",
-        description: "Lleva alegría y energía con nuestros arreglos vibrantes de temporada.",
-        cta_text: "Explorar",
-        cta_link: "/catalogo",
-        image_url: "/img/img-carrusel/foto3.jpg"
-    }
-];
+const fallbackSlides = [];
 function HeroSection() {
     _s();
     const [slides, setSlides] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(fallbackSlides);
@@ -85,6 +57,7 @@ function HeroSection() {
     const next = ()=>goTo((current + 1) % slides.length);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "HeroSection.useEffect": ()=>{
+            if (slides.length === 0) return;
             const timer = setInterval({
                 "HeroSection.useEffect.timer": ()=>next()
             }["HeroSection.useEffect.timer"], 6000);
@@ -96,6 +69,7 @@ function HeroSection() {
         current,
         slides.length
     ]);
+    if (slides.length === 0) return null;
     const slide = slides[current];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         className: "relative w-full h-[85vh] min-h-[550px] max-h-[800px] overflow-hidden",
@@ -111,19 +85,19 @@ function HeroSection() {
                         sizes: "100vw"
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                        lineNumber: 96,
+                        lineNumber: 71,
                         columnNumber: 21
                     }, this)
                 }, s.id, false, {
                     fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                    lineNumber: 92,
+                    lineNumber: 67,
                     columnNumber: 17
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent z-10"
             }, void 0, false, {
                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                lineNumber: 108,
+                lineNumber: 83,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -138,7 +112,7 @@ function HeroSection() {
                                 children: slide.subtitle
                             }, void 0, false, {
                                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                                lineNumber: 114,
+                                lineNumber: 89,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -146,7 +120,7 @@ function HeroSection() {
                                 children: slide.title
                             }, void 0, false, {
                                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                                lineNumber: 121,
+                                lineNumber: 96,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -154,7 +128,7 @@ function HeroSection() {
                                 children: slide.description
                             }, void 0, false, {
                                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                                lineNumber: 128,
+                                lineNumber: 103,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -168,13 +142,13 @@ function HeroSection() {
                                             " ",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FiArrowRight, {}, void 0, false, {
                                                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                                                lineNumber: 143,
+                                                lineNumber: 118,
                                                 columnNumber: 50
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                                        lineNumber: 139,
+                                        lineNumber: 114,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -183,29 +157,29 @@ function HeroSection() {
                                         children: "Contactar"
                                     }, void 0, false, {
                                         fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                                        lineNumber: 145,
+                                        lineNumber: 120,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                                lineNumber: 135,
+                                lineNumber: 110,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                        lineNumber: 113,
+                        lineNumber: 88,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                    lineNumber: 112,
+                    lineNumber: 87,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                lineNumber: 111,
+                lineNumber: 86,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -215,12 +189,12 @@ function HeroSection() {
                     size: 20
                 }, void 0, false, {
                     fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                    lineNumber: 161,
+                    lineNumber: 136,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                lineNumber: 157,
+                lineNumber: 132,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -230,12 +204,12 @@ function HeroSection() {
                     size: 20
                 }, void 0, false, {
                     fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                    lineNumber: 167,
+                    lineNumber: 142,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                lineNumber: 163,
+                lineNumber: 138,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -245,25 +219,25 @@ function HeroSection() {
                         className: `h-1.5 rounded-full transition-all duration-500 ${i === current ? "w-10 bg-[#D4145A]" : "w-4 bg-white/40 hover:bg-white/60"}`
                     }, i, false, {
                         fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                        lineNumber: 173,
+                        lineNumber: 148,
                         columnNumber: 21
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                lineNumber: 171,
+                lineNumber: 146,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-50/30 to-transparent z-20"
             }, void 0, false, {
                 fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-                lineNumber: 182,
+                lineNumber: 157,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Frontend_Next/app/HeroSection.tsx",
-        lineNumber: 89,
+        lineNumber: 64,
         columnNumber: 9
     }, this);
 }
@@ -743,7 +717,6 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Frontend_Next$2f$app$2f$CardPlantas$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Frontend_Next/app/CardPlantas.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$Frontend_Next$2f$app$2f$API_Plantas$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Frontend_Next/app/API_Plantas.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Frontend_Next$2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Frontend_Next/context/CartContext.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Frontend_Next$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Frontend_Next/lib/supabase.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
@@ -763,7 +736,6 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-;
 function ProductosPrincipales() {
     _s();
     const { addToCart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Frontend_Next$2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"])();
@@ -776,16 +748,13 @@ function ProductosPrincipales() {
                     const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$Frontend_Next$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from("products").select("*").eq("popular", true).limit(4);
                     if (!error && data && data.length > 0) {
                         setProducts(data);
-                    } else {
-                        setProducts(__TURBOPACK__imported__module__$5b$project$5d2f$Frontend_Next$2f$app$2f$API_Plantas$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["plants"].filter({
-                            "ProductosPrincipales.useEffect.fetchPopular": (p)=>p.popular
-                        }["ProductosPrincipales.useEffect.fetchPopular"]).slice(0, 4));
                     }
                 }
             }["ProductosPrincipales.useEffect.fetchPopular"];
             fetchPopular();
         }
     }["ProductosPrincipales.useEffect"], []);
+    if (products.length === 0) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         ref: ref,
         className: `transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`,
@@ -798,7 +767,7 @@ function ProductosPrincipales() {
                         children: "Favoritos del mes"
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                        lineNumber: 41,
+                        lineNumber: 40,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -806,14 +775,14 @@ function ProductosPrincipales() {
                         children: "Productos Populares"
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                        lineNumber: 42,
+                        lineNumber: 41,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "h-1.5 w-24 bg-[#D4145A] mx-auto rounded-full"
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                        lineNumber: 45,
+                        lineNumber: 44,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -821,13 +790,13 @@ function ProductosPrincipales() {
                         children: "Descubre los arreglos que están enamorando a nuestros clientes."
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                        lineNumber: 46,
+                        lineNumber: 45,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                lineNumber: 40,
+                lineNumber: 39,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -837,12 +806,12 @@ function ProductosPrincipales() {
                         onAddToCart: ()=>addToCart(plant)
                     }, plant.id, false, {
                         fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                        lineNumber: 53,
+                        lineNumber: 52,
                         columnNumber: 21
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                lineNumber: 51,
+                lineNumber: 50,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -854,24 +823,24 @@ function ProductosPrincipales() {
                         "Ver Catálogo Completo ",
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FiArrowRight, {}, void 0, false, {
                             fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                            lineNumber: 62,
+                            lineNumber: 61,
                             columnNumber: 43
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                    lineNumber: 58,
+                    lineNumber: 57,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-                lineNumber: 57,
+                lineNumber: 56,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Frontend_Next/app/ProductosPrincipales.tsx",
-        lineNumber: 36,
+        lineNumber: 35,
         columnNumber: 9
     }, this);
 }
@@ -915,21 +884,11 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const fallbackPromo = {
-    id: 0,
-    title: "Ramo Premium de Rosas",
-    description: "12 rosas rojas importadas con follaje premium. Incluye tarjeta personalizada y envío gratuito.",
-    image_url: "/img/img-promocion/Promocion1.jpg",
-    original_price: 189.0,
-    sale_price: 129.0,
-    discount_percent: 32,
-    cta_link: "/catalogo",
-    expires_at: null
-};
+const fallbackPromo = null;
 function PromoBanner() {
     _s();
     const { ref, isVisible } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Frontend_Next$2f$hooks$2f$useScrollReveal$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useScrollReveal"])();
-    const [promo, setPromo] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(fallbackPromo);
+    const [promo, setPromo] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [timeLeft, setTimeLeft] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         hours: 0,
         minutes: 0,
@@ -954,6 +913,7 @@ function PromoBanner() {
     // Countdown timer
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "PromoBanner.useEffect": ()=>{
+            if (!promo) return;
             const updateTimer = {
                 "PromoBanner.useEffect.updateTimer": ()=>{
                     const now = new Date();
@@ -976,8 +936,9 @@ function PromoBanner() {
             })["PromoBanner.useEffect"];
         }
     }["PromoBanner.useEffect"], [
-        promo.expires_at
+        promo
     ]);
+    if (!promo) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         ref: ref,
         className: `transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`,
@@ -991,20 +952,20 @@ function PromoBanner() {
                             className: "absolute -top-20 -right-20 w-80 h-80 bg-white rounded-full"
                         }, void 0, false, {
                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                            lineNumber: 82,
+                            lineNumber: 75,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "absolute -bottom-10 -left-10 w-60 h-60 bg-white rounded-full"
                         }, void 0, false, {
                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                            lineNumber: 83,
+                            lineNumber: 76,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                    lineNumber: 81,
+                    lineNumber: 74,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1019,12 +980,12 @@ function PromoBanner() {
                                 className: "object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                lineNumber: 89,
+                                lineNumber: 82,
                                 columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                            lineNumber: 88,
+                            lineNumber: 81,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1038,7 +999,7 @@ function PromoBanner() {
                                             size: 14
                                         }, void 0, false, {
                                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                            lineNumber: 100,
+                                            lineNumber: 93,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1046,13 +1007,13 @@ function PromoBanner() {
                                             children: "Oferta del Día"
                                         }, void 0, false, {
                                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                            lineNumber: 101,
+                                            lineNumber: 94,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                    lineNumber: 99,
+                                    lineNumber: 92,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1060,7 +1021,7 @@ function PromoBanner() {
                                     children: promo.title
                                 }, void 0, false, {
                                     fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                    lineNumber: 104,
+                                    lineNumber: 97,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1068,7 +1029,7 @@ function PromoBanner() {
                                     children: promo.description
                                 }, void 0, false, {
                                     fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                    lineNumber: 107,
+                                    lineNumber: 100,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1082,7 +1043,7 @@ function PromoBanner() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                            lineNumber: 113,
+                                            lineNumber: 106,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1093,7 +1054,7 @@ function PromoBanner() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                            lineNumber: 114,
+                                            lineNumber: 107,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1105,13 +1066,13 @@ function PromoBanner() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                            lineNumber: 115,
+                                            lineNumber: 108,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                    lineNumber: 112,
+                                    lineNumber: 105,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1122,7 +1083,7 @@ function PromoBanner() {
                                             children: "Termina en:"
                                         }, void 0, false, {
                                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                            lineNumber: 120,
+                                            lineNumber: 113,
                                             columnNumber: 29
                                         }, this),
                                         [
@@ -1146,7 +1107,7 @@ function PromoBanner() {
                                                         children: String(unit.value).padStart(2, "0")
                                                     }, void 0, false, {
                                                         fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                                        lineNumber: 127,
+                                                        lineNumber: 120,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1154,19 +1115,19 @@ function PromoBanner() {
                                                         children: unit.label
                                                     }, void 0, false, {
                                                         fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                                        lineNumber: 130,
+                                                        lineNumber: 123,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, i, true, {
                                                 fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                                lineNumber: 126,
+                                                lineNumber: 119,
                                                 columnNumber: 33
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                    lineNumber: 119,
+                                    lineNumber: 112,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1176,40 +1137,40 @@ function PromoBanner() {
                                         "Comprar Ahora ",
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FiArrowRight, {}, void 0, false, {
                                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                            lineNumber: 139,
+                                            lineNumber: 132,
                                             columnNumber: 43
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                                    lineNumber: 135,
+                                    lineNumber: 128,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                            lineNumber: 98,
+                            lineNumber: 91,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-                    lineNumber: 86,
+                    lineNumber: 79,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-            lineNumber: 79,
+            lineNumber: 72,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/Frontend_Next/app/PromoBanner.tsx",
-        lineNumber: 78,
+        lineNumber: 71,
         columnNumber: 9
     }, this);
 }
-_s(PromoBanner, "Qoq6R9vJOsKGeUEGfh+TRh+iBy0=", false, function() {
+_s(PromoBanner, "F1rVBmJMMbvg66MIZwe+ZnEdctg=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$Frontend_Next$2f$hooks$2f$useScrollReveal$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useScrollReveal"]
     ];
@@ -1487,7 +1448,7 @@ function AnimatedCounters() {
                 lineNumber: 62,
                 columnNumber: 19
             }, this),
-            target: stats ? Math.max(stats.total_orders, 50) : 500,
+            target: stats?.total_orders || 0,
             suffix: "+",
             label: "Pedidos Entregados"
         },
@@ -1497,7 +1458,7 @@ function AnimatedCounters() {
                 lineNumber: 68,
                 columnNumber: 19
             }, this),
-            target: stats ? Math.max(stats.total_customers, 20) : 200,
+            target: stats?.total_customers || 0,
             suffix: "+",
             label: "Clientes Felices"
         },
@@ -1518,11 +1479,16 @@ function AnimatedCounters() {
                 lineNumber: 81,
                 columnNumber: 19
             }, this),
-            target: stats ? Math.max(stats.total_products, 10) : 50,
+            target: stats?.total_products || 0,
             suffix: "+",
             label: "Productos Disponibles"
         }
     ];
+    if (!stats) return null; // Optionally hide until stats load, or show 0s. Let's show 0s by removing this line if preferred, but user said "page empty".
+    // Actually, "page empty" implies sections shouldn't show if no data.
+    // If stats are all 0, maybe we should hide the section?
+    //For now, let's return null if no data is loaded yet to be safe and "empty".
+    if (!stats) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         ref: ref,
         className: `py-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`,
@@ -1538,7 +1504,7 @@ function AnimatedCounters() {
                                 children: stat.icon
                             }, void 0, false, {
                                 fileName: "[project]/Frontend_Next/app/AnimatedCounters.tsx",
-                                lineNumber: 97,
+                                lineNumber: 103,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1550,12 +1516,12 @@ function AnimatedCounters() {
                                     start: isVisible
                                 }, void 0, false, {
                                     fileName: "[project]/Frontend_Next/app/AnimatedCounters.tsx",
-                                    lineNumber: 101,
+                                    lineNumber: 107,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/Frontend_Next/app/AnimatedCounters.tsx",
-                                lineNumber: 100,
+                                lineNumber: 106,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1563,28 +1529,28 @@ function AnimatedCounters() {
                                 children: stat.label
                             }, void 0, false, {
                                 fileName: "[project]/Frontend_Next/app/AnimatedCounters.tsx",
-                                lineNumber: 108,
+                                lineNumber: 114,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, i, true, {
                         fileName: "[project]/Frontend_Next/app/AnimatedCounters.tsx",
-                        lineNumber: 96,
+                        lineNumber: 102,
                         columnNumber: 25
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/Frontend_Next/app/AnimatedCounters.tsx",
-                lineNumber: 94,
+                lineNumber: 100,
                 columnNumber: 17
             }, this)
         }, void 0, false, {
             fileName: "[project]/Frontend_Next/app/AnimatedCounters.tsx",
-            lineNumber: 93,
+            lineNumber: 99,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/Frontend_Next/app/AnimatedCounters.tsx",
-        lineNumber: 89,
+        lineNumber: 95,
         columnNumber: 9
     }, this);
 }
@@ -1624,24 +1590,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const fallbackTestimonials = [
-    {
-        id: 1,
-        name: "Ana María López",
-        role: "Cliente Frecuente",
-        avatar_url: "https://img.freepik.com/foto-gratis/mujer-joven-feliz-mirando-camara_23-2148161309.jpg",
-        text: "Excelente servicio, productos de alta calidad y precios competitivos. El arreglo llegó hermoso y a tiempo. ¡Recomiendo fuertemente esta tienda!",
-        rating: 5
-    },
-    {
-        id: 2,
-        name: "Juan Pérez",
-        role: "Compró hace 2 días",
-        avatar_url: "https://img.freepik.com/foto-gratis/joven-hombre-barbudo-camisa-rayas_273609-5677.jpg?w=740&q=80",
-        text: "Es una super tienda, los precios son muy competitivos y el servicio es excelente. Mi novia quedó encantada con las rosas.",
-        rating: 5
-    }
-];
+const fallbackTestimonials = [];
 function TestimoniosCarousel() {
     _s();
     const [testimonios, setTestimonios] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(fallbackTestimonials);
@@ -1682,14 +1631,17 @@ function TestimoniosCarousel() {
     const prev = ()=>setCurrent((current - 1 + testimonios.length) % testimonios.length);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "TestimoniosCarousel.useEffect": ()=>{
+            if (testimonios.length === 0) return;
             const timer = setInterval(next, 5000);
             return ({
                 "TestimoniosCarousel.useEffect": ()=>clearInterval(timer)
             })["TestimoniosCarousel.useEffect"];
         }
     }["TestimoniosCarousel.useEffect"], [
-        next
+        next,
+        testimonios.length
     ]);
+    if (testimonios.length === 0) return null;
     const testimonio = testimonios[current];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         ref: ref,
@@ -1703,7 +1655,7 @@ function TestimoniosCarousel() {
                         children: "Clientes Felices"
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                        lineNumber: 82,
+                        lineNumber: 68,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1711,20 +1663,20 @@ function TestimoniosCarousel() {
                         children: "Lo que dicen de nosotros"
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                        lineNumber: 83,
+                        lineNumber: 69,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "h-1.5 w-24 bg-[#D4145A] mx-auto rounded-full"
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                        lineNumber: 86,
+                        lineNumber: 72,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                lineNumber: 81,
+                lineNumber: 67,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1742,12 +1694,12 @@ function TestimoniosCarousel() {
                                         size: 20
                                     }, i, false, {
                                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                        lineNumber: 95,
+                                        lineNumber: 81,
                                         columnNumber: 29
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                lineNumber: 93,
+                                lineNumber: 79,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1759,7 +1711,7 @@ function TestimoniosCarousel() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                lineNumber: 100,
+                                lineNumber: 86,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1774,12 +1726,12 @@ function TestimoniosCarousel() {
                                             onError: ()=>setImageError(true)
                                         }, void 0, false, {
                                             fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                            lineNumber: 108,
+                                            lineNumber: 94,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                        lineNumber: 107,
+                                        lineNumber: 93,
                                         columnNumber: 29
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "w-14 h-14 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center",
@@ -1788,12 +1740,12 @@ function TestimoniosCarousel() {
                                             children: testimonio.name[0]
                                         }, void 0, false, {
                                             fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                            lineNumber: 117,
+                                            lineNumber: 103,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                        lineNumber: 116,
+                                        lineNumber: 102,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1804,7 +1756,7 @@ function TestimoniosCarousel() {
                                                 children: testimonio.name
                                             }, void 0, false, {
                                                 fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                                lineNumber: 123,
+                                                lineNumber: 109,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1812,25 +1764,25 @@ function TestimoniosCarousel() {
                                                 children: testimonio.role
                                             }, void 0, false, {
                                                 fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                                lineNumber: 124,
+                                                lineNumber: 110,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                        lineNumber: 122,
+                                        lineNumber: 108,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                lineNumber: 105,
+                                lineNumber: 91,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                        lineNumber: 91,
+                        lineNumber: 77,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1840,12 +1792,12 @@ function TestimoniosCarousel() {
                             size: 18
                         }, void 0, false, {
                             fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                            lineNumber: 134,
+                            lineNumber: 120,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                        lineNumber: 130,
+                        lineNumber: 116,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1855,12 +1807,12 @@ function TestimoniosCarousel() {
                             size: 18
                         }, void 0, false, {
                             fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                            lineNumber: 140,
+                            lineNumber: 126,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                        lineNumber: 136,
+                        lineNumber: 122,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1870,24 +1822,24 @@ function TestimoniosCarousel() {
                                 className: `h-2 rounded-full transition-all duration-300 ${i === current ? "w-8 bg-[#D4145A]" : "w-2 bg-gray-200"}`
                             }, i, false, {
                                 fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                                lineNumber: 146,
+                                lineNumber: 132,
                                 columnNumber: 25
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                        lineNumber: 144,
+                        lineNumber: 130,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-                lineNumber: 89,
+                lineNumber: 75,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Frontend_Next/app/TestimoniosCarousel.tsx",
-        lineNumber: 77,
+        lineNumber: 63,
         columnNumber: 9
     }, this);
 }

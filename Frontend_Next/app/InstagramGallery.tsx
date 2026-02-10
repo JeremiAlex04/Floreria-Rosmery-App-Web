@@ -1,30 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { FiInstagram } from "react-icons/fi";
 import { useScrollReveal } from "../hooks/useScrollReveal";
-import { supabase } from "../lib/supabase";
 
-interface GalleryImage {
-    id: number;
-    image_url: string;
-    alt_text: string;
-}
+const photos = [
+    { src: "/img/img-promocion/Promocion1.jpg", alt: "Rosas rojas" },
+    { src: "/img/img-promocion/Promocion2.jpg", alt: "Arreglo floral" },
+    { src: "/img/img-promocion/Promocion3.jpg", alt: "Ramo de tulipanes" },
+    { src: "/img/img-promocion/Promocion4.jpg", alt: "Centro de mesa" },
+    { src: "/img/img-promocion/Promocion5.jpg", alt: "Bouquet de rosas" },
+    { src: "/img/img-promocion/Promocion6.jpg", alt: "Arreglo premium" },
+];
 
 export default function InstagramGallery() {
     const { ref, isVisible } = useScrollReveal();
-    const [photos, setPhotos] = useState<GalleryImage[]>([]);
-
-    useEffect(() => {
-        const fetchGallery = async () => {
-            const { data } = await supabase.from("gallery_images").select("*").eq("active", true).order("order");
-            if (data) setPhotos(data);
-        };
-        fetchGallery();
-    }, []);
-
-    if (photos.length === 0) return null;
 
     return (
         <section
@@ -55,8 +45,8 @@ export default function InstagramGallery() {
                         }}
                     >
                         <Image
-                            src={photo.image_url}
-                            alt={photo.alt_text}
+                            src={photo.src}
+                            alt={photo.alt}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />

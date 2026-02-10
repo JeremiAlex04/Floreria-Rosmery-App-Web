@@ -1,59 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { FiPhone, FiMail, FiMapPin, FiClock, FiMessageCircle } from "react-icons/fi";
 import { useScrollReveal } from "../hooks/useScrollReveal";
-import { supabase } from "../lib/supabase";
 
-interface CompanySettings {
-    phone: string;
-    whatsapp: string;
-    email: string;
-    address: string;
-    schedule_mon_sat: string;
-    map_iframe_url: string;
-}
+const contactInfo = [
+    {
+        icon: <FiPhone />,
+        title: "Llámanos",
+        detail: "(01) 245-8365",
+        sub: "Lun - Sáb, 9:00 AM - 7:00 PM",
+    },
+    {
+        icon: <FiMessageCircle />,
+        title: "WhatsApp",
+        detail: "+51 912 053 432",
+        sub: "Respuesta en minutos",
+    },
+    {
+        icon: <FiMail />,
+        title: "Email",
+        detail: "contacto@floreriarosmery.com",
+        sub: "Respuesta en 24h",
+    },
+    {
+        icon: <FiClock />,
+        title: "Horario",
+        detail: "9:00 AM - 7:00 PM",
+        sub: "Lunes a Sábado",
+    },
+];
 
 export default function ContactSection() {
     const { ref, isVisible } = useScrollReveal();
-    const [settings, setSettings] = useState<CompanySettings | null>(null);
-
-    useEffect(() => {
-        const fetchSettings = async () => {
-            const { data } = await supabase.from("company_settings").select("*").single();
-            if (data) setSettings(data);
-        };
-        fetchSettings();
-    }, []);
-
-    if (!settings) return null;
-
-    const contactInfo = [
-        {
-            icon: <FiPhone />,
-            title: "Llámanos",
-            detail: settings.phone,
-            sub: "Lun - Sáb, " + settings.schedule_mon_sat,
-        },
-        {
-            icon: <FiMessageCircle />,
-            title: "WhatsApp",
-            detail: settings.whatsapp,
-            sub: "Respuesta en minutos",
-        },
-        {
-            icon: <FiMail />,
-            title: "Email",
-            detail: settings.email,
-            sub: "Respuesta en 24h",
-        },
-        {
-            icon: <FiClock />,
-            title: "Horario",
-            detail: settings.schedule_mon_sat,
-            sub: "Lunes a Sábado",
-        },
-    ];
 
     return (
         <section
@@ -86,20 +64,18 @@ export default function ContactSection() {
             </div>
 
             {/* Map Placeholder */}
-            {settings.map_iframe_url && (
-                <div className="mt-10 rounded-3xl overflow-hidden border border-gray-100 shadow-sm h-64 md:h-80">
-                    <iframe
-                        src={settings.map_iframe_url}
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Ubicación Florería Rosmery"
-                    />
-                </div>
-            )}
+            <div className="mt-10 rounded-3xl overflow-hidden border border-gray-100 shadow-sm h-64 md:h-80">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.963!2d-77.0280!3d-12.1165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDA3JzAwLjAiUyA3N8KwMDEnNDEuMCJX!5e0!3m2!1ses!2spe!4v1630000000000!5m2!1ses!2spe"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Ubicación Florería Rosmery"
+                />
+            </div>
         </section>
     );
 }

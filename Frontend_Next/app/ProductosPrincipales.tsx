@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from "react";
 import PlantCard from "./CardPlantas";
-import { plants as staticPlants } from "./API_Plantas";
 import { useCart } from "../context/CartContext";
 import { supabase } from "../lib/supabase";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export default function ProductosPrincipales() {
     const { addToCart } = useCart();
     const [products, setProducts] = useState<any[]>([]);
+    const { ref, isVisible } = useScrollReveal();
 
     useEffect(() => {
         const fetchPopular = async () => {
@@ -22,23 +23,25 @@ export default function ProductosPrincipales() {
 
             if (!error && data && data.length > 0) {
                 setProducts(data);
-            } else {
-                // Fallback a datos estáticos si la DB está vacía o hay error
-                setProducts(staticPlants.filter(p => p.popular).slice(0, 4));
             }
         };
 
         fetchPopular();
     }, []);
 
+    if (products.length === 0) return null;
+
     return (
-        <section>
+        <section
+            ref={ref}
+            className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+        >
             <div className="text-center mb-12">
                 <span className="text-[#D4145A] font-bold tracking-wider uppercase text-sm">Favoritos del mes</span>
                 <h2 className="text-3xl md:text-5xl font-black text-gray-900 mt-2 mb-4 tracking-tight">
                     Productos Populares
                 </h2>
-                <div className="h-1.5 w-24 bg-[#D4145A] mx-auto rounded-full"></div>
+                <div className="h-1.5 w-24 bg-[#D4145A] mx-auto rounded-full" />
                 <p className="max-w-2xl mx-auto mt-4 text-gray-500 text-lg">
                     Descubre los arreglos que están enamorando a nuestros clientes.
                 </p>

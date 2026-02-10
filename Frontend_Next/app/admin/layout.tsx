@@ -13,13 +13,15 @@ import {
     FiLogOut,
     FiMenu,
     FiX,
-    FiHome
+    FiHome,
+    FiImage
 } from "react-icons/fi";
 
 const adminMenuItems = [
     { name: "Dashboard", icon: <FiPieChart />, path: "/admin" },
     { name: "Productos", icon: <FiBox />, path: "/admin/productos" },
     { name: "Pedidos", icon: <FiShoppingCart />, path: "/admin/pedidos" },
+    { name: "Contenido", icon: <FiImage />, path: "/admin/contenido" },
     { name: "Configuración", icon: <FiSettings />, path: "/admin/config" },
 ];
 
@@ -45,7 +47,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     .single();
 
                 if (error || data?.role !== "admin") {
-                    console.error("Acceso denegado: No eres admin");
                     router.push("/");
                     setIsAdmin(false);
                 } else {

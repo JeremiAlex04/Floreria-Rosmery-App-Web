@@ -1,53 +1,62 @@
 "use client";
 
-import { FiTruck, FiShield, FiSmile, FiClock } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import * as Icons from "react-icons/fi"; // Import all icons
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import { supabase } from "../lib/supabase";
 
-const beneficios = [
-    {
-        icon: <FiTruck className="text-3xl text-[#D4145A]" />,
-        title: "Envío Gratis",
-        description: "En pedidos mayores a S/ 150",
-    },
-    {
-        icon: <FiShield className="text-3xl text-[#D4145A]" />,
-        title: "Pago Seguro",
-        description: "100% protegido con cifrado SSL",
-    },
-    {
-        icon: <FiSmile className="text-3xl text-[#D4145A]" />,
-        title: "Flores Frescas",
-        description: "Directo del campo a tu hogar",
-    },
-    {
-        icon: <FiClock className="text-3xl text-[#D4145A]" />,
-        title: "Entrega Hoy",
-        description: "Pide antes de las 2:00 PM",
-    },
-];
+interface Benefit {
+    id: number;
+    icon: string;
+    title: string;
+    description: string;
+}
 
 export default function Beneficios() {
+    const { ref, isVisible } = useScrollReveal();
+    const [beneficios, setBeneficios] = useState<Benefit[]>([]);
+
+    useEffect(() => {
+        const fetchBenefits = async () => {
+            const { data } = await supabase.from("benefits").select("*").eq("active", true).order("order");
+            if (data) setBeneficios(data);
+        };
+        fetchBenefits();
+    }, []);
+
+    if (beneficios.length === 0) return null;
+
     return (
-        <section className="py-12 bg-white">
+        <section
+            ref={ref}
+            className={`py-10 bg-white transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        >
             <div className="max-w-7xl mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {beneficios.map((item, index) => (
-                        <div
-                            key={index}
-                            className="flex items-center gap-5 p-6 rounded-2xl border border-gray-50 hover:shadow-xl hover:shadow-pink-500/5 transition-all duration-300 group"
-                        >
-                            <div className="p-4 bg-pink-50 rounded-2xl group-hover:scale-110 transition-transform duration-300">
-                                {item.icon}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    {beneficios.map((item, index) => {
+                        // Dynamic Icon Rendering
+                        const IconComponent = (Icons as any)[item.icon] || Icons.FiStar;
+
+                        return (
+                            <div
+                                key={item.id}
+                                className="flex items-center gap-4 p-5 rounded-2xl hover:bg-pink-50/50 transition-all duration-300 group"
+                                style={{ transitionDelay: `${index * 100}ms` }}
+                            >
+                                <div className="p-3 bg-pink-50 rounded-xl text-[#D4145A] group-hover:bg-[#D4145A] group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                                    <IconComponent className="text-2xl" />
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-gray-800 text-sm">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-xs text-gray-400 font-medium mt-0.5">
+                                        {item.description}
+                                    </p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 className="font-bold text-gray-800 text-lg uppercase tracking-tight">
-                                    {item.title}
-                                </h3>
-                                <p className="text-sm text-gray-400 font-medium">
-                                    {item.description}
-                                </p>
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

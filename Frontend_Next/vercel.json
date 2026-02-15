@@ -1,13 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": ".next",
   "framework": "nextjs",
-  "env": [
-    "NEXT_PUBLIC_SUPABASE_URL",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-    "NEXT_PUBLIC_STRIPE_PUBLIC_KEY",
-    "STRIPE_SECRET_KEY"
-  ],
   "functions": {
     "app/api/**": {
       "maxDuration": 60

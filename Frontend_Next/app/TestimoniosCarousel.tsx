@@ -3,16 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { FiChevronLeft, FiChevronRight, FiStar } from "react-icons/fi";
 import { useScrollReveal } from "../hooks/useScrollReveal";
-import { supabase } from "../lib/supabase";
-
-interface Testimonial {
-    id: number;
-    name: string;
-    role: string;
-    avatar_url: string | null;
-    text: string;
-    rating: number;
-}
+import { fetchHomeData, Testimonial } from "../lib/homeDataClient";
 
 const fallbackTestimonials: Testimonial[] = [];
 
@@ -27,17 +18,16 @@ export default function TestimoniosCarousel() {
         setImageError(false);
     }, [current]);
 
-    // Fetch from Supabase
+    // Fetch from Neon API
     useEffect(() => {
         const fetchTestimonials = async () => {
-            const { data, error } = await supabase
-                .from("testimonials")
-                .select("*")
-                .eq("active", true)
-                .order("created_at", { ascending: false });
-
-            if (!error && data && data.length > 0) {
-                setTestimonios(data);
+            try {
+                const data = await fetchHomeData();
+                if (data.testimonials.length > 0) {
+                    setTestimonios(data.testimonials);
+                }
+            } catch (error) {
+                console.error("Unable to load testimonials from Neon:", error);
             }
         };
         fetchTestimonials();

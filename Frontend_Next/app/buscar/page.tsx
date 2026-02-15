@@ -3,9 +3,11 @@
 import { plants } from "@/app/API_Plantas";
 import PlantCard from "@/app/CardPlantas";
 import { useCart } from "@/context/CartContext";
+import { useSearchParams } from "next/navigation";
 
-export default function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
-    const query = searchParams.q || "";
+export default function SearchPage() {
+    const searchParams = useSearchParams();
+    const query = searchParams.get("q") || "";
     const { addToCart } = useCart();
 
     // Filtrar plantas por nombre o categoría

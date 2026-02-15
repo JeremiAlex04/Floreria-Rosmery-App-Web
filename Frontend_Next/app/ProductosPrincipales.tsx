@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import PlantCard from "./CardPlantas";
 import { useCart } from "../context/CartContext";
-import { supabase } from "../lib/supabase";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import { fetchHomeData } from "../lib/homeDataClient";
 
 export default function ProductosPrincipales() {
     const { addToCart } = useCart();
@@ -15,14 +15,13 @@ export default function ProductosPrincipales() {
 
     useEffect(() => {
         const fetchPopular = async () => {
-            const { data, error } = await supabase
-                .from("products")
-                .select("*")
-                .eq("popular", true)
-                .limit(4);
-
-            if (!error && data && data.length > 0) {
-                setProducts(data);
+            try {
+                const data = await fetchHomeData();
+                if (data.popularProducts.length > 0) {
+                    setProducts(data.popularProducts);
+                }
+            } catch (error) {
+                console.error("Unable to load popular products from Neon:", error);
             }
         };
 

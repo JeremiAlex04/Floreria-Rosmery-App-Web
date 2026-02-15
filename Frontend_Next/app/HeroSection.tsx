@@ -4,17 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight, FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { supabase } from "../lib/supabase";
-
-interface HeroSlide {
-    id: number;
-    subtitle: string;
-    title: string;
-    description: string;
-    cta_text: string;
-    cta_link: string;
-    image_url: string;
-}
+import { fetchHomeData, HeroSlide } from "../lib/homeDataClient";
 
 const fallbackSlides: HeroSlide[] = [];
 
@@ -26,14 +16,13 @@ export default function HeroSection() {
     // Fetch slides from Supabase
     useEffect(() => {
         const fetchSlides = async () => {
-            const { data, error } = await supabase
-                .from("hero_slides")
-                .select("*")
-                .eq("active", true)
-                .order("order", { ascending: true });
-
-            if (!error && data && data.length > 0) {
-                setSlides(data);
+            try {
+                const data = await fetchHomeData();
+                if (data.heroSlides.length > 0) {
+                    setSlides(data.heroSlides);
+                }
+            } catch (error) {
+                console.error("Unable to load hero slides from Neon:", error);
             }
         };
         fetchSlides();

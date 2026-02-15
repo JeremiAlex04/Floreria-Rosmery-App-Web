@@ -2,14 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
-import { supabase } from "../lib/supabase";
 import { FiPackage, FiHeart, FiStar, FiShoppingBag } from "react-icons/fi";
-
-interface Stats {
-    total_orders: number;
-    total_customers: number;
-    total_products: number;
-}
+import { fetchHomeData, HomeStats } from "../lib/homeDataClient";
 
 function AnimatedNumber({ target, suffix, decimals = 0, start }: { target: number; suffix: string; decimals?: number; start: boolean }) {
     const [count, setCount] = useState(0);
@@ -40,18 +34,16 @@ function AnimatedNumber({ target, suffix, decimals = 0, start }: { target: numbe
 
 export default function AnimatedCounters() {
     const { ref, isVisible } = useScrollReveal(0.3);
-    const [stats, setStats] = useState<Stats | null>(null);
+    const [stats, setStats] = useState<HomeStats | null>(null);
 
-    // Fetch real-time stats from Supabase
+    // Fetch real-time stats from Neon API
     useEffect(() => {
         const fetchStats = async () => {
-            const { data, error } = await supabase
-                .from("homepage_stats")
-                .select("*")
-                .single();
-
-            if (!error && data) {
-                setStats(data);
+            try {
+                const data = await fetchHomeData();
+                setStats(data.stats);
+            } catch (error) {
+                console.error("Unable to load homepage stats from Neon:", error);
             }
         };
         fetchStats();
@@ -85,10 +77,6 @@ export default function AnimatedCounters() {
         },
     ];
 
-    if (!stats) return null; // Optionally hide until stats load, or show 0s. Let's show 0s by removing this line if preferred, but user said "page empty".
-    // Actually, "page empty" implies sections shouldn't show if no data.
-    // If stats are all 0, maybe we should hide the section?
-    //For now, let's return null if no data is loaded yet to be safe and "empty".
     if (!stats) return null;
 
     return (

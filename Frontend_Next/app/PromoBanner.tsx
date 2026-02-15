@@ -5,19 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FiClock, FiArrowRight } from "react-icons/fi";
 import { useScrollReveal } from "../hooks/useScrollReveal";
-import { supabase } from "../lib/supabase";
-
-interface Promotion {
-    id: number;
-    title: string;
-    description: string;
-    image_url: string;
-    original_price: number;
-    sale_price: number;
-    discount_percent: number;
-    cta_link: string;
-    expires_at: string | null;
-}
+import { fetchHomeData, Promotion } from "../lib/homeDataClient";
 
 const fallbackPromo: Promotion | null = null;
 
@@ -26,19 +14,14 @@ export default function PromoBanner() {
     const [promo, setPromo] = useState<Promotion | null>(null);
     const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
-    // Fetch active promotion from Supabase
+    // Fetch active promotion from Neon API
     useEffect(() => {
         const fetchPromo = async () => {
-            const { data, error } = await supabase
-                .from("promotions")
-                .select("*")
-                .eq("active", true)
-                .order("created_at", { ascending: false })
-                .limit(1)
-                .single();
-
-            if (!error && data) {
-                setPromo(data);
+            try {
+                const data = await fetchHomeData();
+                setPromo(data.promotion);
+            } catch (error) {
+                console.error("Unable to load promotion from Neon:", error);
             }
         };
         fetchPromo();

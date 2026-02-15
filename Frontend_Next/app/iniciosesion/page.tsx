@@ -57,10 +57,13 @@ export default function InicioSesionPage() {
     const handleSocialLogin = async (provider: 'google' | 'facebook') => {
         console.log("Intentando login con:", provider); // Debug
         try {
+            // Get the redirect URL safely
+            const redirectUrl = typeof window !== 'undefined' ? window.location.origin : '';
+            
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: provider,
                 options: {
-                    redirectTo: `${window.location.origin}`,
+                    redirectTo: redirectUrl,
                 },
             });
             if (error) {

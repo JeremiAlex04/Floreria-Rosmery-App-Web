@@ -3,12 +3,14 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FiShoppingBag, FiTrash2, FiMinus, FiPlus, FiArrowLeft } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "../../context/AuthContext";
 
 export default function CarritoPage() {
+    const router = useRouter();
     const { cart, removeFromCart, addToCart, decreaseQuantity, totalPrice, totalItems, clearCart } = useCart();
     const { user } = useAuth();
     const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -85,7 +87,7 @@ export default function CarritoPage() {
 
             alert("¡Pedido realizado con éxito! Un administrador validará tu pago pronto.");
             clearCart();
-            window.location.href = "/admin/pedidos"; // Redirigir a vista de pedidos (o perfil de usuario)
+            router.push("/perfil"); // Redirigir al perfil del usuario
 
         } catch (error: any) {
             console.error("Checkout error:", error);

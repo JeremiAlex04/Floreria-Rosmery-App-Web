@@ -33,7 +33,7 @@ export default function ProductosPrincipales() {
     return (
         <section
             ref={ref}
-            className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            className={`transition-[opacity,transform] duration-400 ease-[var(--ease-out-expo)] will-change-transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
             <div className="text-center mb-12">
                 <span className="text-[#D4145A] font-bold tracking-wider uppercase text-sm">Favoritos del mes</span>
@@ -55,7 +55,7 @@ export default function ProductosPrincipales() {
             <div className="text-center mt-12">
                 <Link
                     href="/catalogo"
-                    className="inline-flex items-center gap-2 px-8 py-3 bg-white border-2 border-[#D4145A] text-[#D4145A] font-bold rounded-full hover:bg-[#D4145A] hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg uppercase tracking-wider text-sm"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-white border-2 border-[#D4145A] text-[#D4145A] font-bold rounded-full hover:bg-[#D4145A] hover:text-white transition-[background-color,color,transform,box-shadow] duration-150 ease-out active:scale-[0.97] shadow-sm hover:shadow-lg uppercase tracking-wider text-sm"
                 >
                     Ver Catálogo Completo <FiArrowRight />
                 </Link>

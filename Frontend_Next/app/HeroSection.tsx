@@ -76,39 +76,39 @@ export default function HeroSection() {
                 <div className="max-w-7xl mx-auto px-6 w-full">
                     <div className="max-w-xl">
                         <span
-                            className={`inline-block px-4 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white text-xs font-bold tracking-widest uppercase mb-6 transition-all duration-700 ${isAnimating ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                            className={`inline-block px-4 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white text-xs font-bold tracking-widest uppercase mb-6 transition-[opacity,transform] duration-400 ease-[var(--ease-out-expo)] will-change-transform ${isAnimating ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
                                 }`}
                         >
                             {slide.subtitle}
                         </span>
 
                         <h1
-                            className={`text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 transition-all duration-700 delay-100 ${isAnimating ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+                            className={`text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 transition-[opacity,transform] duration-400 delay-75 ease-[var(--ease-out-expo)] will-change-transform ${isAnimating ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
                                 }`}
                         >
                             {slide.title}
                         </h1>
 
                         <p
-                            className={`text-white/80 text-base md:text-lg leading-relaxed mb-8 max-w-md transition-all duration-700 delay-200 ${isAnimating ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+                            className={`text-white/80 text-base md:text-lg leading-relaxed mb-8 max-w-md transition-[opacity,transform] duration-400 delay-150 ease-[var(--ease-out-expo)] will-change-transform ${isAnimating ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
                                 }`}
                         >
                             {slide.description}
                         </p>
 
                         <div
-                            className={`flex flex-wrap gap-4 transition-all duration-700 delay-300 ${isAnimating ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+                            className={`flex flex-wrap gap-4 transition-[opacity,transform] duration-400 delay-200 ease-[var(--ease-out-expo)] will-change-transform ${isAnimating ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
                                 }`}
                         >
                             <Link
                                 href={slide.cta_link}
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-[#D4145A] text-white font-bold rounded-full hover:bg-[#B0124A] transition-all shadow-xl shadow-pink-900/30 hover:shadow-2xl hover:scale-105 active:scale-95 text-sm uppercase tracking-wider"
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-[#D4145A] text-white font-bold rounded-full hover:bg-[#B0124A] transition-[background-color,transform] duration-150 ease-out shadow-xl shadow-pink-900/30 hover:shadow-2xl hover:scale-105 active:scale-[0.97] text-sm uppercase tracking-wider"
                             >
                                 {slide.cta_text} <FiArrowRight />
                             </Link>
                             <Link
                                 href="#contacto"
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-bold rounded-full hover:bg-white/20 transition-all text-sm uppercase tracking-wider"
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-bold rounded-full hover:bg-white/20 transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] text-sm uppercase tracking-wider"
                             >
                                 Contactar
                             </Link>
@@ -120,24 +120,27 @@ export default function HeroSection() {
             {/* Navigation */}
             <button
                 onClick={prev}
-                className="absolute left-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+                aria-label="Slide anterior"
+                className="absolute left-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-[background-color,transform] duration-150 ease-out active:scale-[0.95]"
             >
                 <FiChevronLeft size={20} />
             </button>
             <button
                 onClick={next}
-                className="absolute right-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+                aria-label="Slide siguiente"
+                className="absolute right-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-[background-color,transform] duration-150 ease-out active:scale-[0.95]"
             >
                 <FiChevronRight size={20} />
             </button>
 
-            {/* Indicators */}
+            {/* Indicators: scale-x avoids layout resize */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2">
                 {slides.map((_, i) => (
                     <button
                         key={i}
                         onClick={() => goTo(i)}
-                        className={`h-1.5 rounded-full transition-all duration-500 ${i === current ? "w-10 bg-[#D4145A]" : "w-4 bg-white/40 hover:bg-white/60"
+                        aria-label={`Ir al slide ${i + 1}`}
+                        className={`h-1.5 w-8 rounded-full origin-center transition-[transform,background-color] duration-300 ease-out ${i === current ? "scale-x-100 bg-[#D4145A]" : "scale-x-50 bg-white/40 hover:bg-white/60"
                             }`}
                     />
                 ))}

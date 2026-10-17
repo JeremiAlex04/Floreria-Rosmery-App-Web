@@ -51,7 +51,7 @@ export default function PromoBanner() {
     if (!promo) return null;
 
     return (
-        <section ref={ref} className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <section ref={ref} className={`transition-[opacity,transform] duration-400 ease-[var(--ease-out-expo)] will-change-transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#D4145A] via-[#FF6F91] to-[#FF9EB5] p-8 md:p-12">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10">
@@ -110,7 +110,7 @@ export default function PromoBanner() {
 
                         <Link
                             href={promo.cta_link}
-                            className="inline-flex items-center gap-2 bg-white text-[#D4145A] font-bold px-8 py-3.5 rounded-full hover:shadow-xl transition-all hover:scale-105 active:scale-95 text-sm uppercase tracking-wider"
+                            className="inline-flex items-center gap-2 bg-white text-[#D4145A] font-bold px-8 py-3.5 rounded-full hover:shadow-xl transition-[box-shadow,transform] duration-150 ease-out hover:scale-105 active:scale-[0.97] text-sm uppercase tracking-wider"
                         >
                             Comprar Ahora <FiArrowRight />
                         </Link>

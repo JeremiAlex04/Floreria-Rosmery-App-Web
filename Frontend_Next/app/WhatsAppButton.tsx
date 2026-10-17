@@ -15,13 +15,13 @@ export default function WhatsAppButton() {
             className="fixed bottom-6 right-6 z-[60] group flex items-center gap-3"
             aria-label="Contactar por WhatsApp"
         >
-            <div className="bg-white text-gray-800 px-4 py-2 rounded-xl shadow-xl border border-gray-100 opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 whitespace-nowrap hidden md:block">
+            <div className="bg-white text-gray-800 px-4 py-2 rounded-xl shadow-xl border border-gray-100 opacity-0 -translate-x-3 transition-[opacity,transform] duration-200 ease-out group-hover:opacity-100 group-hover:translate-x-0 whitespace-nowrap hidden md:block">
                 <p className="font-bold text-sm">¿En qué podemos ayudarte?</p>
             </div>
 
             <div className="relative">
                 <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-30 animate-ping"></span>
-                <div className="relative bg-[#25D366] text-white p-4 rounded-full shadow-2xl transition-transform duration-300 hover:scale-110 active:scale-95 flex items-center justify-center">
+                <div className="relative bg-[#25D366] text-white p-4 rounded-full shadow-2xl transition-[transform,box-shadow] duration-150 ease-out hover:scale-105 active:scale-[0.97] flex items-center justify-center">
                     <FaWhatsapp size={32} />
                 </div>
             </div>

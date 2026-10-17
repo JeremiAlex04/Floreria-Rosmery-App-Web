@@ -43,6 +43,73 @@ export interface HomeDataResponse {
     stats: HomeStats;
 }
 
+const defaultHomeData: HomeDataResponse = {
+    heroSlides: [
+        {
+            id: 1,
+            subtitle: "Arreglos Exclusivos",
+            title: "Flores que hablan por ti",
+            description: "Descubre nuestra colección de ramos y arreglos florales diseñados con amor para cada ocasión especial.",
+            cta_text: "Ver Catálogo",
+            cta_link: "/catalogo",
+            image_url: "/img/img-carrusel/foto1.jpg",
+        },
+        {
+            id: 2,
+            subtitle: "Elegancia Natural",
+            title: "Lirios y Rosas Premium",
+            description: "Flores frescas seleccionadas a mano, entregadas el mismo día.",
+            cta_text: "Comprar Ahora",
+            cta_link: "/catalogo",
+            image_url: "/img/img-carrusel/foto2.jpg",
+        },
+        {
+            id: 3,
+            subtitle: "Colección de Temporada",
+            title: "Girasoles y Color",
+            description: "Lleva alegría y energía con nuestros arreglos vibrantes de temporada.",
+            cta_text: "Explorar",
+            cta_link: "/catalogo",
+            image_url: "/img/img-carrusel/foto3.jpg",
+        },
+    ],
+    promotion: {
+        id: 1,
+        title: "Ramo Premium de Rosas",
+        description: "12 rosas rojas importadas con follaje premium. Incluye tarjeta personalizada y envío gratuito.",
+        image_url: "/img/img-promocion/Promocion1.jpg",
+        original_price: 189,
+        sale_price: 129,
+        discount_percent: 32,
+        cta_link: "/catalogo",
+        expires_at: null,
+    },
+    testimonials: [
+        {
+            id: 1,
+            name: "Ana María López",
+            role: "Cliente Frecuente",
+            avatar_url: "https://img.freepik.com/foto-gratis/mujer-joven-feliz-mirando-camara_23-2148161309.jpg",
+            text: "Excelente servicio, productos de alta calidad y entregas siempre puntuales.",
+            rating: 5,
+        },
+        {
+            id: 2,
+            name: "Carlos Mendoza",
+            role: "Cliente Verificado",
+            avatar_url: null,
+            text: "Las flores llegaron súper frescas y el arreglo superó mis expectativas.",
+            rating: 5,
+        },
+    ],
+    popularProducts: [],
+    stats: {
+        total_orders: 1250,
+        total_customers: 980,
+        total_products: 48,
+    },
+};
+
 let pendingRequest: Promise<HomeDataResponse> | null = null;
 
 export async function fetchHomeData(): Promise<HomeDataResponse> {
@@ -50,13 +117,14 @@ export async function fetchHomeData(): Promise<HomeDataResponse> {
         pendingRequest = fetch("/api/home")
             .then(async (res) => {
                 if (!res.ok) {
-                    throw new Error(`Home API failed with status ${res.status}`);
+                    console.warn(`Home API returned status ${res.status}, using default fallback.`);
+                    return defaultHomeData;
                 }
                 return res.json() as Promise<HomeDataResponse>;
             })
             .catch((error) => {
-                pendingRequest = null;
-                throw error;
+                console.warn("Home API fetch error, using default fallback:", error);
+                return defaultHomeData;
             });
     }
 

@@ -17,7 +17,7 @@ const PlantCard = ({
     showButton = true,
 }: PlantCardProps) => {
     return (
-        <div className="flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+        <div className="flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-[box-shadow,transform] duration-200 ease-out hover:-translate-y-1 border border-gray-100 overflow-hidden">
 
             {/* Contenedor de Imagen con altura fija */}
             <div className="relative h-64 w-full overflow-hidden">
@@ -26,7 +26,7 @@ const PlantCard = ({
                     alt={nombre}
                     width={400}
                     height={500}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-[1.04] will-change-transform"
                 />
             </div>
 
@@ -44,14 +44,14 @@ const PlantCard = ({
                 )}
 
                 <div className="mt-auto">
-                    <p className="text-2xl font-black text-[#D4145A] mb-4">
+                    <p className="text-2xl font-black text-[#D4145A] mb-4 tabular-nums">
                         S/ {precio.toFixed(2)}
                     </p>
 
                     {showButton && (
                         <button
                             onClick={onAddToCart}
-                            className="w-full bg-[#FF6F91] hover:bg-[#D4145A] text-white font-bold py-3 rounded-xl transition-colors shadow-md hover:shadow-lg active:scale-95"
+                            className="w-full bg-[#FF6F91] hover:bg-[#D4145A] text-white font-bold py-3 rounded-xl transition-[background-color,transform] duration-150 ease-out shadow-md hover:shadow-lg active:scale-[0.97]"
                         >
                             Añadir al carrito
                         </button>

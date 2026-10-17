@@ -1,7 +1,73 @@
 @import "tailwindcss";
 
+:root {
+  --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-smooth: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Tokens tipográficos semánticos para Alta Floristería */
+  --font-serif-luxury: var(--font-serif), "Playfair Display", "Didot", "Bodoni MT", serif;
+  --font-sans-ui: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+}
+
 body {
   background: #ffffff;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans-ui);
+  letter-spacing: -0.012em;
+}
+
+/* 1. Títulos de alto impacto editorial y colecciones */
+h1, h2, h3, .font-editorial, .title-luxury {
+  font-family: var(--font-serif-luxury);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  font-weight: 600;
+}
+
+/* 2. Párrafos y descripciones de producto */
+p, .text-body {
+  font-family: var(--font-sans-ui);
+  text-wrap: pretty;
+  line-height: 1.6;
+}
+
+/* 3. Micro-etiquetas y Badges (Eyebrows) */
+.eyebrow-tag, [data-badge] {
+  font-family: var(--font-sans-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+}
+
+/* 4. Precios, fechas y cifras numéricas */
+.price-value, .tabular-nums, [data-price] {
+  font-family: var(--font-sans-ui);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* 5. Navegación y Botones de acción */
+nav a, nav button, button.btn-luxury {
+  font-family: var(--font-sans-ui);
+  letter-spacing: 0.03em;
+}
+
+/* Apple: sin transparencia → material sólido */
+@media (prefers-reduced-transparency: reduce) {
+  .nav-material,
+  .mobile-sheet {
+    background-color: #ffffff !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* Apple: movimiento reducido → sin deslizamiento */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-sheet {
+    transition-duration: 0ms !important;
+  }
 }

@@ -1,33 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { FiPackage, FiHeart, FiStar, FiShoppingBag } from "react-icons/fi";
 import { fetchHomeData, HomeStats } from "../lib/homeDataClient";
 
 function AnimatedNumber({ target, suffix, decimals = 0, start }: { target: number; suffix: string; decimals?: number; start: boolean }) {
-    const [count, setCount] = useState(0);
+    const spanRef = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
-        if (!start) return;
-        let current = 0;
-        const step = target / 60;
-        const interval = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                setCount(target);
-                clearInterval(interval);
-            } else {
-                setCount(current);
+        const el = spanRef.current;
+        if (!el) return;
+        if (!start) {
+            el.textContent = `${decimals > 0 ? (0).toFixed(decimals) : 0}${suffix}`;
+            return;
+        }
+
+        let startTimestamp: number | null = null;
+        const duration = 1200;
+        let rafId: number;
+
+        const step = (timestamp: number) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const current = easeOut * target;
+
+            el.textContent = `${decimals > 0 ? current.toFixed(decimals) : Math.floor(current)}${suffix}`;
+
+            if (progress < 1) {
+                rafId = requestAnimationFrame(step);
             }
-        }, 25);
-        return () => clearInterval(interval);
-    }, [start, target]);
+        };
+
+        rafId = requestAnimationFrame(step);
+        return () => cancelAnimationFrame(rafId);
+    }, [start, target, suffix, decimals]);
 
     return (
-        <span className="text-3xl md:text-4xl font-black text-gray-900">
-            {decimals > 0 ? count.toFixed(decimals) : Math.floor(count)}
-            {suffix}
+        <span ref={spanRef} className="text-3xl md:text-4xl font-black text-gray-900 tabular-nums">
+            {decimals > 0 ? (0).toFixed(decimals) : 0}{suffix}
         </span>
     );
 }
@@ -82,7 +94,7 @@ export default function AnimatedCounters() {
     return (
         <section
             ref={ref}
-            className={`py-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            className={`py-16 transition-[opacity,transform] duration-400 ease-[var(--ease-out-expo)] will-change-transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
             <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 md:p-12">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">

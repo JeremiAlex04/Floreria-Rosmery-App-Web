@@ -52,7 +52,7 @@ export default function TestimoniosCarousel() {
     return (
         <section
             ref={ref}
-            className={`py-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            className={`py-12 transition-[opacity,transform] duration-400 ease-[var(--ease-out-expo)] will-change-transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
             <div className="text-center mb-12">
                 <span className="text-[#D4145A] font-bold tracking-wider uppercase text-sm">Clientes Felices</span>
@@ -105,24 +105,27 @@ export default function TestimoniosCarousel() {
                 {/* Navigation */}
                 <button
                     onClick={prev}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-14 w-10 h-10 bg-white rounded-full shadow-lg border border-gray-100 flex items-center justify-center text-gray-400 hover:text-[#D4145A] transition-colors"
+                    aria-label="Testimonio anterior"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-14 w-10 h-10 bg-white rounded-full shadow-lg border border-gray-100 flex items-center justify-center text-gray-400 hover:text-[#D4145A] transition-[color,transform] duration-150 ease-out active:scale-[0.95]"
                 >
                     <FiChevronLeft size={18} />
                 </button>
                 <button
                     onClick={next}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-14 w-10 h-10 bg-white rounded-full shadow-lg border border-gray-100 flex items-center justify-center text-gray-400 hover:text-[#D4145A] transition-colors"
+                    aria-label="Testimonio siguiente"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-14 w-10 h-10 bg-white rounded-full shadow-lg border border-gray-100 flex items-center justify-center text-gray-400 hover:text-[#D4145A] transition-[color,transform] duration-150 ease-out active:scale-[0.95]"
                 >
                     <FiChevronRight size={18} />
                 </button>
 
-                {/* Dots */}
+                {/* Dots: scale-x avoids layout recalculations */}
                 <div className="flex justify-center gap-2 mt-8">
                     {testimonios.map((_, i) => (
                         <button
                             key={i}
                             onClick={() => setCurrent(i)}
-                            className={`h-2 rounded-full transition-all duration-300 ${i === current ? "w-8 bg-[#D4145A]" : "w-2 bg-gray-200"
+                            aria-label={`Ver testimonio ${i + 1}`}
+                            className={`h-2 w-6 rounded-full origin-center transition-[transform,background-color] duration-250 ease-out ${i === current ? "scale-x-100 bg-[#D4145A]" : "scale-x-[0.35] bg-gray-200 hover:bg-gray-300"
                                 }`}
                         />
                     ))}

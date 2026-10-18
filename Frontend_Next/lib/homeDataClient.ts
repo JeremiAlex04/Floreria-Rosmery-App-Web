@@ -43,7 +43,7 @@ export interface HomeDataResponse {
     stats: HomeStats;
 }
 
-const defaultHomeData: HomeDataResponse = {
+export const defaultHomeData: HomeDataResponse = {
     heroSlides: [
         {
             id: 1,
@@ -102,7 +102,12 @@ const defaultHomeData: HomeDataResponse = {
             rating: 5,
         },
     ],
-    popularProducts: [],
+    popularProducts: [
+        { id: 1, nombre: "Amor Eterno", precio: 180, categoria: "Aniversario", imagen: "/img/productos_nuevos/1.jpg", stock: 10 },
+        { id: 4, nombre: "Caja Sorpresa Rosa", precio: 140, categoria: "Arreglos en Caja", imagen: "/img/productos_nuevos/4.jpg", stock: 8 },
+        { id: 7, nombre: "Corona de Condolencias", precio: 220, categoria: "Condolencias", imagen: "/img/productos_nuevos/7.jpg", stock: 5 },
+        { id: 10, nombre: "Alegría Cumpleañera", precio: 160, categoria: "Cumpleaños", imagen: "/img/productos_nuevos/10.jpg", stock: 12 },
+    ],
     stats: {
         total_orders: 1250,
         total_customers: 980,

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 :root {
   --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
@@ -7,9 +8,18 @@
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Tokens tipográficos semánticos para Alta Floristería */
-  --font-serif-luxury: var(--font-serif), "Playfair Display", "Didot", "Bodoni MT", serif;
-  --font-sans-ui: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  /* Tokens tipográficos semánticos de Alta Floristería (ui-ux-pro-max: Luxury Serif Pairing) */
+  --font-serif-luxury: 'Cormorant Garamond', var(--font-serif), "Playfair Display", "Didot", "Bodoni MT", serif;
+  --font-sans-ui: var(--font-geist-sans), 'Montserrat', system-ui, -apple-system, sans-serif;
+}
+
+/* mobile-native: Base platform fixes */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, [role="button"], .tappable {
+  touch-action: manipulation;
 }
 
 body {
@@ -19,41 +29,59 @@ body {
   letter-spacing: -0.012em;
 }
 
-/* 1. Títulos de alto impacto editorial y colecciones */
-h1, h2, h3, .font-editorial, .title-luxury {
+/* 1. Títulos de alto impacto editorial y colecciones (apple-design: negative tracking on large text) */
+h1, .display-luxury {
+  font-family: var(--font-serif-luxury);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-wrap: balance;
+  font-weight: 700;
+}
+
+h2, .title-luxury {
   font-family: var(--font-serif-luxury);
   letter-spacing: -0.025em;
+  line-height: 1.15;
   text-wrap: balance;
   font-weight: 600;
 }
 
-/* 2. Párrafos y descripciones de producto */
+h3, .font-editorial {
+  font-family: var(--font-serif-luxury);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-wrap: balance;
+  font-weight: 600;
+}
+
+/* 2. Párrafos y descripciones (apple-design & redesign: inverse leading & max line length) */
 p, .text-body {
   font-family: var(--font-sans-ui);
   text-wrap: pretty;
-  line-height: 1.6;
+  line-height: 1.65;
+  letter-spacing: -0.011em;
 }
 
-/* 3. Micro-etiquetas y Badges (Eyebrows) */
+/* 3. Micro-etiquetas y Badges (apple-design: positive tracking on small caps) */
 .eyebrow-tag, [data-badge] {
   font-family: var(--font-sans-ui);
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-weight: 600;
+  letter-spacing: 0.2em;
+  font-weight: 700;
 }
 
 /* 4. Precios, fechas y cifras numéricas */
 .price-value, .tabular-nums, [data-price] {
   font-family: var(--font-sans-ui);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
 /* 5. Navegación y Botones de acción */
 nav a, nav button, button.btn-luxury {
   font-family: var(--font-sans-ui);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 
 /* Apple: sin transparencia → material sólido */
@@ -70,4 +98,28 @@ nav a, nav button, button.btn-luxury {
   .mobile-sheet {
     transition-duration: 0ms !important;
   }
+  .carousel-progress-bar {
+    animation: none !important;
+    transform: scaleX(1) !important;
+  }
+}
+
+/* animate skill: GPU-accelerated continuous progress for carousel */
+@keyframes carouselProgressBar {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.carousel-progress-bar {
+  transform-origin: left;
+  animation: carouselProgressBar 5500ms linear forwards;
+  will-change: transform;
+}
+
+.carousel-progress-paused {
+  animation-play-state: paused !important;
 }

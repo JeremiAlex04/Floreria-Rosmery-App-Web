@@ -1,27 +1,27 @@
 "use client";
 
-import { FiHeart, FiCreditCard, FiTruck } from "react-icons/fi";
+import { FiSearch, FiCreditCard, FiSmile } from "react-icons/fi";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const steps = [
     {
-        icon: <FiHeart className="w-7 h-7 text-white" />,
-        title: "Elige tu Detalle",
-        description: "Explora nuestro catálogo y selecciona el arreglo perfecto para esa persona especial.",
-        color: "bg-pink-400"
+        stage: "Selección",
+        icon: <FiSearch className="text-xl text-[#D4145A]" />,
+        title: "Elige tu Arreglo",
+        description: "Explora nuestra colección floral por ocasión, tipo de flor o estilo y personaliza tu dedicatoria.",
     },
     {
-        icon: <FiCreditCard className="w-7 h-7 text-white" />,
-        title: "Realiza tu Pedido",
-        description: "Paga con Yape, Plin o transferencia y sube tu comprobante. ¡Fácil y seguro!",
-        color: "bg-[#D4145A]"
+        stage: "Reserva",
+        icon: <FiCreditCard className="text-xl text-[#D4145A]" />,
+        title: "Pago Fácil y Seguro",
+        description: "Completa tu pedido al instante con tarjeta, Yape, Plin o transferencia bancaria protegida.",
     },
     {
-        icon: <FiTruck className="w-7 h-7 text-white" />,
-        title: "Recibe Sonrisas",
-        description: "Nos encargamos del envío rápido y cuidadoso. ¡Solo prepárate para los agradecimientos!",
-        color: "bg-purple-400"
-    }
+        stage: "Entrega",
+        icon: <FiSmile className="text-xl text-[#D4145A]" />,
+        title: "Momento Especial",
+        description: "Cuidamos cada detalle de transporte para que tus flores lleguen frescas y radiantes al destinatario.",
+    },
 ];
 
 export default function ComoComprar() {
@@ -30,36 +30,45 @@ export default function ComoComprar() {
     return (
         <section
             ref={ref}
-            className={`py-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            className={`transition-[opacity,transform] duration-500 ease-[var(--ease-out-expo)] will-change-transform ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
         >
-            <div className="text-center mb-16">
-                <span className="text-gray-400 font-bold tracking-widest uppercase text-xs">Fácil y Rápido</span>
-                <h2 className="text-3xl md:text-5xl font-black text-gray-900 mt-2 tracking-tight">
-                    ¿Cómo Comprar?
+            <div className="text-center max-w-2xl mx-auto mb-14">
+                <span className="inline-block px-4 py-1 rounded-full bg-pink-50 border border-pink-200/60 text-[#D4145A] text-[11px] font-bold tracking-[0.2em] uppercase mb-3">
+                    Proceso Artesanal
+                </span>
+                <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold text-stone-900 tracking-tight leading-tight">
+                    ¿Cómo Preparamos tu Detalle?
                 </h2>
-                <div className="h-1.5 w-16 bg-gray-200 mx-auto mt-4 rounded-full" />
+                <p className="text-stone-500 text-sm sm:text-base mt-3 leading-relaxed">
+                    Acompañamos cada pedido con dedicación, cuidando cada flor desde el cultivo hasta la entrega.
+                </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative px-4">
-                {/* Connector Line */}
-                <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gray-100 -z-10" />
-
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 {steps.map((step, index) => (
                     <div
                         key={index}
-                        className="flex flex-col items-center text-center group"
-                        style={{ transitionDelay: `${index * 200}ms` }}
+                        className="group relative p-3 rounded-[2.2rem] bg-stone-100/70 hover:bg-pink-100/30 ring-1 ring-stone-900/5 hover:ring-pink-300/40 transition-all duration-300 ease-[var(--ease-out-expo)] select-none"
                     >
-                        <div className={`w-24 h-24 rounded-3xl ${step.color} shadow-lg flex items-center justify-center transform group-hover:rotate-6 group-hover:scale-110 transition-transform duration-300 mb-6 relative`}>
-                            {step.icon}
-                            <div className="absolute -top-3 -right-3 w-8 h-8 bg-white border-2 border-gray-100 rounded-full flex items-center justify-center font-black text-gray-400 text-sm shadow-sm">
-                                {index + 1}
+                        <div className="relative rounded-[calc(2.2rem-0.6rem)] bg-white p-7 md:p-8 shadow-sm flex flex-col h-full text-left">
+                            <div className="flex items-center justify-between mb-8">
+                                <div className="w-13 h-13 rounded-2xl bg-pink-50 border border-pink-100/80 flex items-center justify-center group-hover:scale-105 group-hover:bg-[#D4145A] group-hover:text-white transition-all duration-300">
+                                    {step.icon}
+                                </div>
+                                <span className="text-[11px] font-bold uppercase tracking-[0.18em] px-3 py-1 rounded-full bg-stone-50 text-stone-400 group-hover:text-[#D4145A] group-hover:bg-pink-50 transition-colors border border-stone-100">
+                                    {step.stage}
+                                </span>
                             </div>
+
+                            <h3 className="font-editorial text-xl font-bold text-stone-900 mb-3 tracking-tight">
+                                {step.title}
+                            </h3>
+                            <p className="text-stone-500 text-sm leading-relaxed">
+                                {step.description}
+                            </p>
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                        <p className="text-gray-500 max-w-xs leading-relaxed">
-                            {step.description}
-                        </p>
                     </div>
                 ))}
             </div>

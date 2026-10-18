@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { FiShoppingBag } from "react-icons/fi";
 import { Plant } from "./API_Plantas";
 
 export interface PlantCardProps extends Plant {
@@ -8,58 +9,78 @@ export interface PlantCardProps extends Plant {
     showButton?: boolean;
 }
 
-const PlantCard = ({
+export default function PlantCard({
     nombre,
     precio,
     imagen,
     categoria,
     onAddToCart,
     showButton = true,
-}: PlantCardProps) => {
+}: PlantCardProps) {
     return (
-        <div className="flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-[box-shadow,transform] duration-200 ease-out hover:-translate-y-1 border border-gray-100 overflow-hidden">
+        /* Double-bezel outer shell (high-end-visual-design skill) */
+        <div className="group relative p-2 rounded-[2rem] bg-stone-200/50 hover:bg-pink-100/40 ring-1 ring-stone-900/5 hover:ring-pink-300/40 transition-all duration-300 ease-[var(--ease-out-expo)] flex flex-col h-full select-none">
+            {/* Inner core */}
+            <div className="relative rounded-[calc(2rem-0.5rem)] bg-white overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] group-hover:shadow-[0_16px_36px_-6px_rgba(212,20,90,0.12)] transition-all duration-300 ease-[var(--ease-out-expo)] flex flex-col flex-grow">
+                {/* Image container */}
+                <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-stone-100">
+                    <Image
+                        src={imagen}
+                        alt={nombre}
+                        width={400}
+                        height={500}
+                        className="w-full h-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105 will-change-transform"
+                    />
 
-            {/* Contenedor de Imagen con altura fija */}
-            <div className="relative h-64 w-full overflow-hidden">
-                <Image
-                    src={imagen}
-                    alt={nombre}
-                    width={400}
-                    height={500}
-                    className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-[1.04] will-change-transform"
-                />
-            </div>
+                    {/* Gradient highlight on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-            {/* Contenido con flex-grow para alinear el botón al final */}
-            <div className="p-5 flex flex-col flex-grow text-center">
-
-                <h3 className="font-bold text-lg text-gray-800 mb-1 line-clamp-2 min-h-[3.5rem] flex items-center justify-center">
-                    {nombre}
-                </h3>
-
-                {categoria && (
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
-                        {categoria}
-                    </p>
-                )}
-
-                <div className="mt-auto">
-                    <p className="text-2xl font-black text-[#D4145A] mb-4 tabular-nums">
-                        S/ {precio.toFixed(2)}
-                    </p>
-
-                    {showButton && (
-                        <button
-                            onClick={onAddToCart}
-                            className="w-full bg-[#FF6F91] hover:bg-[#D4145A] text-white font-bold py-3 rounded-xl transition-[background-color,transform] duration-150 ease-out shadow-md hover:shadow-lg active:scale-[0.97]"
-                        >
-                            Añadir al carrito
-                        </button>
+                    {/* Category micro-badge */}
+                    {categoria && (
+                        <div className="absolute top-3.5 left-3.5 z-10">
+                            <span className="inline-block px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold tracking-widest uppercase text-stone-800 shadow-sm border border-white/50">
+                                {categoria}
+                            </span>
+                        </div>
                     )}
+                </div>
+
+                {/* Content block */}
+                <div className="p-5 flex flex-col flex-grow text-left justify-between">
+                    <div>
+                        <h3 className="font-editorial text-lg md:text-xl font-bold text-stone-800 group-hover:text-[#D4145A] transition-colors duration-200 line-clamp-2 min-h-[3.2rem] leading-snug">
+                            {nombre}
+                        </h3>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between gap-3">
+                        <div className="flex flex-col">
+                            <span className="text-[10px] uppercase font-bold text-stone-400 tracking-wider">
+                                Precio
+                            </span>
+                            <span className="text-xl md:text-2xl font-black text-stone-900 tracking-tight tabular-nums">
+                                S/ {precio.toFixed(2)}
+                            </span>
+                        </div>
+
+                        {showButton && (
+                            /* Button-in-button nested CTA (high-end-visual-design) */
+                            <button
+                                type="button"
+                                onClick={onAddToCart}
+                                style={{ touchAction: "manipulation" }}
+                                aria-label={`Añadir ${nombre} al carrito`}
+                                className="group/btn inline-flex items-center gap-2 pl-4 pr-1.5 py-1.5 bg-stone-900 hover:bg-[#D4145A] text-white text-xs font-semibold rounded-full shadow-sm hover:shadow-md active:scale-95 transition-all duration-200 ease-[var(--ease-out-expo)]"
+                            >
+                                <span className="hidden sm:inline">Añadir</span>
+                                <span className="w-8 h-8 rounded-full bg-white/15 group-hover/btn:bg-white/25 flex items-center justify-center transition-colors">
+                                    <FiShoppingBag className="text-sm" />
+                                </span>
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
     );
-};
-
-export default PlantCard;
+}

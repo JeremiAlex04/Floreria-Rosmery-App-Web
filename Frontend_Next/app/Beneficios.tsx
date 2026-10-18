@@ -1,55 +1,56 @@
 "use client";
 
-import { FiTruck, FiShield, FiSmile, FiClock } from "react-icons/fi";
+import { FiTruck, FiShield, FiHeart, FiClock } from "react-icons/fi";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const beneficios = [
     {
-        icon: <FiTruck className="text-2xl" />,
-        title: "Envío Gratis",
-        description: "En pedidos mayores a S/ 150",
+        icon: <FiTruck className="text-xl" />,
+        title: "Envío Especializado",
+        description: "Transporte cuidadoso y delicado en Lima y Callao",
     },
     {
-        icon: <FiShield className="text-2xl" />,
-        title: "Pago Seguro",
-        description: "100% protegido con cifrado SSL",
+        icon: <FiClock className="text-xl" />,
+        title: "Entrega el Mismo Día",
+        description: "Puntualidad y frescura garantizada en tu sorpresa",
     },
     {
-        icon: <FiSmile className="text-2xl" />,
-        title: "Flores Frescas",
-        description: "Directo del campo a tu hogar",
+        icon: <FiHeart className="text-xl" />,
+        title: "Flores de Autor",
+        description: "Selección artesanal directa de cultivo de alta calidad",
     },
     {
-        icon: <FiClock className="text-2xl" />,
-        title: "Entrega Hoy",
-        description: "Pide antes de las 2:00 PM",
+        icon: <FiShield className="text-xl" />,
+        title: "Atención Dedicada",
+        description: "Cada detalle preparado con cariño y soporte continuo",
     },
 ];
 
 export default function Beneficios() {
-    const { ref, isVisible } = useScrollReveal();
+    const { ref, isVisible } = useScrollReveal(0.05);
 
     return (
         <section
             ref={ref}
-            className={`py-10 bg-white transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+            className={`py-12 border-y border-stone-200/60 bg-white/70 backdrop-blur-sm transition-[opacity,transform] duration-500 ease-[var(--ease-out-expo)] will-change-transform ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
         >
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     {beneficios.map((item, index) => (
                         <div
                             key={index}
-                            className="flex items-center gap-4 p-5 rounded-2xl hover:bg-pink-50/50 transition-all duration-300 group"
-                            style={{ transitionDelay: `${index * 100}ms` }}
+                            className="group p-5 rounded-[1.5rem] bg-stone-50/70 hover:bg-pink-50/50 border border-stone-200/50 hover:border-pink-200/60 transition-all duration-300 ease-[var(--ease-out-expo)] flex items-start gap-4 select-none"
                         >
-                            <div className="p-3 bg-pink-50 rounded-xl text-[#D4145A] group-hover:bg-[#D4145A] group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                            <div className="w-12 h-12 rounded-2xl bg-white shadow-sm border border-stone-200/60 flex items-center justify-center text-[#D4145A] group-hover:scale-105 group-hover:bg-[#D4145A] group-hover:text-white transition-all duration-300 shrink-0">
                                 {item.icon}
                             </div>
-                            <div>
-                                <h3 className="font-bold text-gray-800 text-sm">
+                            <div className="flex flex-col">
+                                <h3 className="font-bold text-stone-900 text-sm md:text-base tracking-tight">
                                     {item.title}
                                 </h3>
-                                <p className="text-xs text-gray-400 font-medium mt-0.5">
+                                <p className="text-xs text-stone-500 mt-1 leading-relaxed">
                                     {item.description}
                                 </p>
                             </div>
